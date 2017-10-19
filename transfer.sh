@@ -1,1 +1,0 @@
-rsync -avr . homeweb:~/public_html
