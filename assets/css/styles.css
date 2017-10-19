@@ -13,7 +13,7 @@ body {
   color: #545E6C;
   background: #f5f5f5;
   font-size: 14px;
-  padding: 30px;
+  padding: 50px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -268,7 +268,7 @@ p {
 	-moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
 	-o-transition: all .6s; -moz-transition: all .6s; -webkit-transition: all .6s; -ms-transition: all .6s; transition: all .6s;
 }
-.navbar-no-bg { padding-top: 10px; background: rgba(55, 135, 209, 0.486); }
+.navbar-no-bg { padding-top: 0px; background: rgba(55, 135, 209, 0.486); }
 
 ul.navbar-nav {
 	font-family: 'Roboto', sans-serif;
