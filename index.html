@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CV">
     <meta name="author" content="Allan Ma">
-    <link rel="shortcut icon" href="www.yoursite.com/favicon.ico">
+    <!-- <link rel="shortcut icon" href="www.yoursite.com/favicon.ico"> -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -27,6 +27,32 @@
 </head>
 
 <body>
+
+    <!-- Top menu -->
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-no-bg" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Menu</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="top-navbar-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Demo</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
     <div class="wrapper">
         <div class="sidebar-wrapper">
             <div class="profile-container">
@@ -40,7 +66,7 @@
                     <li class="email"><i class="fa fa-envelope"></i><a href="mailto: hma02@uoguelph.ca">hma02@uoguelph.ca</a></li>
                     <!-- <li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">0123 456 789</a></li> -->
                     <!-- <li class="website"><i class="fa fa-globe"></i><a href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank">portfoliosite.com</a></li> -->
-                    <li class="linkedin"><i class="fa fa-linkedin"></i><a href="https://www.linkedin.com/in/he-ma-814864a3" target="_blank">he-ma-814864a3</a></li>
+                    <li class="linkedin"><i class="fa fa-linkedin"></i><a href="https://www.linkedin.com/in/hma02" target="_blank">hma02</a></li>
                     <li class="github"><i class="fa fa-github"></i><a href="https://github.com/hma02" target="github.com/hma02">github.com/hma02</a></li>
                     <!-- <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">@twittername</a></li> -->
                 </ul>
@@ -75,25 +101,26 @@
             <section class="section summary-section">
                 <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
                 <div class="summary">
-                    <p>Inspired machine learning engineer with strong interest in computer vision and deep learing research and development.</p>
+                    <p>Inspired machine learning engineer with a strong interest in computer vision and natural language related deep
+                        learning areas and some specialization in hardware acceleration and computing.</p>
                 </div><!--//summary-->
             </section><!--//section-->
 
             <section class="section experiences-section">
                 <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
 
-                <!-- <div class="item">
+                <div class="item">
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">Data Analyst -- Data Innovation</h3>
                             <div class="time">2017 - Present</div>
-                        </div>
+                        </div><!--//upper-row-->
                         <div class="company">RBC Royal Bank, Toronto</div>
-                    </div>
+                    </div><!--//meta-->
                     <div class="details">
                         <p>Participate in transforming and building the client 360&deg; feature dataset on a new spark and hardoop based system to enable machine learninig algorithms for improved client offer proposition and campain strategy.</p>
-                    </div>
-                </div> -->
+                    </div><!--//details-->
+                </div><!--//item-->
 
                 <div class="item">
                     <div class="meta">
@@ -133,52 +160,159 @@
                         </ul>
                     </div><!--//details-->
                 </div><!--//item-->
-
-
             </section><!--//section-->
 
             <section class="section projects-section">
                 <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
 
                 <div class="item row">
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="https://bitbucket.org/aifounded/gan_analysis/" target="_blank">
-                    <img class="img-responsive project-image" src="assets/images/projects/MNIST-JK-bar-ls.png" alt="project name" />
-                    </a>
+                    <div id="myCarousel" class="carousel slide col-md-4 col-sm-4 col-xs-12" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                        </ol>
+                        
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="img-responsive project-image" src="assets/images/projects/MNIST-JK-bar-ls.png" alt="project name" />
+                            </div>
+                        
+                            <div class="item">
+                                <img class="img-responsive project-image" src="assets/images/projects/MNIST-JK-bar-ls.png" alt="project name" />
+                            </div>
+                        </div>
+                        
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a href="https://bitbucket.org/aifounded/gan_analysis/" target="_blank">GAN evaluation</a></h3>
+                        <h4 class="title"><a>GAN evaluation</a></h3>
                         <p>Evaluation of unsupervised image generation model based on IPM and ...</p>
-                        <p><a class="more-link" href="https://bitbucket.org/aifounded/gan_analysis/" target="_blank"><i class="fa fa-external-link"></i> On Github</a></p>
+                        <p>
+                            <a class="more-link" href="#" target="_blank"><i class="fa fa-external-link"></i> Arxiv</a>
+                            <a class="more-link" href="https://bitbucket.org/aifounded/gan_analysis/" target="_blank"><i class="fa fa-external-link"></i> Github</a>
+                        </p>
                     </div><!--//desc-->                          
                 </div><!--//item-->
                 <hr class="divider" />
                 <div class="item row">
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="https://arxiv.org/abs/1612.04021" target="_blank">
-                    <img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="project name" />
-                    </a>
+                    <div id="myCarousel" class="carousel slide col-md-4 col-sm-4 col-xs-12" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                        </ol>
+                        
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="project name" />
+                            </div>
+                        
+                            <div class="item">
+                                <img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="project name" />
+                            </div>
+                        </div>
+                        
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a href="https://arxiv.org/abs/1612.04021" target="_blank">Generative Adversarial Parallelization</a></h3>
+                        <h4 class="title"><a>Generative Adversarial Parallelization</a></h3>
                         <p>Experimented with parallelized training of multiple Generative Adversarial Networks for improved mode coverage and regularization.</p>
-                        <p><a class="more-link" href="https://bitbucket.org/JiwoongIm/gap" target="_blank"><i class="fa fa-external-link"></i> On Github</a></p>
+                        <p>
+                            <a class="more-link" href="https://arxiv.org/abs/1612.04021" target="_blank"><i class="fa fa-external-link"></i> Arxiv</a>
+                            <a class="more-link" href="https://bitbucket.org/JiwoongIm/gap" target="_blank"><i class="fa fa-external-link"></i> Github</a>
+                        </p>
                     </div><!--//desc-->                          
                 </div><!--//item-->
                 <hr class="divider" />
                 <div class="item row">
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="https://arxiv.org/abs/1605.08325" target="_blank">
-                    <img class="img-responsive project-image" src="assets/images/projects/theano_mpi.png" alt="project name" />
-                    </a>
+                    <div id="myCarousel" class="carousel slide col-md-4 col-sm-4 col-xs-12" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                        </ol>
+                        
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="img-responsive project-image" src="assets/images/projects/theano_mpi.png" alt="project name" />
+                            </div>
+                        
+                            <div class="item">
+                                <img class="img-responsive project-image" src="assets/images/projects/theano_mpi.png" alt="project name" />
+                            </div>
+                        </div>
+                        
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a href="https://arxiv.org/abs/1605.08325" target="_blank">Theano-MPI</a></h3>
+                        <h4 class="title"><a>Theano-MPI</a></h3>
                         <p>Implemented distributed deep learning on ImageNet classification aiming to scale up the training of deep learning models based on data parallelism. It utilizes multiple GPUs on a computing cluster to speed up the training performance. </p>
-                        <p><a class="more-link" href="https://github.com/uoguelph-mlrg/Theano-MPI" target="_blank"><i class="fa fa-external-link"></i> On Github</a></p>
+                        <p>
+                            <a class="more-link" href="https://arxiv.org/abs/1605.08325" target="_blank"><i class="fa fa-external-link"></i> Arxiv</a>
+                            <a class="more-link" href="https://github.com/uoguelph-mlrg/Theano-MPI" target="_blank"><i class="fa fa-external-link"></i> Github</a>
+                        </p>
                     </div><!--//desc-->                          
                 </div><!--//item-->
                 <hr class="divider" />
                 <div class="item row">
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="#" target="_blank">
-                    <img class="img-responsive project-image" src="assets/images/projects/oxygen.png" alt="project name" />
-                    </a>
+                    <div id="myCarousel" class="carousel slide col-md-4 col-sm-4 col-xs-12" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                        </ol>
+                        
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="img-responsive project-image" src="assets/images/projects/oxygen.jpg" alt="project name" />
+                            </div>
+                        
+                            <div class="item">
+                                <img class="img-responsive project-image" src="assets/images/projects/oxygen.jpg" alt="project name" />
+                            </div>
+                        </div>
+                        
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a href="#" target="_blank">Software design for oxygen monitoring application</a></h3>
+                        <h4 class="title"><a>Software design for oxygen monitoring application</a></h3>
                         <p>This project aims to build a program for the oxygen monitoring system. The program running on the prototype board (FPGA and MCU) collects oxygen absorption signal and calculates real time oxygen concentration. The prototype includes a large LCD and other human interfaces for signal display, menu control and data recording purposes.</p>
                     </div><!--//desc-->                          
                 </div><!--//item-->
@@ -196,7 +330,6 @@
                     </div><!--//item-->
                 </div>
             </section><!--//skills-section-->
-
         </div><!--//main-body-->
     </div>
 
