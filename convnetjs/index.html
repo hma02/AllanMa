@@ -1,14 +1,21 @@
 <html>
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108549242-1"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script async src="assets/js/autotrack.js"></script>
   <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-108549242-1');
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-108549242-1', 'auto');
+  
+  // Replace the following lines with the plugins you want to use.
+  // ga('require', 'eventTracker');
+  // ga('require', 'outboundLinkTracker');
+  // ga('require', 'urlChangeTracker');
+  // ...
+  
+  ga('send', 'pageview');
   </script>
+  <!-- End Google Analytics -->
   
   <title>Neural Net Classification</title>
 
