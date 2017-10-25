@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+
+<html lang="en">
 <head>
     <!-- Google Analytics -->
     <script async src="https://www.google-analytics.com/analytics.js"></script>
@@ -20,7 +19,9 @@
     </script>
     <!-- End Google Analytics -->
 
-
+    <!-- Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <title>CV</title>
     <!-- Meta -->
@@ -29,7 +30,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CV">
     <meta name="author" content="Allan Ma">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <link rel="shortcut icon" href="favicon.ico">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -38,39 +40,21 @@
 
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
+
 </head>
 
 <body>
 
-    <!-- Top menu -->
-    <nav class="navbar navbar-inverse navbar-fixed-top navbar-no-bg" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Menu</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="top-navbar-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="demo.html" style="color:rgba(255, 0, 0, 0)">Demo</a></li>
-                    <li><a href="presentations.html">Presentations</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="index.html">Home</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <!--Navigation bar-->
+    <div id="nav-placeholder">
+    </div>
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+    <!--end of Navigation bar-->
 
     <div class="wrapper">
         <div class="sidebar-wrapper">
@@ -351,10 +335,8 @@
         </div><!--//container-->
     </footer><!--//footer-->
 
-    <!-- Javascript -->
-    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- custom js -->
     <script type="text/javascript" src="assets/js/main.js"></script>
+
 </body>
 </html>
