@@ -4,7 +4,7 @@
 
     <!-- Google Analytics -->
     <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <script async src="assets/js/autotrack.js"></script>
+    <script async src="assets/plugins/autotrack.js"></script>
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
     ga('create', 'UA-108549242-1', 'auto');
@@ -18,10 +18,6 @@
     ga('send', 'pageview');
     </script>
     <!-- End Google Analytics -->
-
-    <!-- Javascript -->
-    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -45,11 +41,6 @@
     <!--Navigation bar-->
     <div id="nav-placeholder">
     </div>
-    <script>
-    $(function(){
-        $("#nav-placeholder").load("nav.html");
-    });
-    </script>
     <!--end of Navigation bar-->
     
     <div class="wrapper">
@@ -104,6 +95,18 @@
         </div>
 
     </div>
+
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- custom js -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
 
 </body>
 </html>

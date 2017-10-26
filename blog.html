@@ -4,7 +4,7 @@
 
     <!-- Google Analytics -->
     <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <script async src="assets/js/autotrack.js"></script>
+    <script async src="assets/plugins/autotrack.js"></script>
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
     ga('create', 'UA-108549242-1', 'auto');
@@ -30,9 +30,6 @@
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugins/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/plugins/slick/slick-theme.css"/>
-
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
@@ -43,51 +40,38 @@
     <!--Navigation bar-->
     <div id="nav-placeholder">
     </div>
+    <!--end of Navigation bar-->
 
-    <a class="col-md-4 col-sm-4 col-xs-12" href="#myModal" role="button" data-toggle="modal">
-    test</a>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+    <div class="wrapper">
+            
+        <div class="main-wrapper">
+
+            <section class="section presentation-section">
+                <h2 class="section-title"><i class="fa fa-book"></i>Blog</h2>
+
+                <div class="overflow-x:auto;">          
+
+                </div>
+                
+            </section><!--//section-->
+        
         </div>
-        <div class="modal-body">
-            <div class='single-item'>
-                <div><img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="project name" /></div>
-                <div><img class="img-responsive project-image" src="assets/images/projects/GAP.png" alt="project name" /></div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-        </div>
+
     </div>
-    </div>
-
-
-
 
 
     <!-- Javascript -->
     <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/slick/slick.min.js"></script>
 
-
+     <!-- custom js -->
     <script>
     $(function(){
         $("#nav-placeholder").load("nav.html");
-        $('.single-item').slick({ dots: true});
+
     });
     </script>
-    <!--end of Navigation bar-->
-
-
-
 
 </body>
 </html>

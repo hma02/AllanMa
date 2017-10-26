@@ -4,7 +4,7 @@
 <head>
     <!-- Google Analytics -->
     <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <script async src="assets/js/autotrack.js"></script>
+    <script async src="assets/plugins/autotrack.js"></script>
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
     ga('create', 'UA-108549242-1', 'auto');
@@ -33,9 +33,8 @@
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugins/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/plugins/slick/slick-theme.css"/>
-    <!--slick css setting see https://jsfiddle.net/kirana/b5bqk68j/ -->
+    <link rel="stylesheet" href="assets/plugins/gallery/css/blueimp-gallery.min.css">
+    
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
@@ -48,6 +47,16 @@
     <div id="nav-placeholder">
     </div>
     <!--end of Navigation bar-->
+
+    <div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    </div>
 
     <div class="wrapper">
         <div class="sidebar-wrapper">
@@ -191,28 +200,11 @@
                 <hr class="divider" /> -->
                 <div class="item row">
                     
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="#myModal" role="button" data-toggle="modal">
-                    <img class="img-responsive project-image" src="assets/images/projects/GAP_church.png"></a>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Generative Adversarial Parallelization</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class='single-item'>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="project name" /></div>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/GAP.png" alt="project name" /></div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="links1">
+                        <a class="col-md-4 col-sm-4 col-xs-12" href="assets/images/projects/GAP_church.png" title="church-sample">
+                            <img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="GAP_church" />
+                        </a>
+                        <a href="assets/images/projects/GAP.png" style="display: none" title="architecture"> </a>
                     </div>
 
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
@@ -227,29 +219,12 @@
                 <hr class="divider" />
                 <div class="item row">
 
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="#myModal2" role="button" data-toggle="modal">
-                    <img class="img-responsive project-image" src="assets/images/projects/theano_mpi.png"></a>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal2" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Theano-MPI</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class='single-item'>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/theano_mpi.png" alt="project name" /></div>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/theano_mpi2.png" alt="project name" /></div>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/theano_mpi3.png" alt="project name" /></div>                                        
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="links2">
+                        <a class="col-md-4 col-sm-4 col-xs-12" href="assets/images/projects/theano_mpi.png" title="models-speedup">
+                            <img class="img-responsive project-image" src="assets/images/projects/theano_mpi.png" alt="theano_mpi" />
+                        </a>
+                        <a href="assets/images/projects/theano_mpi2.png" style="display: none" title="googlenet-convergence"> </a>
+                        <a href="assets/images/projects/theano_mpi3.png" style="display: none" title="communication-overhead"> </a>
                     </div>
 
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
@@ -264,29 +239,13 @@
                 <hr class="divider" />
                 <div class="item row">
 
-                    <a class="col-md-4 col-sm-4 col-xs-12" href="#myModal3" role="button" data-toggle="modal">
-                    <img class="img-responsive project-image" src="assets/images/projects/oxygen.png"></a>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal3" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Software design for oxygen monitoring application</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class='single-item'>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/oxygen.png" alt="project name" /></div>
-                                        <div><img class="img-responsive project-image" src="assets/images/projects/oxygen2.png" alt="project name" /></div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="links3">
+                        <a class="col-md-4 col-sm-4 col-xs-12" href="assets/images/projects/oxygen.png" title="board1">
+                            <img class="img-responsive project-image" src="assets/images/projects/oxygen.png" alt="oxygen" />
+                        </a>
+                        <a href="assets/images/projects/oxygen2.png" style="display: none" title="board2"> </a>
                     </div>
+
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
                         <h4 class="title"><a>Software design for oxygen monitoring application</a></h3>
                         <p>This project aims to build a program for the oxygen monitoring system. The program running on the prototype board (FPGA and MCU) collects oxygen absorption signal and calculates real time oxygen concentration. The prototype includes a large LCD and other human interfaces for signal display, menu control and data recording purposes.</p>
@@ -312,22 +271,17 @@
     <footer class="footer">
         <div class="text-center">
                 <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
-                <small class="copyright">Template designed by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+                <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
         </div><!--//container-->
     </footer><!--//footer-->
 
     <!-- Javascript -->
     <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/slick/slick.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/gallery/js/blueimp-gallery.min.js"></script>
 
     <!-- custom js -->
-    <script>
-    $(function(){
-        $("#nav-placeholder").load("nav.html");
-        $('.single-item').slick({ dots: true});
-    });
-    </script>
+
     <script type="text/javascript" src="assets/js/main.js"></script>
 
 </body>

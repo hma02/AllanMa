@@ -60,6 +60,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 .project-image {
   width: auto;
+  height: auto;
   /* height: 225px;
   max-height: 225px; */
 }

@@ -1,5 +1,43 @@
+// $(function(){
+
+// });
+
+// $(document).ready(function(){
+
+// });
+
 jQuery(document).ready(function($) {
 
+    // Setup navbar
+    $("#nav-placeholder").load("nav.html");
+    
+    // Setup galleries
+    document.getElementById('links1').onclick = function (event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
+
+    document.getElementById('links2').onclick = function (event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
+
+    document.getElementById('links3').onclick = function (event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
 
     /*======= Skillset *=======*/
     
