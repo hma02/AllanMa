@@ -1,0 +1,11 @@
+cover letter
+
+Dear Members of Recruitement Team,
+
+I'm a machine learning engineer with a strong interest in computer vision and natural language related deep learning areas. I also have some experience with hardware acceleration including multi-GPU training and performance benchmarking.
+
+I hold a Master of Engineering degree at University of Guelph where I worked on an open source project called Theano-MPI with my advisor Dr. Graham Taylor. This project aims to scale up training of deep learning models from two to eight GPUs and across nodes. After I graduated, I was working as a researcher with Dr. Graham Taylor for one and half years, during which time, I participated in other research activities, e.g., Parallelized training and evaluation of Generative Adversarial Networks. In the meantime, I was also responsible for performance benchmarking on using our GPU cluster and the IBM Power8 systems, writing documentation about setting up those systems for research activities, installing deep learning softwares and debugging performance issues for our group members, and connecting with external academic research group (Theano).
+
+Recently, I started learning to use deeplearn.js to make web demos and I will be releasing a demo on using IPM metric to evaluate unsupervisely learned samples on my personal gh-page which could be useful for benchmarking in the GAN community.
+
+I believe the experience and skills I gained from the recent years will make me a good candidate for this positions. And I'm 
