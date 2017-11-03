@@ -5,7 +5,7 @@
 <head>
     <!-- Google Analytics -->
     <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <script async src="../assets/js/autotrack.js"></script>
+    <script async src="assets/js/autotrack.js"></script>
     <script>
         window.ga = window.ga || function () {
             (ga.q = ga.q || []).push(arguments)
@@ -29,16 +29,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CV">
     <meta name="author" content="Allan Ma">
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic'
         rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
 
     <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" href="../assets/css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
     <title>MNIST Image Classification</title>
 
@@ -47,39 +47,8 @@
 <body onload="start()">
 
     <!--Navigation bar-->
-
-    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../index.html">
-                    <span class="hidden-xs">AllanMa</span>
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="../demo.html">Demos</a>
-                    </li>
-                    <li>
-                        <a href="../presentations.html">Presentations</a>
-                    </li>
-                    <li>
-                        <a href="../blog.html">Blog</a>
-                    </li>
-                    <li>
-                        <a href="../index.html">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="nav-placeholder">
+    </div>
     <!--end of Navigation bar-->
 
     <div class="wrapper" id="wrap">
@@ -108,7 +77,8 @@
             <div class="item row">
 
                 <div class="col-md-6 col-sm-12 col-xs-12">
-                    <input class="btn btn-primary btn-md" id="buttontp" type="submit" value="Start Training" onclick="toggle_pause();" />
+                    <input class="btn btn-primary btn-md" id="buttontp" type="submit" value="Start Training" onclick="ga('send', 'event', 'convnetjs', 'click', 'Start Training');toggle_pause();"
+                    />
                     <hr class="divider" />
 
                     <h4 class="title">
@@ -231,16 +201,21 @@
     </div>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="../assets/plugins/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript" src="assets/js/nav.js"></script>
+
 
     <!-- import convnetjs library -->
-    <script src="convnet.js"></script>
+    <script src="convnetjs/convnet.js"></script>
     <script src="https://cs.stanford.edu/people/karpathy/convnetjs/build/vis.js"></script>
     <script src="https://cs.stanford.edu/people/karpathy/convnetjs/build/util.js"></script>
     <script src="https://cs.stanford.edu/people/karpathy/convnetjs/demo/mnist/mnist_labels.js"></script>
 
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="convnetjs/main.js"></script>
+
 
 </body>
 

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <!-- Google Analytics -->
     <script async src="https://www.google-analytics.com/analytics.js"></script>
     <script async src="assets/plugins/autotrack.js"></script>
     <script>
-    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', 'UA-108549242-1', 'auto');
-    
-    // Replace the following lines with the plugins you want to use.
-    // ga('require', 'eventTracker');
-    // ga('require', 'outboundLinkTracker');
-    // ga('require', 'urlChangeTracker');
-    // ...
-    
-    ga('send', 'pageview');
+        window.ga = window.ga || function () {
+            (ga.q = ga.q || []).push(arguments)
+        };
+        ga.l = +new Date;
+        ga('create', 'UA-108549242-1', 'auto');
+
+        // Replace the following lines with the plugins you want to use.
+        // ga('require', 'eventTracker');
+        // ga('require', 'outboundLinkTracker');
+        // ga('require', 'urlChangeTracker');
+        // ...
+
+        ga('send', 'pageview');
     </script>
     <!-- End Google Analytics -->
 
@@ -28,13 +32,14 @@
     <meta name="author" content="Allan Ma">
 
     <link rel="shortcut icon" href="favicon.ico">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="assets/plugins/gallery/css/blueimp-gallery.min.css">
-    
+
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
@@ -49,13 +54,13 @@
     <!--end of Navigation bar-->
 
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
-    <ol class="indicator"></ol>
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
     </div>
 
     <div class="wrapper">
@@ -64,58 +69,87 @@
                 <img class="profile" width="150" src="assets/images/profile.JPG" alt="" />
                 <h1 class="name">Allan H. Ma</h1>
                 <h3 class="tagline">Machine Learninig Engineer</h3>
-            </div><!--//profile-container-->
+            </div>
+            <!--//profile-container-->
 
             <div class="contact-container container-block">
                 <ul class="list-unstyled contact-list">
-                    <li class="email"><i class="fa fa-envelope"></i><a href="mailto: hma02@uoguelph.ca">hma02@uoguelph.ca</a></li>
+                    <li class="email">
+                        <i class="fa fa-envelope"></i>
+                        <a href="mailto: hma02@uoguelph.ca">hma02@uoguelph.ca</a>
+                    </li>
                     <!-- <li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">0123 456 789</a></li> -->
                     <!-- <li class="website"><i class="fa fa-globe"></i><a href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank">portfoliosite.com</a></li> -->
-                    <li class="linkedin"><i class="fa fa-linkedin"></i><a href="https://www.linkedin.com/in/hma02" target="_blank">linkedin.com/in/hma02/</a></li>
-                    <li class="github"><i class="fa fa-github"></i><a href="https://github.com/hma02" target="github.com/hma02">github.com/hma02</a></li>
+                    <li class="linkedin">
+                        <i class="fa fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/hma02" target="_blank">linkedin.com/in/hma02/</a>
+                    </li>
+                    <li class="github">
+                        <i class="fa fa-github"></i>
+                        <a href="https://github.com/hma02" target="github.com/hma02">github.com/hma02</a>
+                    </li>
                     <!-- <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">@twittername</a></li> -->
-                    <li ><i class="fa fa-file-pdf-o" aria-hidden="true"></i><a href="assets/pdf/resume.pdf">resume</a></li>
+                    <li>
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        <a href="assets/pdf/resume.pdf" onclick="ga('send', 'event', 'AllanMa', 'click', 'Resume');">Resume</a>
+                    </li>
                 </ul>
 
-            </div><!--//contact-container-->
+            </div>
+            <!--//contact-container-->
             <div class="education-container container-block">
                 <h2 class="container-block-title">Education</h2>
                 <div class="item">
-                    <h4 class="degree"><i class="fa fa-graduation-cap"></i> M.Eng. in Engineering System and Computing</h4>
+                    <h4 class="degree">
+                        <i class="fa fa-graduation-cap"></i> M.Eng. in Engineering System and Computing</h4>
                     <h5 class="meta">University of Guelph</h5>
                     <div class="time">2014 - 2016</div>
-                </div><!--//item-->
+                </div>
+                <!--//item-->
                 <div class="item">
-                    <h4 class="degree"><i class="fa fa-graduation-cap"></i> B.Eng. in Measurement and Control Tech.</h4>
+                    <h4 class="degree">
+                        <i class="fa fa-graduation-cap"></i> B.Eng. in Measurement and Control Tech.</h4>
                     <h5 class="meta">Tianjin University</h5>
                     <div class="time">2009 - 2013</div>
-                </div><!--//item-->
-            </div><!--//education-container-->
+                </div>
+                <!--//item-->
+            </div>
+            <!--//education-container-->
 
             <div class="languages-container container-block">
                 <h2 class="container-block-title">Languages</h2>
                 <ul class="list-unstyled interests-list">
-                    <li>Mandarin <span class="lang-desc">(Native)</span></li>
-                    <li>English <span class="lang-desc">(Professional)</span></li>
+                    <li>Mandarin
+                        <span class="lang-desc">(Native)</span>
+                    </li>
+                    <li>English
+                        <span class="lang-desc">(Professional)</span>
+                    </li>
                 </ul>
-            </div><!--//interests-->
+            </div>
+            <!--//interests-->
 
-        </div><!--//sidebar-wrapper-->
+        </div>
+        <!--//sidebar-wrapper-->
 
         <div class="main-wrapper">
 
             <section class="section summary-section">
-                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                <h2 class="section-title">
+                    <i class="fa fa-user"></i>Career Profile</h2>
                 <div class="summary">
-                    <p>Inspired machine learning engineer with a strong interest in computer vision and natural language related deep
-                        learning areas and some specialization in hardware acceleration and computing.</p>
-                </div><!--//summary-->
-            </section><!--//section-->
+                    <p>Inspired machine learning engineer with a strong interest in computer vision and natural language related
+                        deep learning areas and some specialization in hardware acceleration and computing.</p>
+                </div>
+                <!--//summary-->
+            </section>
+            <!--//section-->
 
             <section class="section experiences-section">
-                <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
+                <h2 class="section-title">
+                    <i class="fa fa-briefcase"></i>Experiences</h2>
 
-<!--                 <div class="item">
+                <!--                 <div class="item">
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">Data Analyst -- Data Innovation</h3>
@@ -133,43 +167,57 @@
                         <div class="upper-row">
                             <h3 class="job-title">GPU Software Researcher</h3>
                             <div class="time">2016 - 2017</div>
-                        </div><!--//upper-row-->
+                        </div>
+                        <!--//upper-row-->
                         <div class="company">University of Guelph, Guelph</div>
-                    </div><!--//meta-->
+                    </div>
+                    <!--//meta-->
                     <div class="details">
                         <ul>
-                          <li>Assist in image classification and generation related research activities.</li>
-                          <li>Develop and maintain large scale framework for deep learning on GPU cluster copper.</li>
-                          <li>Test different parallelism for accelerated deep learning on hardware level.</li>
-                          <li>Evaluate system bandwidth and benchmark deep learning and reinforcement learning related GPU performance on Intel-based cluster and IBM Power Systems. </li>
-                          <li>Build, Install or update python stack manually or via Anaconda. </li>
-                          <li>Build, Install or update popular deep learning software including Theano, TensorFlow, Caffe, Torch and DIGITS on Ubuntu and CentOS with intel and power based architectures.</li>
+                            <li>Assist in image classification and generation related research activities.</li>
+                            <li>Develop and maintain large scale framework for deep learning on GPU cluster copper.</li>
+                            <li>Test different parallelism for accelerated deep learning on hardware level.</li>
+                            <li>Evaluate system bandwidth and benchmark deep learning and reinforcement learning related GPU
+                                performance on Intel-based cluster and IBM Power Systems. </li>
+                            <li>Build, Install or update python stack manually or via Anaconda. </li>
+                            <li>Build, Install or update popular deep learning software including Theano, TensorFlow, Caffe,
+                                Torch and DIGITS on Ubuntu and CentOS with intel and power based architectures.</li>
                         </ul>
-                    </div><!--//details-->
-                </div><!--//item-->
+                    </div>
+                    <!--//details-->
+                </div>
+                <!--//item-->
 
                 <div class="item">
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">Graduate Teaching Assistant</h3>
                             <div class="time">2014 - 2016</div>
-                        </div><!--//upper-row-->
+                        </div>
+                        <!--//upper-row-->
                         <div class="company">University of Guelph, Guelph</div>
-                    </div><!--//meta-->
+                    </div>
+                    <!--//meta-->
                     <div class="details">
-                      <p>Courses include Applied Differential Equation, Electric Circuit, System & Control Theory, and Electrical Devices.</p>
+                        <p>Courses include Applied Differential Equation, Electric Circuit, System & Control Theory, and Electrical
+                            Devices.
+                        </p>
                         <ul>
-                          <li>hold office hours and respond to email queries</li>
-                          <li>grade assignments</li>
-                          <li>invigilate and grade exams</li>
-                          <li>assist instructor with preparing lab materials and organizing lab sessions</li>
+                            <li>hold office hours and respond to email queries</li>
+                            <li>grade assignments</li>
+                            <li>invigilate and grade exams</li>
+                            <li>assist instructor with preparing lab materials and organizing lab sessions</li>
                         </ul>
-                    </div><!--//details-->
-                </div><!--//item-->
-            </section><!--//section-->
+                    </div>
+                    <!--//details-->
+                </div>
+                <!--//item-->
+            </section>
+            <!--//section-->
 
             <section class="section projects-section">
-                <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
+                <h2 class="section-title">
+                    <i class="fa fa-archive"></i>Projects</h2>
 
                 <!-- <div class="item row">
                     <div id="myCarousel" class="carousel slide col-md-4 col-sm-4 col-xs-12" data-ride="carousel">
@@ -200,7 +248,7 @@
                 </div>
                 <hr class="divider" /> -->
                 <div class="item row">
-                    
+
                     <div id="links1">
                         <a class="col-md-4 col-sm-4 col-xs-12" href="assets/images/projects/GAP_church.png" title="church-sample">
                             <img class="img-responsive project-image" src="assets/images/projects/GAP_church.png" alt="GAP_church" />
@@ -209,15 +257,22 @@
                     </div>
 
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a>Generative Adversarial Parallelization</a></h4>
+                        <h4 class="title">
+                            <a>Generative Adversarial Parallelization</a>
+                        </h4>
                         <div class="time">2016</div>
-                        <p>Experimented with parallelized training of multiple Generative Adversarial Networks for improved mode coverage and regularization.</p>
+                        <p>Experimented with parallelized training of multiple Generative Adversarial Networks for improved
+                            mode coverage and regularization.</p>
                         <p>
-                            <a class="more-link" href="https://openreview.net/pdf?id=Sk8J83oee" target="_blank"><i class="fa fa-external-link"></i> Paper </a>
-                            <a class="more-link" href="https://bitbucket.org/JiwoongIm/gap" target="_blank"><i class="fa fa-external-link"></i> Github</a>
+                            <a class="more-link" href="https://openreview.net/pdf?id=Sk8J83oee" target="_blank">
+                                <i class="fa fa-external-link"></i> Paper </a>
+                            <a class="more-link" href="https://bitbucket.org/JiwoongIm/gap" target="_blank">
+                                <i class="fa fa-external-link"></i> Github</a>
                         </p>
-                    </div><!--//desc-->                          
-                </div><!--//item-->
+                    </div>
+                    <!--//desc-->
+                </div>
+                <!--//item-->
                 <hr class="divider" />
                 <div class="item row">
 
@@ -230,15 +285,23 @@
                     </div>
 
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a>Theano-MPI</a></h4>
+                        <h4 class="title">
+                            <a>Theano-MPI</a>
+                        </h4>
                         <div class="time">2015</div>
-                        <p>Implemented distributed deep learning on ImageNet classification aiming to scale up the training of deep learning models based on data parallelism. It utilizes multiple GPUs on a computing cluster to speed up the training performance. </p>
+                        <p>Implemented distributed deep learning on ImageNet classification aiming to scale up the training
+                            of deep learning models based on data parallelism. It utilizes multiple GPUs on a computing cluster
+                            to speed up the training performance. </p>
                         <p>
-                            <a class="more-link" href="https://link.springer.com/chapter/10.1007/978-3-319-58943-5_64" target="_blank"><i class="fa fa-external-link"></i> Paper </a>
-                            <a class="more-link" href="https://github.com/uoguelph-mlrg/Theano-MPI" target="_blank"><i class="fa fa-external-link"></i> Github</a>
+                            <a class="more-link" href="https://link.springer.com/chapter/10.1007/978-3-319-58943-5_64" target="_blank">
+                                <i class="fa fa-external-link"></i> Paper </a>
+                            <a class="more-link" href="https://github.com/uoguelph-mlrg/Theano-MPI" target="_blank">
+                                <i class="fa fa-external-link"></i> Github</a>
                         </p>
-                    </div><!--//desc-->                          
-                </div><!--//item-->
+                    </div>
+                    <!--//desc-->
+                </div>
+                <!--//item-->
                 <hr class="divider" />
                 <div class="item row">
 
@@ -250,12 +313,20 @@
                     </div>
 
                     <div class="desc col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="title"><a>Software design for oxygen monitoring application</a></h4>
+                        <h4 class="title">
+                            <a>Software design for oxygen monitoring application</a>
+                        </h4>
                         <div class="time">2012</div>
-                        <p>This project aims to build a program for the oxygen monitoring system. The program running on the prototype board (FPGA and MCU) collects oxygen absorption signal and calculates real time oxygen concentration. The prototype includes a large LCD and other human interfaces for signal display, menu control and data recording purposes.</p>
-                    </div><!--//desc-->                          
-                </div><!--//item-->
-            </section><!--//section-->
+                        <p>This project aims to build a program for the oxygen monitoring system. The program running on the
+                            prototype board (FPGA and MCU) collects oxygen absorption signal and calculates real time oxygen
+                            concentration. The prototype includes a large LCD and other human interfaces for signal display,
+                            menu control and data recording purposes.</p>
+                    </div>
+                    <!--//desc-->
+                </div>
+                <!--//item-->
+            </section>
+            <!--//section-->
 
             <!-- <section class="skills-section section">
                 <h2 class="section-title"><i class="fa fa-rocket"></i>Skills &amp; Proficiency</h2>
@@ -269,15 +340,20 @@
                     </div>
                 </div>
             </section> -->
-        </div><!--//main-body-->
+        </div>
+        <!--//main-body-->
     </div>
 
     <footer class="footer">
         <div class="text-center">
-                <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
-                <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
-        </div><!--//container-->
-    </footer><!--//footer-->
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with
+                <i class="fa fa-heart"></i> by
+                <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+        </div>
+        <!--//container-->
+    </footer>
+    <!--//footer-->
 
     <!-- Javascript -->
     <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
@@ -285,8 +361,9 @@
     <script type="text/javascript" src="assets/plugins/gallery/js/blueimp-gallery.min.js"></script>
 
     <!-- custom js -->
-
+    <script type="text/javascript" src="assets/js/nav.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
 
 </body>
+
 </html>

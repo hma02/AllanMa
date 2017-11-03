@@ -1,7 +1,13 @@
 
 
-3. Gather and structure aspects of interest: CV, project demo, blog
-4. Project demo in JS (DeeplearnJS)
 
+4. Project demo in JS (DeeplearnJS)
+5. Use google drive and api as a database 
+(tutorials: 
+1. https://www.blockspring.com/blog/google-spreadsheet-as-database
+2. google: "How I used Google Drive and Firebase to give my static site a CMS"
+3. http://acrl.ala.org/techconnect/post/query-a-google-spreadsheet-like-a-database-with-google-visualization-api-query-language
+4. https://github.com/franciscop/drive-db
+)
 6. Add a search function in index to search in all subpages
-7. Add google analytics
+
