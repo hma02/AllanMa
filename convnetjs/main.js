@@ -191,7 +191,7 @@ var load_data_batch = function (batch_num) {
     console.log('finished loading data batch ' + batch_num);
   };
   data_img_elt.onload = loadHandler;
-  data_img_elt.src = "mnist/mnist_batch_" + batch_num + ".png";
+  data_img_elt.src = "convnetjs/mnist/mnist_batch_" + batch_num + ".png";
 
   if (data_img_elt.complete) {
     loadHandler();
