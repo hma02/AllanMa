@@ -62,22 +62,22 @@
 
     #color-table th,
     #color-table td {
-        padding: 10px;
+        padding: 5px;
     }
 
     #color-table td {
-        width: 100px;
+        width: 30px;
     }
 
     .color-box {
-        border-radius: 10px;
-        height: 60px;
-        margin: 10px 0 0 0;
+        border-radius: 5px;
+        height: 30px;
+        margin: 5px 0 0 0;
         width: 100%;
     }
 </style>
 
-<body>
+<body onload="start()">
 
     <!--Navigation bar-->
     <div id="nav-placeholder">
@@ -106,6 +106,20 @@
         </div>
 
         <div class="main-wrapper">
+
+            <div class="item row">
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <input class="btn btn-primary btn-md" id="buttontp" type="submit" value="Start Training" onclick="ga('send', 'event', 'deeplearnjs', 'click', 'dl_st_color');toggle_pause();"
+                    />
+
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6" id="egdiv"></div>
+
+            </div>
+
+            <hr class="divider" />
 
             <h4 class="title">
                 <a>Color visualization</a>
