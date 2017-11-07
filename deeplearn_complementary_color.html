@@ -62,17 +62,17 @@
 
     #color-table th,
     #color-table td {
-        padding: 5px;
+        padding: 2px;
     }
 
     #color-table td {
-        width: 30px;
+        width: 10px;
     }
 
     .color-box {
         border-radius: 5px;
         height: 30px;
-        margin: 5px 0 0 0;
+        margin: 3px 0 0 0;
         width: 100%;
     }
 </style>
@@ -83,7 +83,6 @@
     <div id="nav-placeholder">
     </div>
     <!--end of Navigation bar-->
-
 
     <div class="wrapper" id="wrap">
 
@@ -125,8 +124,8 @@
                 <a>Color visualization</a>
             </h4>
 
-            <div>
-                <table id='color-table' border='0'>
+            <div class="overflow-x:auto;">
+                <table class="table" id='color-table' border='0'>
                     <tr>
                         <th>Original Color</th>
                         <th>Actual Complement</th>
@@ -157,7 +156,7 @@
                 <a>Color Space Trace</a>
             </h4>
 
-            <div id="graph-color" style="min-height: 500px;"></div>
+            <div id="graph-color" class="responsive-plot" style="min-height: 300px;"></div>
 
         </div>
 
@@ -171,11 +170,14 @@
     <!-- custom js -->
     <script type="text/javascript" src="assets/js/nav.js"></script>
 
-
     <script src="https://unpkg.com/deeplearn"></script>
+
+    <!-- detect browser support -->
+    <script src="assets/js/support.js"></script>
 
     <!-- <script src="non_ml_exports.js"></script> -->
     <script src="deeplearnjs/complementary_color.js"></script>
+
 
 </body>
 

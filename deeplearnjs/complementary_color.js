@@ -275,28 +275,93 @@ var data_y = [];
 var data_z = [];
 
 
+function make_plot_responsive() {
+
+    // MAKE THE PLOTS RESPONSIVE
+    (function () {
+        var d3 = Plotly.d3;
+        var WIDTH_IN_PERCENT_OF_PARENT = 100,
+            HEIGHT_IN_PERCENT_OF_PARENT = 90;
+        var gd3 = d3.selectAll(".responsive-plot")
+            .style({
+                width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+                'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+                height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+                'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+            });
+        var nodes_to_resize = gd3[0]; //not sure why but the goods are within a nested array
+        window.onresize = function () {
+            for (var i = 0; i < nodes_to_resize.length; i++) {
+                Plotly.Plots.resize(nodes_to_resize[i]);
+            }
+        };
+    })();
+
+}
+
 function create_plot3d(init_x, init_y, init_z) {
 
     Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/3d-line1.csv', function (err, rows) {
 
-        Plotly.plot('graph-color', [{
-                type: 'scatter3d',
-                mode: 'lines',
-                x: init_x,
-                y: init_y,
-                z: init_z,
-                opacity: 1,
-                line: {
-                    width: 6,
-                    // color: c,
-                    reversescale: false
+        var data = [{
+            type: 'scatter3d',
+            mode: 'lines',
+            x: init_x,
+            y: init_y,
+            z: init_z,
+            opacity: 1,
+            line: {
+                width: 5,
+                // color: c,
+                reversescale: false
+            },
+            displayModeBar: false
+        }];
+        var layout = {
+
+
+            scene: {
+                xaxis: {
+                    nticks: 5,
+                    title: 'R',
+                    backgroundcolor: "rgb(200, 200, 230)",
+                    gridcolor: "rgb(255, 255, 255)",
+                    showbackground: true,
+                    zerolinecolor: "rgb(255, 255, 255)",
                 },
-                displayModeBar: false
-            }]
-            // , {
-            //     height: 640
-            // }
-        );
+                yaxis: {
+                    nticks: 5,
+                    title: 'G',
+                    backgroundcolor: "rgb(230, 200,230)",
+                    gridcolor: "rgb(255, 255, 255)",
+                    showbackground: true,
+                    zerolinecolor: "rgb(255, 255, 255)"
+                },
+                zaxis: {
+                    nticks: 5,
+                    title: 'B',
+                    backgroundcolor: "rgb(230, 230,200)",
+                    gridcolor: "rgb(255, 255, 255)",
+                    showbackground: true,
+                    zerolinecolor: "rgb(255, 255, 255)"
+                }
+            },
+            autosize: true,
+            height: 300,
+            margin: {
+                l: 2,
+                r: 2,
+                b: 2,
+                t: 2,
+                pad: 0
+            },
+            paper_bgcolor: '#ffffff',
+            plot_bgcolor: '#c7c7c7'
+        };
+
+        Plotly.newPlot('graph-color', data, layout);
+
+        make_plot_responsive()
 
     });
 
@@ -315,7 +380,7 @@ function update_plot3d(new_x, new_y, new_z) {
             layout: {}
         }, {
             transition: {
-                duration: 500,
+                duration: 300,
                 easing: 'cubic-in-out'
             }
         })
@@ -404,7 +469,8 @@ var update_net_param_display = function () {
 var paused = true;
 
 
-function start() {
+function run() {
+
     if (UI_initialized) {
         console.log('starting!');
         setInterval(train_per, 5); // lets go!
@@ -412,6 +478,15 @@ function start() {
         update_net_param_display();
         console.log('waiting!');
         // load_data_batch(0);
-        setTimeout(start, 1000); // run start again after 1second
+        setTimeout(run, 1000); // run start again after 1second
     } // keep checking
+}
+
+
+function start() {
+
+    detect_support();
+
+    run();
+
 }
