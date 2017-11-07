@@ -61,7 +61,7 @@ function buildAndShowDialog(title, content) {
 function detect_support() {
 
     // document.addEventListener('WebComponentsReady', function (event) {
-
+    var supported = false
     if (isNotSupported()) {
         const title = `This device is not yet supported`;
         const content = `
@@ -77,7 +77,11 @@ function detect_support() {
         See: <a href='https://superuser.com/a/836833' target='_blank'>How can I enable WebGL in my browser?</a>
       `;
         buildAndShowDialog(title, content);
+    } else {
+        supported = true
     }
     // });
+
+    return supported
 
 }
