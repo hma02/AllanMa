@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <title>AllanMa -- Blog -- Getting Started with DIGITS</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+
+                <!--//branding-->
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="../blog.html">Blog</a>
+                    </li>
+                    <li class="active">DIGITS</li>
+                </ol>
+            </div>
+            <!--//container-->
+        </header>
+        <!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title">
+                        <i class="icon fa fa-paper-plane"></i> Getting Started with DIGITS</h1>
+                    <div class="meta">
+                        <i class="fa fa-clock-o"></i> Last updated: Nov 30th, 2016</div>
+                </div>
+                <!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                        <div class="content-inner">
+                            <p>This documentation was created when I was working at Machine Learning Research Group at University
+                                of Guelph. I felt it might be useful for others to share my experience on installing NVIDIA
+                                (DIGITS) and using it between a local workstation and a local computing cluster node.</p>
+
+                            <p>
+                                Our goal is to run DIGITS server remotely on a cluster machine (logged in through ssh from a local workstation), and then
+                                connect to the web user interface (UI) of the server from a local workstation via ssh port
+                                forwarding.
+                            </p>
+
+                            <p>Comments are welcomed if you found anything misleading when reading this post.</p>
+
+                            <hr class="divider" />
+
+                            <section id="download-section" class="doc-section">
+                                <h2 class="section-title">Download</h2>
+                                <div class="section-block">
+                                    <p>For a cluster user, it is handy and often useful to do local installation and manage
+                                        the installed software by oneself, especially when you don't have sudo access to
+                                        the system. This post documents the process of setting up the NVIDIA Interactive
+                                        Deep Learning GPU Training System
+                                        <a href="https://developer.nvidia.com/digits">(DIGITS) </a> locally on a workstation. Currently there are two options to install
+                                        the software:
+                                    </p>
+                                    <ol>
+                                        <li>
+                                            Install using Docker Container
+                                        </li>
+                                        <li>
+                                            Install using DIGITS Source
+                                        </li>
+                                    </ol>
+
+                                    <p>
+                                        I will talk about the second option since the first option will involve starting docker deamon with sudo access.
+                                    </p>
+                                    <p>
+                                        To get started, you need to obtain the source file from the Github repo of DIGITS:
+                                    </p>
+
+                                    <a href="https://github.com/NVIDIA/DIGITS" class="btn btn-green" target="_blank">
+                                        <i class="fa fa-download"></i> DIGITS Github repo
+                                    </a>
+
+
+                                </div>
+                            </section>
+                            <!--//doc-section-->
+                            <section id="installation-section" class="doc-section">
+                                <h2 class="section-title">Installation</h2>
+                                <br/>
+                                <p>
+                                    Now let's get started.
+                                </p>
+                                <p>
+                                    Since the DIGITS server will be running on a remote cluster node, we need to perform all the installation of DIGITS on the
+                                    remote node (where one often won't have sudo access as a cluster user).
+                                </p>
+                                <div id="ssh" class="section-block">
+                                    <h3 class="block-title">Preparation -- SSH</h3>
+                                    <p>
+                                        Make sure you have SSH access to the remote cluster node. Let's say your user name is
+                                        <code class="language-bash">user</code> and the remote node's hostname is
+                                        <code class="language-bash">remotenode</code> and your local machine's hostname is
+                                        <code class="language-bash">localnode</code> Now login to it:
+                                    </p>
+
+                                    <div class="code-block">
+                                        <pre><code>user@localnode $ ssh user@remotenode</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="cmake" class="section-block">
+                                    <h3 class="block-title">Preparation -- cmake</h3>
+                                    <p>
+                                        <code class="language-bash">cmake</code> will be used during installation. As of writing this documentation.
+                                        cmake version 3.3.2 is used and works well. Check its version by:
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code>user@remotenode$ cmake --version</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="nvcaffe" class="section-block">
+                                    <h3 class="block-title">NVCaffe</h3>
+                                    <p>
+                                        <a href="https://github.com/NVIDIA/DIGITS/blob/master/docs/BuildCaffe.md">NVCaffe </a> is a dependency of DIGITS. The following scripts clone NVcaffe from
+                                        github and install its dependencies locally.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code>export CAFFE_ROOT=$(pwd)/caffe
+git clone https://github.com/NVIDIA/caffe.git $CAFFE_ROOT
+pip install -r $CAFFE_ROOT/python/requirements.txt --user</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                    <p>Here,
+                                        <code class="language-bash">--user</code> means installing locally. Those python packages in the requirements.txt
+                                        will be installed in your $HOME/.local/lib/python2.7/site-packages/ by pip. Also
+                                        make sure append relevant folders in the ~/.local folder to several system environment
+                                        variables.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code>export PATH=$PATH:$HOME/.local/bin # for excutable binaries
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib:$HOME/.local/lib64 # for run-time link
+export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib # for compiler
+export CPATH=$CPATH:$HOME/.local/include # for includes</code></pre>
+                                    </div>
+
+                                    <p>To install NVcaffe with
+                                        <a href="https://github.com/NVIDIA/nccl">NCCL</a> support, follow the scripts below.
+                                    </p>
+
+                                    <div class="code-block">
+                                        <pre><code>export NCCL_ROOT=$(pwd)/nccl
+git clone https://github.com/NVIDIA/nccl.git $NCCL_ROOT
+cd $NCCL_ROOT
+make CUDA_HOME=/opt/cuda-8.0 test
+./build/test/single/all_reduce_test 10000000
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./build/lib
+make PREFIX=$HOME/.local install</code></pre>
+                                    </div>
+
+                                    <p>
+                                        To install NVcaffe with
+                                        <a href=" https://developer.nvidia.com/cudnn">CUDNN</a> support, download cuDNN from the website and choose to download cuDNN v5.1
+                                        Library for Linux or which ever is latest for you. Then untar the tar ball and move
+                                        its files to .local so that the files in its lib64 folder are now in .local/lib64
+                                        and files in its include folder are now in .local/include.
+                                    </p>
+
+                                    <div class="code-block">
+                                        <pre><code>tar -xvzf cudnn-8.0-linux-x64-v5.1.tar
+cd cuda
+mv include/cudnn.h ~/.local/include/
+mv lib64/* ~/.local/lib64/</code></pre>
+                                    </div>
+
+                                    <p>Now Let's go back to installing NVcaffe itself.</p>
+
+                                    <div class="code-block">
+                                        <pre><code>cd $CAFFE_ROOT
+mkdir build
+cd build</code></pre>
+                                    </div>
+
+                                    <p>
+                                        If you want to install with NCCL and CUDNN, add the following flags to point to the installation folder of them, in this
+                                        case, the $HOME/.local folder
+                                    </p>
+
+                                    <div class="code-block">
+                                        <pre><code>cmake -DUSE_NCCL=ON -DNCCL_ROOT_DIR=$HOME/.local -DUSE_CUDNN=ON -DCUDNN_ROOT=$HOME/.local -DCUDNN_INCLUDE=$HOME/.local/include -DCUDNN_LIBRARY=$HOME/.local/lib64 ..
+                                                make --jobs=4</code></pre>
+                                    </div>
+                                </div>
+                                <div id="digits" class="section-block">
+                                    <h3 class="block-title">DIGITS</h3>
+                                    <p>
+                                        Once NVcaffe is installed correctly, we can move on to installing DIGITS.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code>cd $DIGITS_ROOT
+git clone https://github.com/NVIDIA/DIGITS.git $DIGITS_ROOT
+pip install -r $DIGITS_ROOT/requirements.txt --user
+pip install -e $DIGITS_ROOT --user</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                            </section>
+                            <!--//doc-section-->
+
+                            <section id="usage-section" class="doc-section">
+                                <h2 class="section-title">Usage</h2>
+                                <div class="section-block">
+                                    <p>
+                                        Now DIGITS is installed. Let's get started using it. Assume you are on one of the workstations, say
+                                        <code class="language-bash">localnode</code>, or on your laptop (where you can open a web browser locally), and
+                                        you want to run the digits server remotely on node
+                                        <code class="language-bash">remotenode</code> (and the training job will be done on the GPUs on node
+                                        <code class="language-bash">remotenode</code>).
+                                    </p>
+
+                                </div>
+
+                                <div id="startserver" class="section-block">
+                                    <h3 class="block-title">Start Server</h3>
+                                    <p>
+                                        First, open a new terminal and ssh to
+                                        <code class="language-bash">remotenode</code> from
+                                        <code class="language-bash">localnode</code>
+                                        <b>without</b> any port forwarding.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code>user@localnode$ ssh user@remotenode</code></pre>
+                                    </div>
+
+
+                                    <p>Change directory to your digits installation folder and run digits server:</p>
+                                    <div class="code-block">
+                                        <pre><code>user@remotenode$ cd $DIGITS_ROOT
+./digits-devserver -p 36555</code></pre>
+                                    </div>
+
+                                    <p>Here, the number 36555 is the port chosen for running DIGITS web-server on the
+                                        <code class="language-bash">remotenode</code>. You can custmize it to other numbers as long as they are over
+                                        1024 and not being used by other processes.
+                                    </p>
+
+                                    <p>Now leave this SSH terminal open on the screen of your local workstation</p>
+                                </div>
+
+                                <div id="serverui" class="section-block">
+                                    <h3 class="block-title">Connect to Server UI</h3>
+                                    <p>Open a new terminal window on
+                                        <code class="language-bash">localnode</code> and forward a port between
+                                        <code class="language-bash">localnode</code> and
+                                        <code class="language-bash">remotenode</code> using the following command:
+                                    </p>
+
+                                    <div class="code-block">
+                                        <pre><code>user@localnode$ ssh -L 36555:remotenode:36555 user@remotenode -N</code></pre>
+                                    </div>
+
+                                    <p>
+                                        Leave both terminals open on
+                                        <code class="language-bash">localnode</code>. Open a web browser, e.g. Chrome, on
+                                        <code class="language-bash">localnode</code>. Go to url:
+
+
+                                        <a href="http://localhost:36555">http://localhost:36555</a> and the DIGITS server webpage should show up. Follow the
+                                        tutorial
+                                        <a href="https://github.com/NVIDIA/DIGITS/blob/master/docs/GettingStarted.md">here</a>
+                                        to learn more about using DIGITS.</p>
+                                </div>
+                            </section>
+                            <!--//doc-section-->
+                        </div>
+                        <!--//content-inner-->
+                    </div>
+                    <!--//doc-content-->
+                    <div class="doc-sidebar hidden-xs">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                                <li>
+                                    <a class="scrollto" href="#download-section">Download</a>
+                                </li>
+                                <li>
+                                    <a class="scrollto" href="#installation-section">Installation</a>
+                                    <ul class="nav doc-sub-menu">
+                                        <li>
+                                            <a class="scrollto" href="#ssh">Preparation -- SSH</a>
+                                        </li>
+                                        <li>
+                                            <a class="scrollto" href="#cmake">Preparation -- cmake</a>
+                                        </li>
+                                        <li>
+                                            <a class="scrollto" href="#nvcaffe">NVCaffe</a>
+                                        </li>
+                                        <li>
+                                            <a class="scrollto" href="#digits">DIGITS</a>
+                                        </li>
+                                    </ul>
+                                    <!--//nav-->
+                                </li>
+                                <li>
+                                    <a class="scrollto" href="#usage-section">Usage</a>
+                                    <ul class="nav doc-sub-menu">
+                                        <li>
+                                            <a class="scrollto" href="#startserver">Start Server</a>
+                                        </li>
+                                        <li>
+                                            <a class="scrollto" href="#serverui">Connect to Server UI</a>
+                                        </li>
+                                    </ul>
+                                    <!--//nav-->
+                                </li>
+                            </ul>
+                            <!--//doc-menu-->
+                        </nav>
+                    </div>
+                    <!--//doc-sidebar-->
+                </div>
+                <!--//doc-body-->
+            </div>
+            <!--//container-->
+        </div>
+        <!--//doc-wrapper-->
+
+    </div>
+    <!--//page-wrapper-->
+
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with
+                <i class="fa fa-heart"></i> by
+                <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+
+        </div>
+        <!--//container-->
+    </footer>
+    <!--//footer-->
+
+
+    <!-- Main Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+
+
+</body>
+
+</html>
