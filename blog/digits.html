@@ -35,7 +35,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
         rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -81,9 +81,9 @@
                 <div class="doc-body">
                     <div class="doc-content">
                         <div class="content-inner">
-                            <p>This documentation was created when I was working at Machine Learning Research Group at University
-                                of Guelph. I felt it might be useful for others to share my experience on installing NVIDIA
-                                DIGITS and using it between a local workstation and a local computing cluster node.</p>
+                            <p>This documentation was created when I was working with multi-GPU benchmarking. I felt it might
+                                be useful for others to share my experience on installing NVIDIA DIGITS and using it between
+                                a local workstation and a local computing cluster node.</p>
 
                             <p>
                                 Our goal is to run DIGITS server remotely on a cluster machine (logged in through ssh from a local workstation), and then
@@ -233,7 +233,7 @@ cd build</code></pre>
 
                                     <div class="code-block">
                                         <pre><code>cmake -DUSE_NCCL=ON -DNCCL_ROOT_DIR=$HOME/.local -DUSE_CUDNN=ON -DCUDNN_ROOT=$HOME/.local -DCUDNN_INCLUDE=$HOME/.local/include -DCUDNN_LIBRARY=$HOME/.local/lib64 ..
-                                                make --jobs=4</code></pre>
+make --jobs=4</code></pre>
                                     </div>
                                 </div>
                                 <div id="digits" class="section-block">
@@ -395,7 +395,7 @@ pip install -e $DIGITS_ROOT --user</code></pre>
             <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
             <small class="copyright">Designed with
                 <i class="fa fa-heart"></i> by
-                <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+                <a href="https://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
 
         </div>
         <!--//container-->
@@ -407,6 +407,7 @@ pip install -e $DIGITS_ROOT --user</code></pre>
     <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism-bash.min.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
