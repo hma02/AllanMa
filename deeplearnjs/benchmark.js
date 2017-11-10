@@ -315,5 +315,15 @@ function start() {
 
     create_table();
 
+    supported = detect_support();
+
+    if (supported) {
+        console.log('device & webgl supported')
+        document.getElementById("buttontp").disabled = false;
+    } else {
+        console.log('device/webgl not supported')
+        document.getElementById("buttontp").disabled = true;
+    }
+
     run();
 }
