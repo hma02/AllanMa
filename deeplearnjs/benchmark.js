@@ -66,108 +66,169 @@ class ConvGPUBenchmark {
     }
 }
 
+var chartDataX = [];
+var chartData = [];
+var rowValues = [];
 
-const convParams = {
-    inDepth: 8,
-    outDepth: 3,
-    filterSize: 7,
-    stride: 2
+
+window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
 };
 
-
-function buildRunNumbersRow(values) {
-    const runNumberRowElement = document.createElement('div');
-    runNumberRowElement.className = 'run-numbers-row math-benchmark';
-
-    for (let i = 0; i < values.length; i++) {
-        const runNumberCellElement = document.createElement('div');
-        runNumberCellElement.className = 'run-numbers-cell math-benchmark';
-        runNumberCellElement.innerText = values[i];
-        runNumberRowElement.appendChild(runNumberCellElement);
-    }
-    return runNumberRowElement;
-}
-
-
-
-function create_chart(sizes) {
-
-    for (let i = 0; i < sizes.length; i++) {
-        const hue = Math.floor(360 * i / sizes.length);
-        datasets.push({
+var config = {
+    type: 'line',
+    data: {
+        labels: chartDataX,
+        // labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [{
+            label: "GPU--deeplearnjs",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
             data: chartData,
             fill: false,
-            label: name,
-            borderColor: `hsl(${hue}, 100%, 40%)`,
-            backgroundColor: `hsl(${hue}, 100%, 70%)`,
             pointRadius: 0,
             pointHitRadius: 5,
             borderWidth: 1,
-            lineTension: 0
-        });
-    }
-
-    const chart = new Chart(context, {
-        type: 'line',
-        data: {
-            datasets
+            lineTension: 0,
+        }]
+    },
+    options: {
+        animation: {
+            duration: 0
         },
-        options: {
-            animation: {
-                duration: 0
-            },
-            responsive: false,
-            scales: {
-                xAxes: [{
-                    type: 'linear',
-                    position: 'bottom',
-                    ticks: {
-                        min: 0,
-                        max: sizes.length,
-                        stepSize: 10,
-                        callback: (label) => {
-                            return +label;
-                        }
-                        // tslint:disable-next-line:no-any
-                    } // Note: the typings for this are incorrect, cast as any.
-                }],
-                yAxes: [{
-                    ticks: {
-                        callback: (label, index, labels) => {
-                            return `${label}ms`;
-                        }
-                    },
-                }]
-            },
-            tooltips: {
-                mode: 'label'
-            },
-            title: {
-                text: name
-            }
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Conv Benchmark on input size'
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                // type: 'logarithmic',
+                position: 'bottom',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Input Image width or height (pixel)'
+                },
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'time elapsed'
+                },
+                ticks: {
+                    min: 0,
+                    callback: (label, index, labels) => {
+                        let num = Number(label).toFixed(2);
+                        return `${num} ms`;
+                    }
+                }
+            }]
         }
-    });
+    }
+};
 
-    return chart
+function insert_into_table(size, time, table) {
+
+    var len = table.rows.length;
+    var row = table.insertRow(len);
+
+    // row.style.height = "10px";
+
+    var row_col1 = row.insertCell(0);
+    row_col1.innerHTML = size.toString();
+    // Insert New Column for Row1 at index '1'.
+    var row_col2 = row.insertCell(1);
+    row_col2.innerHTML = time.toString();
+
+    row.style.fontSize = "12px";
+
 }
 
-var chartData = []
-var rowValues = []
-var datasets = [];
-var name = 'conv'
+function create_chart() {
 
-var runNumbersTable = document.querySelectorAll('.run-numbers-table')[0];
-runNumbersTable.innerHTML = '';
-runNumbersTable.style.display = 'none';
+    const canvas = document.getElementById("run-plot")
+    canvas.width = 400;
+    canvas.height = 300;
+    const context = canvas.getContext('2d');
 
-const canvas = document.querySelectorAll('.run-plot')[0];
-// Avoid to growing size of rendered chart.
-canvas.width = 400;
-canvas.height = 300;
-const context = canvas.getContext('2d')
+    window.line_chart = new Chart(context, config);
+};
+
+function create_table(index = 0) {
+
+    // var runNumbersTable_list = document.querySelectorAll('.run-numbers-table');
+    // runNumbersTable = runNumbersTable_list[index]
+
+    // Create table.
+    var table = document.getElementById('divTable');
+
+    // var table = document.createElement('table');
+    // Insert New Row for table at index '0'.
+    var row1 = table.insertRow(0);
+    // Insert New Column for Row1 at index '0'.
+    var row1col1 = row1.insertCell(0);
+    row1col1.innerHTML = 'Size';
+    // Insert New Column for Row1 at index '1'.
+    var row1col2 = row1.insertCell(1);
+    row1col2.innerHTML = 'Time(ms)';
 
 
-function start() {
+    var els = table.getElementsByTagName("td");
+    for (var i = 0; i < els.length; i++) {
+        els[i].style.fontSize = "12px";
+        els[i].style.fontWeight = "bold";
+        els[i].style.color = "#000000"
+    }
+
+    // Append Table into div.
+    // var div = document.getElementById('divTable');
+    // div.appendChild(table);
+
+    window.line_table = table
+
+}
+
+
+
+var btn = document.getElementById('buttontp');
+
+var paused = true;
+
+var toggle_pause = function () {
+    paused = !paused;
+    if (paused) {
+        btn.value = 'Run Benchmark'
+        btn.disabled = false
+    } else {
+        btn.value = 'Running...';
+        btn.disabled = true
+    }
+}
+
+function run_test() {
+
+    const convParams = {
+        inDepth: 8,
+        outDepth: 3,
+        filterSize: 7,
+        stride: 2
+    };
 
     bmrun = new ConvGPUBenchmark(convParams)
 
@@ -180,7 +241,7 @@ function start() {
     }
 
     var sizes = [];
-    for (let size = 1; size < 2048; size = size * 2) {
+    for (let size = 1; size < 4000; size = size * 2) {
         test_size(size)
         sizes.push(size)
     }
@@ -209,15 +270,50 @@ function start() {
                         x: size,
                         y: time
                     });
+                    if ($.inArray(size, chartDataX) === -1) {
+                        chartDataX.push(size.toString());
+                    }
+
+                    insert_into_table(size, time, window.line_table);
                 }
                 rowValues.push(resultString);
             }
             console.log(`[${size}]: ${logString}`);
+
+            config.data.datasets.data = chartData;
+            config.data.labels = chartDataX;
+
+            window.line_chart.update();
+
         }
-        runNumbersTable.appendChild(buildRunNumbersRow(rowValues));
+        // runNumbersTable.appendChild(buildRunNumbersRow(rowValues));
 
     });
 
-    chart = create_chart(sizes)
+    toggle_pause();
+}
 
+
+function run() {
+
+    if (paused === true) {
+        setTimeout(function () {
+            run();
+        }, 0);
+    } else {
+        setTimeout(function () {
+            run_test();
+        }, 0);
+    }
+
+}
+
+
+function start() {
+
+    create_chart();
+
+    create_table();
+
+    run();
 }

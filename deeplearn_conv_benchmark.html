@@ -36,47 +36,12 @@
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
-
 </head>
-
-
-<style>
-    * {
-        font-family: arial, sans-serif;
-    }
-
-    #color-table {
-        border-collapse: collapse;
-        text-align: center;
-    }
-
-    #color-table,
-    #color-table th,
-    #color-table td {
-        border: 1px solid rgba(0, 0, 0, 0);
-    }
-
-    #color-table th,
-    #color-table td {
-        padding: 2px;
-    }
-
-    #color-table td {
-        width: 10px;
-    }
-
-    .color-box {
-        border-radius: 5px;
-        height: 30px;
-        margin: 3px 0 0 0;
-        width: 100%;
-    }
-</style>
 
 <body onload="start()">
 
@@ -93,8 +58,8 @@
                 <div class="jumbotron">
                     <h2>
                         <a href="https://deeplearnjs.org">DeeplearnJS</a> Practice</h2>
-                    <p>This demo is a practice of using DeeplearnJS. It minimally reproduces the
-                        <a href="https://github.com/PAIR-code/deeplearnjs/blob/6c86ec76187a2f1682674c95fbd86ea7c39d61b6/demos/benchmarks/conv_benchmarks.ts">Convolution Benchmark</a> from Google PAIR with minor changes.
+                    <p>This demo minimally reproduces the
+                        <a href="https://github.com/PAIR-code/deeplearnjs/blob/6c86ec76187a2f1682674c95fbd86ea7c39d61b6/demos/benchmarks/conv_benchmarks.ts">Convolution Benchmark</a> from DeeplearnJS.
                     </p>
                 </div>
                 <p>Last Update: 2017-11-9</p>
@@ -109,23 +74,35 @@
 
             <div class="item row">
 
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                    <input class="btn btn-primary btn-md" id="buttontp" type="submit" value="Start Training" onclick="ga('send', 'event', 'deeplearnjs', 'click', 'dl_st_color');toggle_pause();"
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input class="btn btn-primary btn-md" id="buttontp" type="submit" value="Run Benchmark" onclick="ga('send', 'event', 'deeplearnjs', 'click', 'dl_st_color');toggle_pause();"
                     />
 
                 </div>
 
-                <div class="col-md-6 col-sm-6 col-xs-6" id="egdiv"></div>
+                <div class="col-md-6 col-sm-6 col-xs-12" id="egdiv"></div>
 
             </div>
 
             <hr class="divider" />
 
             <h4 class="title">
-                <a>Color visualization</a>
-                <div class="run-numbers-table"></div>
-                <canvas class="run-plot" width="400" height="300"></canvas>
+                <a>Benchmark Results</a>
             </h4>
+
+            <div class="item row">
+
+                <div class="table-responsive col-md-3 col-sm-12 col-xs-12">
+                    <table class="table" id="divTable">
+                    </table>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <canvas id="run-plot" width="400" height="300"></canvas>
+                </div>
+
+            </div>
+
+
 
         </div>
 
