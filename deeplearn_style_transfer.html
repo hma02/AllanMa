@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script async src="assets/plugins/autotrack.js"></script>
+    <script>
+        window.ga = window.ga || function () {
+            (ga.q = ga.q || []).push(arguments)
+        };
+        ga.l = +new Date;
+        ga('create', 'UA-108549242-1', 'auto');
+
+        // Replace the following lines with the plugins you want to use.
+        // ga('require', 'eventTracker');
+        // ga('require', 'outboundLinkTracker');
+        // ga('require', 'urlChangeTracker');
+        // ...
+
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+
+
+</head>
+
+
+<body>
+
+    <div id="pagewrap">
+
+        <section id="content">
+            <div id="imgContainer" align="middle">
+                <img id="contentImg" />
+
+                <paper-slider id="sizeSlider" value="250" min="10" max="500"></paper-slider>
+                <paper-tooltip for="sizeSlider">
+                    Adjusts size of the content image. Bigger sizes may result in better stylization of images, although will take up more memory
+                    and time.
+                </paper-tooltip>
+
+                <paper-dropdown-menu no-animations label="Content">
+                    <paper-listbox attr-for-selected="value" id="content-dropdown" class="dropdown-content" selected="{{selectedContentName}}"
+                        slot="dropdown-content">
+                        <template is="dom-repeat" items="[[contentNames]]">
+                            <paper-item value="[[item]]" label="[[item]]">
+                                [[item]]
+                            </paper-item>
+                        </template>
+                    </paper-listbox>
+                </paper-dropdown-menu>
+            </div>
+        </section>
+
+        <section id="style">
+            <div id="imgContainer" align="middle">
+                <img id="styleImg" />
+                <paper-dropdown-menu no-animations label="Style">
+                    <paper-listbox attr-for-selected="value" id="style-dropdown" class="dropdown-content" selected="{{selectedStyleName}}" slot="dropdown-content">
+                        <template is="dom-repeat" items="[[styleNames]]">
+                            <paper-item value="[[item]]" label="[[item]]">
+                                [[item]]
+                            </paper-item>
+                        </template>
+                    </paper-listbox>
+                </paper-dropdown-menu>
+            </div>
+        </section>
+
+        <footer>
+            <div id="train-button-container" align="middle">
+                <paper-button class="button" primary raised id="start">Start Style Transfer</paper-button>
+            </div>
+            <div id="canvasContainer" align="middle">
+                <canvas id="imageCanvas" width="1" height="1"></canvas>
+            </div>
+        </footer>
+
+    </div>
+
+    <input type="file" id="fileSelect" style="display: none" accept="image/x-png,image/gif,image/jpeg" />
+
+    <paper-dialog id="webcam-dialog" modal>
+        <h2>Take a photo</h2>
+        <video id="webcamVideo" width="500" height="375"></video>
+        <div class="buttons">
+            <paper-button id='closeModal' dialog-dismiss>Cancel</paper-button>
+            <paper-button id='takePicButton' dialog-confirm autofocus>Take the pic!</paper-button>
+        </div>
+    </paper-dialog>
+
+    <canvas id="hiddenCanvas" style="display: none"></canvas>
+
+    <div id="load-error-message" style="display: none">
+        We could not find a webcam, attach one to view the full demo!
+    </div>
+
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- custom js -->
+    <script type="text/javascript" src="assets/js/nav.js"></script>
+
+    <script src="https://unpkg.com/deeplearn"></script>
+
+    <!-- detect browser support -->
+    <script src="assets/js/support.js"></script>
+
+    <!-- <script src="non_ml_exports.js"></script> -->
+    <script src="deeplearnjs/transform_net.js"></script>
+    <script src="deeplearnjs/style_transfer.js"></script>
+
+</body>
+
+</html>
