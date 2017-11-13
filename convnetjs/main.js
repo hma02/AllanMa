@@ -94,7 +94,7 @@ var visualize_activations = function (net, elt) {
 
   // show activations in each layer
   var N = net.layers.length;
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < N; i++) {
     var L = net.layers[i];
 
     var layer_div = document.createElement('div');
