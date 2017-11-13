@@ -258,11 +258,11 @@ class GraphRunner {
         window.clearTimeout(this.lastInferTimeoutID);
     }
 
-    isInferenceRunning(): boolean {
+    isInferenceRunning() {
         return this.isInferring;
     }
 
-    computeMetric(): Scalar {
+    computeMetric() {
         if (this.metricFeedEntries == null) {
             throw new Error('Cannot compute metric, no metric FeedEntries provided.');
         }
@@ -285,27 +285,27 @@ class GraphRunner {
         });
     }
 
-    getTotalBatchesTrained(): number {
+    getTotalBatchesTrained() {
         return this.totalBatchesTrained;
     }
 
-    getLastComputedMetric(): Scalar {
+    getLastComputedMetric() {
         return this.lastComputedMetric;
     }
 
-    setMath(math: NDArrayMath) {
+    setMath(math) {
         this.math = math;
     }
 
-    setSession(session: Session) {
+    setSession(session) {
         this.session = session;
     }
 
-    setInferenceTensor(inferenceTensor: Tensor) {
+    setInferenceTensor(inferenceTensor) {
         this.inferenceTensor = inferenceTensor;
     }
 
-    setInferenceExampleCount(inferenceExampleCount: number) {
+    setInferenceExampleCount(inferenceExampleCount) {
         this.inferenceExampleCount = inferenceExampleCount;
     }
 }

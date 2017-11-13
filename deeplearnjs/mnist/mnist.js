@@ -157,7 +157,7 @@ var predictionTensor; //: Tensor;
 var selectedDatasetName;
 var modelNames;
 // selectedModelName: string;
-// optimizerNames: string[];
+var optimizerNames; //: string[];
 var selectedOptimizerName;
 var loadedWeights;
 var dataSets;
@@ -407,12 +407,16 @@ function startTraining() {
 }
 
 function startInference() {
+
+    console.log('starting inference...');
+
     const testData = getTestData();
     if (testData == null) {
         // Dataset not ready yet.
         return;
     }
     if (isValid && (testData != null)) {
+        console.log(testData);
         const inferenceShuffledInputProviderGenerator =
             new InCPUMemoryShuffledInputProviderBuilder(testData);
         const [inferenceInputProvider, inferenceLabelProvider] =
@@ -427,6 +431,8 @@ function startInference() {
                 data: inferenceLabelProvider
             }
         ];
+
+        console.log('inferring...');
 
         graphRunner.infer(
             predictionTensor, inferenceFeeds, INFERENCE_EXAMPLE_INTERVAL_MS,
@@ -448,6 +454,8 @@ function createModel() {
     if (isValid === false) {
         return;
     }
+
+    console.log('creating model...');
 
     var graph = new Graph();
     const g = graph;
@@ -504,6 +512,7 @@ function updateSelectedDataset(datasetName) {
         applyNormalization(selectedNormalizationOption);
         setupDatasetStats();
         if (isValid) {
+            console.log('selected dataset');
             createModel();
             // startInference();
         }
@@ -798,16 +807,8 @@ function run() {
     var mathCPU = new NDArrayMathCPU();
     math = mathGPU;
 
-    const eventObserver = {
-        batchesTrainedCallback: (batchesTrained) => displayBatchesTrained(batchesTrained),
-        avgCostCallback: (avgCost) => displayCost(avgCost),
-        metricCallback: (metric) => displayAccuracy(metric),
-        inferenceExamplesCallback: (inputFeeds, inferenceOutputs) => displayInferenceExamplesOutput(inputFeeds, inferenceOutputs),
-        inferenceExamplesPerSecCallback: (examplesPerSec) => displayInferenceExamplesPerSec(examplesPerSec),
-        trainExamplesPerSecCallback: (examplesPerSec) => displayExamplesPerSec(examplesPerSec),
-        totalTimeCallback: (totalTimeSec) => totalTimeSec = totalTimeSec.toFixed(1),
-    };
-    graphRunner = new GraphRunner(math, session, eventObserver);
+    createGraphRunner();
+
     optimizer = new MomentumOptimizer(learningRate, momentum);
 
     // Set up datasets.
@@ -859,7 +860,7 @@ function run() {
 
     // Default optimizer is momentum
     selectedOptimizerName = 'momentum';
-    var optimizerNames = ['sgd', 'momentum', 'rmsprop', 'adagrad', 'adadelta', 'adam', 'adamax'];
+    optimizerNames = ['sgd', 'momentum', 'rmsprop', 'adagrad', 'adadelta', 'adam', 'adamax'];
 
     applicationState = ApplicationState.IDLE;
     // var loadedWeights = null;
@@ -900,6 +901,26 @@ function run() {
     hiddenLayers = [];
     examplesPerSec = 0;
     inferencesPerSec = 0;
+}
+
+
+function createGraphRunner() {
+    const eventObserver = {
+        batchesTrainedCallback: (batchesTrained) =>
+            displayBatchesTrained(batchesTrained),
+        avgCostCallback: (avgCost) => displayCost(avgCost),
+        metricCallback: (metric) => displayAccuracy(metric),
+        inferenceExamplesCallback:
+            (inputFeeds, inferenceOutputs) =>
+            displayInferenceExamplesOutput(inputFeeds, inferenceOutputs),
+        inferenceExamplesPerSecCallback: (examplesPerSec) =>
+            displayInferenceExamplesPerSec(examplesPerSec),
+        trainExamplesPerSecCallback: (examplesPerSec) =>
+            displayExamplesPerSec(examplesPerSec),
+        totalTimeCallback: (totalTimeSec) => totalTimeSec =
+            totalTimeSec.toFixed(1),
+    };
+    graphRunner = new GraphRunner(math, session, eventObserver);
 }
 
 var infer_request = null;
