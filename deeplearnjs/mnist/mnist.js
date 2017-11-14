@@ -420,10 +420,41 @@ function updateSelectedDataset(datasetName) {
     layersContainer = document.querySelector('#hidden-layers');
 
     var inputLayer = document.querySelector('#input-layer');
-    var t = document.createTextNode("input-layer out:" + getDisplayShape(inputShape));
-    inputLayer.appendChild(t)
+
+    function insertLayerTableRow(elt, name, inShape, outShape) {
+
+        elt.classList.add('table-responsive');
+
+        var h = document.createElement("h5");
+        h.appendChild(document.createTextNode(`${name}`));
+
+        var table = document.createElement('table');
+        // table.classList.add('table');
+        table.style.width = "100px";
+
+        var head = table.createTHead();
+        var row = head.insertRow(0);
+
+        row.insertCell(0).outerHTML = `<th>in</th>`;
+        row.insertCell(1).outerHTML = `<th>out</th>`;
+
+        var body = table.createTBody();
+        var row = body.insertRow(0);
+
+        row.insertCell(0).innerHTML = `${inShape}`;
+        row.insertCell(1).innerHTML = `${outShape}`;
+
+        elt.appendChild(h);
+        elt.appendChild(table);
+    }
+
+    insertLayerTableRow(inputLayer, 'input-layer', null, getDisplayShape(inputShape));
+
+    // var t = document.createTextNode("input-layer out:" + getDisplayShape(inputShape));
+    // inputLayer.appendChild(t)
 
     labelShapeDisplay = getDisplayShape(labelShape);
+
     const costLayer = document.querySelector('#cost-layer');
     var t = document.createTextNode("cost-layer in:" + labelShapeDisplay + " out:" + labelShapeDisplay);
     costLayer.appendChild(t)
