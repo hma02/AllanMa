@@ -292,7 +292,7 @@
                             <label for="dataset-dropdown">Dataset</label>
                             <select class="form-control" id="dataset-dropdown">
                                 <option>MNIST</option>
-                                <option>RUNE</option>
+                                <option disabled>RUNE</option>
                             </select>
                         </div>
 
@@ -309,8 +309,8 @@
                         <div class="form-group">
                             <label for="model-dropdown">Model</label>
                             <select class="form-control" id="model-dropdown">
-                                <option>Convolutional</option>
-                                <option>Fully-Connected</option>
+                                <option value="Convolutional">Convolutional</option>
+                                <option value="Fully connected">Fully-Connected</option>
                             </select>
                         </div>
 
@@ -387,9 +387,9 @@
                         <div class="form-group">
                             <label for="optimizer-dropdown">Optimizer</label>
                             <select class="form-control" id="optimizer-dropdown">
-                                <option>sgd</option>
-                                <option>momentum</option>
-                                <option>adam</option>
+                                <option value='sgd'>SGD</option>
+                                <option value='momentum'>Momentum</option>
+                                <option value='adam'>ADAM</option>
                             </select>
                         </div>
 
@@ -439,9 +439,9 @@
                         <div class="form-group">
                             <label for="normalization-dropdown">Normalization</label>
                             <select class="form-control" id="normalization-dropdown">
-                                <option>[-1, 1]</option>
-                                <option>[0, 1]</option>
-                                <option>None</option>
+                                <option value=0>[-1, 1]</option>
+                                <option value=1>[0, 1]</option>
+                                <option value=2>None</option>
                             </select>
                         </div>
 
@@ -500,8 +500,8 @@
                         <div class="form-group">
                             <label for="environment-dropdown">Environment</label>
                             <select class="form-control" id="environment-dropdown">
-                                <option>CPU</option>
-                                <option>GPU</option>
+                                <option value="CPU">CPU</option>
+                                <option value="GPU">GPU</option>
                             </select>
                         </div>
 
@@ -549,11 +549,18 @@
                         <div class="train-stats-message" id="examplesTrained">Examples trained:</div>
                         <div class="train-stats-message" id="totalTimeSec">Total time: sec.</div>
                         <div class="chart-container">
-                            <canvas id="cost-chart" width="300" height="225"></canvas>
                             <br>
-                            <canvas id="accuracy-chart" width="300" height="225"></canvas>
+                            <!-- <canvas id="cost-chart" width="300" height="225"></canvas> -->
+                            <h5>Loss Graph</h5>
+                            <canvas id="lossgraph"></canvas>
                             <br>
-                            <canvas id="examplespersec-chart" width="300" height="225"></canvas>
+                            <!-- <canvas id="accuracy-chart" width="300" height="225"></canvas> -->
+                            <h5>Accuracy Graph</h5>
+                            <canvas id="accuracygraph"></canvas>
+                            <br>
+                            <!-- <canvas id="examplespersec-chart" width="300" height="225"></canvas> -->
+                            <h5>Examples/Sec. Graph</h5>
+                            <canvas id="examplespersecgraph"></canvas>
                         </div>
                         <!-- </div> -->
                     </div>
@@ -580,6 +587,9 @@
     <script src="deeplearnjs/support.js"></script>
     <script src="deeplearnjs/mnist/utils.js"></script>
     <script src="deeplearnjs/mnist/model_layer.js"></script>
+    <script src="deeplearnjs/mnist/graph_runner.js"></script>
+    <script src="https://cs.stanford.edu/people/karpathy/convnetjs/build/vis.js"></script>
+    <script src="https://cs.stanford.edu/people/karpathy/convnetjs/build/util.js"></script>
 
     <script type="text/javascript" src="deeplearnjs/mnist/mnist.js"></script>
 

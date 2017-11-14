@@ -1,3 +1,71 @@
+/**
+ * @license
+ * Copyright 2017 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * =============================================================================
+ */
+
+// import {
+//     InputProvider
+// } from './data/input_provider';
+// import {
+//     Tensor
+// } from './graph/graph';
+// import {
+//     Optimizer
+// } from './graph/optimizers/optimizer';
+// import {
+//     CostReduction,
+//     FeedEntry,
+//     Session
+// } from './graph/session';
+// import {
+//     NDArrayMath
+// } from './math/math';
+// import {
+//     NDArray,
+//     Scalar
+// } from './math/ndarray';
+
+var dl = deeplearn;
+var CostReduction = dl.CostReduction;
+
+const DEFAULT_EVAL_INTERVAL_MS = 1500;
+const DEFAULT_COST_INTERVAL_MS = 500;
+const DEFAULT_INFERENCE_EXAMPLE_INTERVAL_MS = 3000;
+
+// export interface GraphRunnerEventObserver {
+//     batchesTrainedCallback ? : (totalBatchesTrained: number) => void;
+//     avgCostCallback ? : (avgCost: Scalar) => void;
+//     metricCallback ? : (metric: NDArray) => void;
+//     inferenceExamplesCallback ? :
+//         (feeds: FeedEntry[][], inferenceValues: NDArray[]) => void;
+//     inferenceExamplesPerSecCallback ? : (examplesPerSec: number) => void;
+//     trainExamplesPerSecCallback ? : (examplesPerSec: number) => void;
+//     totalTimeCallback ? : (totalTimeSec: number) => void;
+//     doneTrainingCallback ? : () => void;
+// }
+
+var MetricReduction = {
+    SUM: 0,
+    MEAN: 1
+}
+
+/**
+ * A class that drives the training of a graph model given a dataset. It allows
+ * the user to provide a set of callbacks for measurements like cost, accuracy,
+ * and speed of training.
+ */
 class GraphRunner {
     // private costTensor: Tensor;
     // private trainFeedEntries: FeedEntry[];
@@ -38,10 +106,15 @@ class GraphRunner {
     // private zeroScalar: Scalar;
     // private metricBatchSizeScalar: Scalar;
 
-    constructor(math, session, eventObserver) {
-        // this.math = math;
-        // this.session = session;
-        // this.eventObserver = eventObserver;
+    constructor(
+        math, session,
+        eventObserver) {
+        this.math = math;
+        this.session = session;
+        this.eventObserver = eventObserver;
+        this.lastCostTimestamp = 0;
+        this.lastEvalTimestamp = 0;
+        this.totalIdleTimeMs = 0;
 
         this.resetStatistics();
         this.zeroScalar = Scalar.new(0);
@@ -219,13 +292,15 @@ class GraphRunner {
                 const ndarrayFeedEntries = [];
                 for (let j = 0; j < this.inferenceFeedEntries.length; j++) {
                     const feedEntry = this.inferenceFeedEntries[j];
+                    const nextCopy =
+                        (feedEntry.data).getNextCopy(this.math);
+
                     ndarrayFeedEntries.push({
                         tensor: feedEntry.tensor,
-                        data: track((feedEntry.data).getNextCopy(this.math))
+                        data: track(nextCopy)
                     });
                 }
                 feeds.push(ndarrayFeedEntries);
-
                 inferenceValues.push(
                     this.session.eval(this.inferenceTensor, ndarrayFeedEntries));
             }

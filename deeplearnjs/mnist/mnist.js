@@ -26,8 +26,7 @@ var Array3D = dl.Array3D;
 var DataStats = dl.DataStats;
 var FeedEntry = dl.FeedEntry;
 var Graph = dl.Graph;
-var GraphRunner = dl.GraphRunner;
-var GraphRunnerEven = dl.GraphRunnerEven;
+// var GraphRunner = dl.GraphRunner;
 var InCPUMemoryShuf = dl.InCPUMemoryShuf;
 var InMemoryDataset = dl.InMemoryDataset;
 var MetricReduction = dl.MetricReduction;
@@ -84,48 +83,8 @@ var Normalization = {
     NORMALIZATION_NONE: 2
 }
 
-// tslint:disable-next-line:variable-name
-// export let ModelBuilderPolymer = PolymerElement({
-//     is: 'model-builder',
-//     properties: {
-//         inputShapeDisplay: String,
-//         isValid: Boolean,
-//         inferencesPerSec: Number,
-//         inferenceDuration: Number,
-//         examplesTrained: Number,
-//         examplesPerSec: Number,
-//         totalTimeSec: String,
-//         applicationState: Number,
-//         modelInitialized: Boolean,
-//         showTrainStats: Boolean,
-//         datasetDownloaded: Boolean,
-//         datasetNames: Array,
-//         selectedDatasetName: String,
-//         modelNames: Array,
-//         selectedOptimizerName: String,
-//         optimizerNames: Array,
-//         learningRate: Number,
-//         momentum: Number,
-//         needMomentum: Boolean,
-//         gamma: Number,
-//         needGamma: Boolean,
-//         beta1: Number,
-//         needBeta1: Boolean,
-//         beta2: Number,
-//         needBeta2: Boolean,
-//         batchSize: Number,
-//         selectedModelName: String,
 var selectedNormalizationOption = Normalization.NORMALIZATION_NEGATIVE_ONE_TO_ONE;
 
-//         // Stats
-//         showDatasetStats: Boolean,
-//         statsInputMin: Number,
-//         statsInputMax: Number,
-//         statsInputShapeDisplay: String,
-//         statsLabelShapeDisplay: String,
-//         statsExampleCount: Number,
-//     }
-// });
 
 var ApplicationState = {
     IDLE: 1,
@@ -142,7 +101,7 @@ var modelInitialized = false; //: boolean;
 
 // // Datasets and models.
 // graphRunner: GraphRunner;
-// graph: Graph;
+var graph; //: Graph;
 var graphRunner = null;
 var session = null;
 var optimizer; //: Optimizer;
@@ -172,13 +131,13 @@ var xhrDatasetConfigs;
 // datasetStats: DataStats[];
 var learningRate; //: number;
 var momentum; //: number;
-// needMomentum: boolean;
+var needMomentum; //: boolean;
 var gamma; //: number;
-// needGamma: boolean;
+var needGamma; //: boolean;
 var beta1; //: number;
-// needBeta1: boolean;
+var needBeta1; //: boolean;
 var beta2; //: number;
-// needBeta2: boolean;
+var needBeta2; //: boolean;
 var batchSize; //: number;
 
 // // Stats.
@@ -188,14 +147,6 @@ var batchSize; //: number;
 // statsLabelShapeDisplay: string;
 // statsExampleCount: number;
 
-// // Charts.
-var costChart; //: Chart;
-var accuracyChart; //: Chart;
-var examplesPerSecChart; //: Chart;
-var costChartData; //: ChartPoint[];
-var accuracyChartData; //: ChartPoint[];
-var examplesPerSecChartData; //: ChartPoint[];
-
 // trainButton: HTMLButtonElement;
 
 // // Visualizers.
@@ -204,9 +155,9 @@ var outputNDArrayVisualizers; //: NDArrayLogitsVisualizer[];
 
 var inputShape;
 var labelShape;
-// examplesPerSec: number;
+var examplesPerSec; //: number;
 // examplesTrained: number;
-// inferencesPerSec: number;
+var inferencesPerSec; //: number;
 // inferenceDuration: number;
 
 // inputLayer: ModelLayer;
@@ -217,80 +168,23 @@ var layersContainer;
 var math; //: NDArrayMath;
 // // Keep one instance of each NDArrayMath so we don't create a user-initiated
 // // number of NDArrayMathGPU's.
-// mathGPU: NDArrayMathGPU;
-// mathCPU: NDArrayMathCPU;
-
-function createChart(canvasId, _label, _data, min = null, max = null) {
-    const context = (document.getElementById(canvasId)).getContext('2d');
-    return new Chart(context, {
-        type: 'line',
-        data: {
-            datasets: [{
-                _data,
-                fill: false,
-                _label,
-                pointRadius: 0,
-                borderColor: 'rgba(75,192,192,1)',
-                borderWidth: 1,
-                lineTension: 0,
-                pointHitRadius: 8
-            }]
-        },
-        options: {
-            animation: {
-                duration: 0
-            },
-            responsive: true,
-            scales: {
-                xAxes: [{
-                    type: 'linear',
-                    position: 'bottom'
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                    }
-                }]
-            }
-        }
-    });
-}
-
-function recreateCharts() {
-    costChartData = [];
-    if (costChart != null) {
-        costChart.destroy();
-    }
-    costChart =
-        createChart('cost-chart', 'Cost', costChartData, 0);
-
-    if (accuracyChart != null) {
-        accuracyChart.destroy();
-    }
-    accuracyChartData = [];
-    accuracyChart = createChart(
-        'accuracy-chart', 'Accuracy', accuracyChartData, 0, 100);
-
-    if (examplesPerSecChart != null) {
-        examplesPerSecChart.destroy();
-    }
-    examplesPerSecChartData = [];
-    examplesPerSecChart = createChart(
-        'examplespersec-chart', 'Examples/sec', examplesPerSecChartData,
-        0);
-}
-
+var mathGPU; //: NDArrayMathGPU;
+var mathCPU; //: NDArrayMathCPU;
 
 function setupDatasetStats() {
     var datasetStats = dataSet.getStats();
     var statsExampleCount = datasetStats[IMAGE_DATA_INDEX].exampleCount;
+    document.getElementById("statsExampleCount").innerHTML = `${statsExampleCount}`;
     var statsInputRange =
         `[${datasetStats[IMAGE_DATA_INDEX].inputMin}, ` +
         `${datasetStats[IMAGE_DATA_INDEX].inputMax}]`;
+    document.getElementById("statsInputRange").innerHTML = `${statsInputRange}`;
     var statsInputShapeDisplay = getDisplayShape(
         datasetStats[IMAGE_DATA_INDEX].shape);
+    document.getElementById("statsInputShapeDisplay").innerHTML = `${statsInputShapeDisplay}`;
     var statsLabelShapeDisplay = getDisplayShape(
         datasetStats[LABEL_DATA_INDEX].shape);
+    document.getElementById("statsLabelShapeDisplay").innerHTML = `${statsLabelShapeDisplay}`;
     var showDatasetStats = true;
 }
 
@@ -362,7 +256,7 @@ function startTraining() {
     optimizer = createOptimizer();
 
     if (this.isValid && (trainingData != null) && (testData != null)) {
-        recreateCharts();
+        // recreateCharts();
         graphRunner.resetStatistics();
 
         const trainingShuffledInputProviderGenerator =
@@ -457,7 +351,7 @@ function createModel() {
 
     console.log('creating model...');
 
-    var graph = new Graph();
+    graph = new Graph();
     const g = graph;
     xTensor = g.placeholder('input', inputShape);
     labelTensor = g.placeholder('label', labelShape);
@@ -633,6 +527,14 @@ function populateModelDropdown() {
     modelNames = _modelNames;
     selectedModelName = _modelNames[_modelNames.length - 1];
     updateSelectedModel(selectedModelName);
+
+    var modelDropdown = document.getElementById("model-dropdown");
+
+    for (let i = 0; i < modelDropdown.options.length; ++i) {
+        if (modelDropdown.options[i].text === selectedModelName)
+            modelDropdown.options[i].selected = true;
+    }
+
 }
 
 function validateModel() {
@@ -664,7 +566,7 @@ function layerParamChanged() {
 
 function removeAllLayers() {
     for (let i = 0; i < hiddenLayers.length; i++) {
-        layersContainer.removeChild(hiddenLayers[i]);
+        layersContainer.removeChild(hiddenLayers[i].paramContainer);
     }
     hiddenLayers = [];
     layerParamChanged();
@@ -727,22 +629,44 @@ function loadModelFromPath(modelPath) {
 
 function displayBatchesTrained(totalBatchesTrained) {
     examplesTrained = batchSize * totalBatchesTrained;
+    document.getElementById("examplesTrained").innerHTML = `Examples trained: ${examplesTrained}`
 }
+
+var lossGraph = new cnnvis.Graph();
+var lossWindow = new cnnutil.Window(100);
 
 function displayCost(avgCost) {
-    costChartData.push({
-        x: graphRunner.getTotalBatchesTrained(),
-        y: avgCost.get()
-    });
-    costChart.update();
+
+    var cost = avgCost.get();
+    var batchesTrained = graphRunner.getTotalBatchesTrained();
+
+    lossWindow.add(cost);
+
+    var xa = lossWindow.get_average();
+
+    if (xa >= 0) { // if they are -1 it means not enough data was accumulated yet for estimates
+        lossGraph.add(batchesTrained, xa);
+        lossGraph.drawSelf(document.getElementById("lossgraph"));
+    }
 }
 
+
+var accuracyGraph = new cnnvis.Graph();
+var accuracyWindow = new cnnutil.Window(100);
+
 function displayAccuracy(accuracy) {
-    accuracyChartData.push({
-        x: graphRunner.getTotalBatchesTrained(),
-        y: accuracy.get() * 100
-    });
-    accuracyChart.update();
+
+    var accuracy = accuracy.get() * 100;
+    var batchesTrained = graphRunner.getTotalBatchesTrained();
+
+    accuracyWindow.add(accuracy);
+
+    var xa = accuracyWindow.get_average();
+
+    if (xa >= 0) { // if they are -1 it means not enough data was accumulated yet for estimates
+        accuracyGraph.add(batchesTrained, xa);
+        accuracyGraph.drawSelf(document.getElementById("accuracygraph"));
+    }
 }
 
 
@@ -789,23 +713,116 @@ function displayInferenceExamplesPerSec(examplesPerSec) {
     inferencesPerSec =
         smoothExamplesPerSec(inferencesPerSec, examplesPerSec);
     inferenceDuration = Number((1000 / examplesPerSec).toPrecision(3));
+    document.getElementById("inferencesPerSec").innerHTML = `Inferences/sec: ${inferencesPerSec}`;
+    document.getElementById("inferenceDuration").innerHTML = `inference Duration: ${inferenceDuration} ms`;
 }
 
 
-function displayExamplesPerSec(examplesPerSec) {
-    examplesPerSecChartData.push({
-        x: graphRunner.getTotalBatchesTrained(),
-        y: examplesPerSec
-    });
-    examplesPerSecChart.update();
+var examplesPerSecGraph = new cnnvis.Graph();
+var examplesPerSecWindow = new cnnutil.Window(100);
+
+function displayExamplesPerSec(_examplesPerSec) {
+
+
+    var batchesTrained = graphRunner.getTotalBatchesTrained();
+
+    examplesPerSecWindow.add(_examplesPerSec);
+
+    var xa = examplesPerSecWindow.get_average();
+
+    if (xa >= 0) { // if they are -1 it means not enough data was accumulated yet for estimates
+        examplesPerSecGraph.add(batchesTrained, xa);
+        examplesPerSecGraph.drawSelf(document.getElementById("examplespersecgraph"));
+    }
+
     examplesPerSec =
-        smoothExamplesPerSec(examplesPerSec, examplesPerSec);
+        smoothExamplesPerSec(examplesPerSec, _examplesPerSec);
+
+    document.getElementById("examplesPerSec").innerHTML = `Examples/sec: ${examplesPerSec}`;
 }
+
+
+function refreshHyperParamRequirements(optimizerName) {
+    needMomentum = false;
+    needGamma = false;
+    needBeta1 = false;
+    needBeta2 = false;
+    switch (optimizerName) {
+        case 'sgd':
+            {
+                // No additional hyper parameters
+                break;
+            }
+        case 'momentum':
+            {
+                needMomentum = true;
+                break;
+            }
+        case 'rmsprop':
+            {
+                needMomentum = true;
+                needGamma = true;
+                break;
+            }
+        case 'adagrad':
+            {
+                break;
+            }
+        case 'adadelta':
+            {
+                needGamma = true;
+                break;
+            }
+        case 'adam':
+            {
+                needBeta1 = true;
+                needBeta2 = true;
+                break;
+            }
+        case 'adamax':
+            {
+                needBeta1 = true;
+                needBeta2 = true;
+                break;
+            }
+        default:
+            {
+                throw new Error(`Unknown optimizer "${selectedOptimizerName}"`);
+            }
+    }
+}
+
+mathGPU = new NDArrayMathGPU();
+mathCPU = new NDArrayMathCPU();
 
 function run() {
-    var mathGPU = new NDArrayMathGPU();
-    var mathCPU = new NDArrayMathCPU();
-    math = mathGPU;
+
+    learningRate = 0.1;
+    momentum = 0.1;
+    eedMomentum = true;
+    gamma = 0.1;
+    needGamma = false;
+    beta1 = 0.9;
+    needBeta1 = false;
+    beta2 = 0.999;
+    needBeta2 = false;
+    batchSize = 64;
+    update_net_param_display();
+
+    // math = mathGPU;
+
+    var normalizationDropdown = document.getElementById("normalization-dropdown");
+    normalizationDropdown.options[selectedNormalizationOption].selected = 'selected';
+
+    // Default optimizer is momentum
+    selectedOptimizerName = 'momentum';
+    optimizerNames = ['sgd', 'momentum', 'rmsprop', 'adagrad', 'adadelta', 'adam', 'adamax'];
+    var optimizerDropdown = document.getElementById("optimizer-dropdown");
+    optimizerDropdown.options[1].selected = 'selected';
+
+    var envDropdown = document.getElementById("environment-dropdown");
+    envDropdown.options[1].selected = 'selected';
+    updateSelectedEnvironment(envDropdown);
 
     createGraphRunner();
 
@@ -815,52 +832,42 @@ function run() {
     populateDatasets();
 
     document.querySelector('#dataset-dropdown').addEventListener(
-        // tslint:disable-next-line:no-any
-        'iron-activate', (event) => {
+        'change', (event) => {
             // Update the dataset.
-            const datasetName = event.detail.selected;
+            const datasetName = event.target.value;
             updateSelectedDataset(datasetName);
 
             // TODO(nsthorat): Remember the last model used for each dataset.
             removeAllLayers();
+            console.log('dataset =', datasetName)
         });
     document.querySelector('#model-dropdown').addEventListener(
-        // tslint:disable-next-line:no-any
-        'iron-activate', (event) => {
+        'change', (event) => {
             // Update the model.
-            const modelName = event.detail.selected;
+
+            const modelName = event.target.value;
             updateSelectedModel(modelName);
+            console.log('model =', modelName)
         });
 
     {
         const normalizationDropdown =
             document.querySelector('#normalization-dropdown');
         // tslint:disable-next-line:no-any
-        normalizationDropdown.addEventListener('iron-activate', (event) => {
-            const selectedNormalizationOption = event.detail.selected;
+        normalizationDropdown.addEventListener('change', (event) => {
+            const selectedNormalizationOption = Number(event.target.value);
+
+            console.log('normalization =', selectedNormalizationOption)
             applyNormalization(selectedNormalizationOption);
             setupDatasetStats();
         });
     }
-    document.querySelector('#optimizer-dropdown').addEventListener('iron-activate', (event) => {
+    document.querySelector('#optimizer-dropdown').addEventListener('change', (event) => {
         // Activate, deactivate hyper parameter inputs.
-        refreshHyperParamRequirements(event.detail.selected);
+        refreshHyperParamRequirements(event.target.value);
+        console.log('optimizer =', event.target.value)
     });
 
-    learningRate = 0.1;
-    momentum = 0.1;
-    var needMomentum = true;
-    gamma = 0.1;
-    var needGamma = false;
-    beta1 = 0.9;
-    var needBeta1 = false;
-    beta2 = 0.999;
-    var needBeta2 = false;
-    batchSize = 64;
-
-    // Default optimizer is momentum
-    selectedOptimizerName = 'momentum';
-    optimizerNames = ['sgd', 'momentum', 'rmsprop', 'adagrad', 'adadelta', 'adam', 'adamax'];
 
     applicationState = ApplicationState.IDLE;
     // var loadedWeights = null;
@@ -894,13 +901,22 @@ function run() {
     // });
 
     document.querySelector('#environment-dropdown').addEventListener('change', (event) => {
-        math = (event.target).active ? mathGPU : mathCPU;
-        graphRunner.setMath(math);
+        updateSelectedEnvironment(event.target, graphRunner)
     });
 
     hiddenLayers = [];
     examplesPerSec = 0;
     inferencesPerSec = 0;
+}
+
+function updateSelectedEnvironment(elt, _graphRunner = null) {
+
+    math = (elt.value === 'GPU') ? mathGPU : mathCPU;
+    console.log('math =', math === mathGPU ? 'mathGPU' : 'mathCPU')
+    if (_graphRunner != null) {
+        _graphRunner.setMath(math);
+    }
+
 }
 
 
@@ -917,8 +933,10 @@ function createGraphRunner() {
             displayInferenceExamplesPerSec(examplesPerSec),
         trainExamplesPerSecCallback: (examplesPerSec) =>
             displayExamplesPerSec(examplesPerSec),
-        totalTimeCallback: (totalTimeSec) => totalTimeSec =
-            totalTimeSec.toFixed(1),
+        totalTimeCallback: (totalTimeSec) => {
+            totalTimeSec = totalTimeSec.toFixed(1);
+            document.getElementById("totalTimeSec").innerHTML = `Total time: ${totalTimeSec} sec.`;
+        },
     };
     graphRunner = new GraphRunner(math, session, eventObserver);
 }
@@ -967,6 +985,13 @@ btn_train.addEventListener('click', () => {
     }
 });
 
+var update_net_param_display = function () {
+    document.getElementById('lr_input').value = learningRate;
+    document.getElementById('momentum_input').value = momentum;
+    document.getElementById('batch_size_input').value = batchSize;
+    // document.getElementById('decay_input').value = trainer.l2_decay;
+}
+
 
 function monitor() {
 
@@ -997,6 +1022,7 @@ function monitor() {
                 btn_train.value = 'Stop Training'
             }
 
+
             if (train_request) {
                 train_request = false;
                 // createModel();
@@ -1020,7 +1046,7 @@ function monitor() {
 
     setTimeout(function () {
         monitor();
-    }, 0);
+    }, 100);
 }
 
 
