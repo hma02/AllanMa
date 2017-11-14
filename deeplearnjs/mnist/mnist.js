@@ -1059,19 +1059,21 @@ function start() {
         console.log('device & webgl supported');
         btn_infer.disabled = false;
         btn_train.disabled = false;
+
+        setTimeout(function () {
+
+            run();
+
+            monitor();
+
+        }, 0);
+
     } else {
         console.log('device/webgl not supported')
         btn_infer.disabled = true;
         btn_train.disabled = true;
     }
 
-    setTimeout(function () {
 
-        run();
-
-        monitor();
-
-
-    }, 0);
 
 }
