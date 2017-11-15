@@ -385,6 +385,7 @@ function createModel() {
 function insertLayerTableRow(elt, name, inShape, outShape) {
 
     elt.classList.add('table-responsive');
+    elt.style.border = 'none';
 
     var h = document.createElement("h5");
     h.appendChild(document.createTextNode(`${name}`));
@@ -992,6 +993,26 @@ btn_infer.addEventListener('click', () => {
 });
 
 
+// user settings
+var change_lr = function () {
+    learningRate = parseFloat(document.getElementById("lr_input").value);
+    graphRunner.learningRate = learningRate;
+    console.log('learning rate changed to' + learningRate);
+    update_net_param_display();
+}
+var change_momentum = function () {
+    momentum = parseFloat(document.getElementById("momentum_input").value);
+    graphRunner.optimizer.momentum = momentum;
+    console.log('momentum changed to' + momentum);
+    update_net_param_display();
+}
+var change_batch_size = function () {
+    batchSize = parseFloat(document.getElementById("batch_size_input").value);
+    graphRunner.batchSize = batchSize;
+    console.log('batch size changed to' + batchSize);
+    update_net_param_display();
+}
+
 var train_request = null;
 var btn_train = document.getElementById('buttontrain');
 var train_paused = true;
@@ -1019,7 +1040,6 @@ var update_net_param_display = function () {
     document.getElementById('batch_size_input').value = batchSize;
     // document.getElementById('decay_input').value = trainer.l2_decay;
 }
-
 
 function monitor() {
 
@@ -1077,7 +1097,6 @@ function monitor() {
 
 
 function start() {
-
 
     supported = detect_support();
 

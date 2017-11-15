@@ -81,14 +81,6 @@
         padding-left: 5px;
         padding-right: 5px;
     }
-    /* .dataset-dropdown-container {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    } */
-
-    .data-stats-label {
-        font-size: 15px;
-        font-weight: bold;
-    }
 
     .data-stats {
         margin-top: 10px;
@@ -427,7 +419,7 @@
 
                     <hr class="divider" />
                     <div class="train-stats data-stats">
-                        <div class="data-stats-label">Statistics</div>
+                        <div class="subtitle">Dataset Statistics</div>
                         <div class="stat">
                             <div class="stat-label">Examples</div>
                             <div class="stat-value" id="statsExampleCount"></div>
@@ -466,7 +458,10 @@
                 </div>
 
 
+
                 <div id="model" class="ink-panel col-md-4 col-sm-12 col-xs-12">
+
+                    <div class='hidden-lg visible-md visible-sm' style="height:50px"></div>
                     <div class="title">MODEL</div>
 
                     <hr class="divider" />
@@ -480,10 +475,10 @@
                     </div>
 
                     <div id="layers">
-                        <div id="input-layer"></div>
-                        <div id="hidden-layers"></div>
-                        <div id="cost-layer"></div>
-                        <div id="output-layer"></div>
+                        <div id="input-layer" style="border:none;"></div>
+                        <div id="hidden-layers" style="border:none;"></div>
+                        <div id="cost-layer" style="border:none;"></div>
+                        <div id="output-layer" style="border:none;"></div>
                     </div>
 
                     <!-- <div id="button-container"> -->
@@ -492,15 +487,13 @@
                     <!-- </div> -->
 
                 </div>
-                <!-- <div id="inference" class="ink-panel col-md-3 col-sm-3 col-xs-12">
-                    <div class="title">INFERENCE</div>
 
 
 
-                </div> -->
                 <div id="inference" class="ink-panel col-md-4 col-sm-12 col-xs-12">
-                    <div class="title">INFERENCE AND TRAIN STATS</div>
 
+                    <div class='hidden-lg visible-md visible-sm' style="height:50px"></div>
+                    <div class="title">INFERENCE AND TRAIN STATS</div>
 
                     <hr class="divider" />
 
