@@ -382,6 +382,32 @@ function createModel() {
 }
 
 
+function insertLayerTableRow(elt, name, inShape, outShape) {
+
+    elt.classList.add('table-responsive');
+
+    var h = document.createElement("h5");
+    h.appendChild(document.createTextNode(`${name}`));
+
+    var table = document.createElement('table');
+    // table.classList.add('table');
+    table.style.width = "100px";
+
+    var head = table.createTHead();
+    var row = head.insertRow(0);
+
+    row.insertCell(0).outerHTML = `<th>in</th>`;
+    row.insertCell(1).outerHTML = `<th>out</th>`;
+
+    var body = table.createTBody();
+    var row = body.insertRow(0);
+
+    row.insertCell(0).innerHTML = `${inShape}`;
+    row.insertCell(1).innerHTML = `${outShape}`;
+
+    elt.appendChild(h);
+    elt.appendChild(table);
+}
 
 function updateSelectedDataset(datasetName) {
     if (dataSet != null) {
@@ -420,48 +446,15 @@ function updateSelectedDataset(datasetName) {
     layersContainer = document.querySelector('#hidden-layers');
 
     var inputLayer = document.querySelector('#input-layer');
-
-    function insertLayerTableRow(elt, name, inShape, outShape) {
-
-        elt.classList.add('table-responsive');
-
-        var h = document.createElement("h5");
-        h.appendChild(document.createTextNode(`${name}`));
-
-        var table = document.createElement('table');
-        // table.classList.add('table');
-        table.style.width = "100px";
-
-        var head = table.createTHead();
-        var row = head.insertRow(0);
-
-        row.insertCell(0).outerHTML = `<th>in</th>`;
-        row.insertCell(1).outerHTML = `<th>out</th>`;
-
-        var body = table.createTBody();
-        var row = body.insertRow(0);
-
-        row.insertCell(0).innerHTML = `${inShape}`;
-        row.insertCell(1).innerHTML = `${outShape}`;
-
-        elt.appendChild(h);
-        elt.appendChild(table);
-    }
-
     insertLayerTableRow(inputLayer, 'input-layer', null, getDisplayShape(inputShape));
-
-    // var t = document.createTextNode("input-layer out:" + getDisplayShape(inputShape));
-    // inputLayer.appendChild(t)
 
     labelShapeDisplay = getDisplayShape(labelShape);
 
     const costLayer = document.querySelector('#cost-layer');
-    var t = document.createTextNode("cost-layer in:" + labelShapeDisplay + " out:" + labelShapeDisplay);
-    costLayer.appendChild(t)
+    insertLayerTableRow(costLayer, 'cost-layer', labelShapeDisplay, labelShapeDisplay);
 
     const outputLayer = document.querySelector('#output-layer');
-    var t = document.createTextNode("output-layer out:" + labelShapeDisplay);
-    outputLayer.appendChild(t)
+    insertLayerTableRow(outputLayer, 'output-layer', labelShapeDisplay, labelShapeDisplay);
 
     // Setup the inference example container.
     // TODO(nsthorat): Generalize 
@@ -641,6 +634,10 @@ function loadModelFromJson(modelJson) {
         const modelLayer = addLayer();
         modelLayer.loadParamsFromLayerBuilder(lastOutputShape, layerBuilders[i]);
         lastOutputShape = hiddenLayers[i].setInputShape(lastOutputShape);
+        insertLayerTableRow(modelLayer.paramContainer,
+            modelLayer.selectedLayerName,
+            modelLayer.inputShapeDisplay,
+            modelLayer.outputShapeDisplay)
     }
     validateModel();
 }
@@ -1028,7 +1025,6 @@ function monitor() {
 
     if (modelInitialized == false) {
 
-        btn_infer.className = 'btn btn-info btn-md';
         btn_infer.disabled = true;
         btn_infer.value = 'Initializing Model ...'
         // btn_train.disabled = true;
@@ -1037,7 +1033,6 @@ function monitor() {
     } else {
         if (isValid) {
 
-            btn_infer.className = 'btn btn-primary btn-md';
             btn_infer.disabled = false;
             btn_train.style.visibility = 'visible';
 

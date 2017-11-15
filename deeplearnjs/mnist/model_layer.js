@@ -82,7 +82,7 @@ class ModelLayer {
             this.errorMessages = [];
         }
 
-        this.paramContainer.innerHTML = `<p>${this.selectedLayerName} in: ${this.inputShapeDisplay}   out: ${this.outputShapeDisplay}</p>`;
+        // this.paramContainer.innerHTML = ` `; // `<p>${this.selectedLayerName} in: ${this.inputShapeDisplay}   out: ${this.outputShapeDisplay}</p>`;
 
         return this.outputShape;
     }

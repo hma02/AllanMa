@@ -1,3 +1,4 @@
+0. add ga to track button on mnist (deeplearnjs), adjust page display
 1. compare Convnetjs (cpu) conv with Deeplearnjs (gpu) conv
 
 2. mnist deepelearnjs
@@ -12,4 +13,3 @@
 6. Add a search function in index to search in all subpages
 
 7. blog: 1) Deeplearnjs mnist comparison to convnet benchmark 2) Theano-MPI convergence and speedup, relates to presentation
-

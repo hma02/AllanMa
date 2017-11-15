@@ -19,6 +19,7 @@ class NDArrayLogitsVisualizer {
         this.logitVizElements = [];
         const container = document.createElement('div'); // this.querySelector('.logits-container');
         container.style.height = `${height}px`;
+        // container.style.paddingLeft = '10px';
 
         for (let i = 0; i < this.TOP_K; i++) {
             const logitContainer = document.createElement('div');
@@ -87,6 +88,7 @@ class NDArrayImageVisualizer {
         this.imageData = null;
 
         this.canvas = document.createElement('canvas'); // this.querySelector('#canvas');
+        this.canvas.style.display = "table-cell";
         this.canvas.width = 0;
         this.canvas.height = 0;
         this.canvasContext =

@@ -46,12 +46,19 @@
 
 <style>
     .wrapper {
-        max-width: 100%;
+        background: #42A8C0;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        -webkit-box-shadow: 0px 2px 4px rgba(0,
+        0, 0, 0.1);
+        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .main-wrapper {
         background: #fff;
-        padding: 10px;
+        padding: 20px;
         padding-right: 300px;
     }
 
@@ -67,16 +74,9 @@
         /* width: 230px; */
         position: relative;
     }
-
-    .dataset-dropdown-container {
+    /* .dataset-dropdown-container {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .dataset-stats {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        padding-top: 15px;
-        padding-bottom: 15px;
-    }
+    } */
 
     .data-stats-label {
         font-size: 15px;
@@ -88,9 +88,10 @@
     }
 
     #inference {
-        border-right: 1px solid rgba(0, 0, 0, 0.1);
-        flex-grow: 2;
+        /* border-right: 1px solid rgba(0, 0, 0, 0.1); */
+        /* flex-grow: 2; */
         position: relative;
+        min-width: 210px;
     }
 
     #inference-container {
@@ -98,42 +99,61 @@
     }
 
     #inference>div {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .inference-example {
         display: flex;
         justify-content: flex-start;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     .inference-example>* {
         display: table-cell;
         vertical-align: middle;
     }
+    /* ----------------------------*/
 
-    ndarray-image-visualizer {
+    .ndarray-image-visualizer {
         flex-basis: 100px;
     }
 
-    ndarray-logits-visualizer {
+    .ndarray-logits-visualizer {
         flex-grow: 1;
     }
 
-    .ink-panel {
-        display: flex;
-        flex-direction: column;
-        font-size: 14px;
+    .logit {
+        font-size: 21px;
     }
 
-    .layer {
+    .logit-label {
+        color: #414141;
+        font-size: 18px;
+        line-height: 18px;
+        margin: 4px;
         display: inline-block;
-        margin-top: 10px;
+        width: 100px;
     }
 
-    #layers {
-        width: 400px;
+    .single-logit-container {
+        display: flex;
+    }
+
+    .logit-viz-outer {
+        flex-grow: 1;
+    }
+
+    .logit-viz-inner {
+        vertical-align: middle;
+        padding: 4px;
+    }
+    /* ----------------------------*/
+
+    .ink-panel {
+        /* display: flex; */
+        /* flex-direction: column; */
+        font-size: 14px;
     }
     /* #model-builder-container {
         display: flex;
@@ -142,25 +162,17 @@
 
     #model {
         border-right: 1px solid rgba(0, 0, 0, 0.1);
-        /* width: 400px; */
+        min-width: 200px;
         position: relative;
     }
 
     #model>div {
-        padding-left: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .panel-content {
-        padding-top: 15px;
-    }
-
-    paper-progress {
-        --paper-progress-indeterminate-cycle-duration: 20s;
-    }
-
-    .scrollable-container {
-        margin-top: 0;
-        min-width: 400px;
+        padding-top: 5px;
     }
 
     .stat {
@@ -191,13 +203,6 @@
         text-transform: uppercase;
     }
 
-    #train-stats {
-        /* width: 350px; */
-    }
-
-    #train-stats>div {
-        padding-left: 15px;
-    }
 
     #upload-download-container {
         padding-top: 15px;
@@ -232,17 +237,10 @@
     }
 
     #dataset>div {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
-    .progress-container {
-        padding: 0 !important;
-    }
-
-    .progress-container paper-progress {
-        width: auto;
-    }
 
     .invalid-model {
         display: inline-block;
@@ -289,11 +287,10 @@
 
             <!-- <div id="model-builder-container"> -->
             <div class="item row">
-                <div id="dataset" class="ink-panel col-md-3 col-sm-3 col-xs-12">
+                <div id="dataset" class="ink-panel col-md-4 col-sm-4 col-xs-12">
                     <div class="title">DATA</div>
-                    <div class="dataset-dropdown-container">
 
-
+                    <div class="panel-content">
                         <div class="form-group">
                             <label for="dataset-dropdown">Dataset</label>
                             <select class="form-control" id="dataset-dropdown">
@@ -330,9 +327,23 @@
                             </paper-listbox>
                         </paper-dropdown-menu> -->
 
+                        <input class="btn btn-primary btn-md" id="buttoninfer" type="submit" value="Start Inferring" />
+                        <br>
+                        <br>
+                        <input class="btn btn-primary btn-md" id="buttontrain" type="submit" value="Start Training" />
+
+                        <!-- <input class="btn btn-primary btn-md" id="stop" type="submit" value="Stop" /> -->
+
+                        <!-- <div class="train-button-container" hidden$="[[!isValid]]">
+                            <paper-button class="button" hidden$="[[!datasetDownloaded]]" raised id="train">Train</paper-button>
+                            <paper-button class="button" hidden$="[[!isTraining(applicationState)]]" raised id="stop">Stop</paper-button>
+                        </div> -->
+                        <br>
+                        <br>
+
                         <div class="subtitle">Hyperparameters</div>
 
-
+                        <hr class="divider" />
 
                         <div class="form-group">
                             <label for="learning-rate-input" class="control-label">Learning Rate</label>
@@ -418,29 +429,19 @@
                             </div>
                         </div> -->
 
-                        <input class="btn btn-primary btn-md" id="buttoninfer" type="submit" value="Start Inferring" />
-
-                        <input class="btn btn-primary btn-md" id="buttontrain" type="submit" value="Start Training" />
-
-                        <!-- <input class="btn btn-primary btn-md" id="stop" type="submit" value="Stop" /> -->
-
-                        <!-- <div class="train-button-container" hidden$="[[!isValid]]">
-                            <paper-button class="button" hidden$="[[!datasetDownloaded]]" raised id="train">Train</paper-button>
-                            <paper-button class="button" hidden$="[[!isTraining(applicationState)]]" raised id="stop">Stop</paper-button>
-                        </div> -->
-                        <br>
-                        <br>
-                    </div>
 
 
 
 
-                    <!-- <div class="progress-container" hidden$="[[datasetDownloaded]]">
+
+
+
+                        <!-- <div class="progress-container" hidden$="[[datasetDownloaded]]">
                         <paper-progress indeterminate disabled="[[datasetDownloaded]]"></paper-progress>
                     </div> -->
 
 
-                    <div class="dataset-stats">
+
 
                         <div class="form-group">
                             <label for="normalization-dropdown">Normalization</label>
@@ -458,7 +459,7 @@
                                 <paper-item>None</paper-item>
                         </paper-dropdown-menu> -->
 
-
+                        <hr class="divider" />
                         <div class="train-stats data-stats">
                             <div class="data-stats-label">Statistics</div>
                             <div class="stat">
@@ -478,12 +479,12 @@
                                 <div class="stat-value" id="statsInputRange"></div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="title">SAVE</div>
 
-                    <!-- <div id="upload-download-container">
+                        <!-- <div class="title">SAVE</div> -->
+
+                        <!-- <div id="upload-download-container">
                         <paper-icon-button icon="file-download" id="download-model" title="Download model"></paper-icon-button>
                         Download model
                         <br>
@@ -495,11 +496,11 @@
                         <input type="file" id="model-file" name="model-file" style="display:none" />
                         <input type="file" id="weights-file" name="weights-file" style="display:none" />
                     </div> -->
-
+                    </div>
                 </div>
 
 
-                <div id="model" class="ink-panel col-md-3 col-sm-3 col-xs-12">
+                <div id="model" class="ink-panel col-md-4 col-sm-4 col-xs-12">
                     <div class="title">MODEL</div>
                     <div class="panel-content">
 
@@ -511,26 +512,11 @@
                             </select>
                         </div>
 
-                        <!-- <div class="two-way-toggle">
-                            <span> CPU</span>
-                            <paper-toggle-button id="environment-toggle" checked>GPU</paper-toggle-button>
-                        </div> -->
-
                         <div id="layers">
                             <div id="input-layer"></div>
-
-                            <!-- <model-layer class="layer" id="input-layer" layer-name="Input Image" is-static></model-layer> -->
-
                             <div id="hidden-layers"></div>
-                            <br>
-
                             <div id="cost-layer"></div>
-                            <br>
-
                             <div id="output-layer"></div>
-
-                            <!-- <model-layer class="layer" id="cost-layer" layer-name="Softmax Cross-Entropy" is-static></model-layer>
-                            <model-layer class="layer" id="output-layer" layer-name="Label" is-static></model-layer> -->
                         </div>
 
                         <div id="button-container">
@@ -539,32 +525,38 @@
                         </div>
                     </div>
                 </div>
-                <div id="inference" class="ink-panel col-md-3 col-sm-3 col-xs-12">
+                <!-- <div id="inference" class="ink-panel col-md-3 col-sm-3 col-xs-12">
                     <div class="title">INFERENCE</div>
                     <div class="panel-content">
+
+                    </div>
+                </div> -->
+                <div id="inference" class="ink-panel col-md-4 col-sm-4 col-xs-12">
+                    <div class="title">INFERENCE AND TRAIN STATS</div>
+                    <div class="panel-content">
+
+                        <div class="subtitle">Inference</div>
+
                         <div class="inference-stats-message" id="inferencesPerSec">Inferences/sec:</div>
                         <div class="inference-stats-message" id="inferenceDuration">Inference duration: ms</div>
                         <div id="inference-container"></div>
-                    </div>
-                </div>
-                <div id="train-stats" class="ink-panel col-md-3 col-sm-3 col-xs-12">
-                    <div class="title">TRAIN STATS</div>
-                    <div class="panel-content">
+
+                        <hr class="divider" />
+
+                        <div class="subtitle">Train</div>
+
                         <!-- <div hidden$="[[!showTrainStats]]"> -->
                         <div class="train-stats-message" id="examplesPerSec">Examples/sec: </div>
                         <div class="train-stats-message" id="examplesTrained">Examples trained:</div>
                         <div class="train-stats-message" id="totalTimeSec">Total time: sec.</div>
                         <div class="chart-container">
-                            <br>
-                            <!-- <canvas id="cost-chart" width="300" height="225"></canvas> -->
+                            <hr class="divider" />
                             <h5>Loss Graph</h5>
                             <canvas id="lossgraph"></canvas>
-                            <br>
-                            <!-- <canvas id="accuracy-chart" width="300" height="225"></canvas> -->
+                            <hr class="divider" />
                             <h5>Accuracy Graph</h5>
                             <canvas id="accuracygraph"></canvas>
-                            <br>
-                            <!-- <canvas id="examplespersec-chart" width="300" height="225"></canvas> -->
+                            <hr class="divider" />
                             <h5>Examples/Sec. Graph</h5>
                             <canvas id="examplespersecgraph"></canvas>
                         </div>
