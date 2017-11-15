@@ -1,8 +1,6 @@
 0. add ga to track button on mnist (deeplearnjs), adjust page display
 
-button: [eventCategory], [eventAction], [eventLabel], [eventValue]
-
-page  click buttonid buttonvalue
+button: [eventCategory], [eventAction], [eventLabel], [eventValue] = page,  click, buttonvalue, OrderNumber
 
 1. compare Convnetjs (cpu) conv with Deeplearnjs (gpu) conv
 
