@@ -45,26 +45,28 @@
 
 
 <style>
-    .wrapper {
-        background: #42A8C0;
-        max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        -webkit-box-shadow: 0px 2px 4px rgba(0,
-        0, 0, 0.1);
-        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    .ink-panel {
+        /* display: flex; */
+        /* flex-direction: column; */
+        font-size: 14px;
     }
 
-    .main-wrapper {
-        background: #fff;
-        padding: 20px;
-        padding-right: 300px;
+    .subtitle {
+        font-size: 15px;
+        font-weight: bold;
     }
 
-    #button-container {
-        width: 400px;
-        margin-top: 15px;
+    .title {
+        align-items: center;
+        /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+        color: black;
+        display: flex;
+        font-weight: 500;
+        height: 20px;
+        min-height: 20px;
+        padding-top: 20px;
+        padding-left: 20px;
+        text-transform: uppercase;
     }
 
     #dataset {
@@ -72,7 +74,12 @@
         border-right: 1px solid rgba(0, 0, 0, 0.1);
         min-width: 210px;
         /* width: 230px; */
-        position: relative;
+        /* position: relative; */
+    }
+
+    #dataset>div {
+        padding-left: 5px;
+        padding-right: 5px;
     }
     /* .dataset-dropdown-container {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -86,11 +93,88 @@
     .data-stats {
         margin-top: 10px;
     }
+    /* #model-builder-container {
+        display: flex;
+        width: 100%;
+    } */
+
+    #model {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        /* position: relative; */
+    }
+
+    #model>div {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+    .stat {
+        display: table-row;
+    }
+
+    .stat-label,
+    .stat-value {
+        display: table-cell;
+        padding: 5px 15px 5px 0;
+    }
+
+
+    #upload-download-container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .header {
+        border-bottom: solid .5px #666666;
+        height: 56px;
+        background: slategray;
+        color: #eaeaea;
+        z-index: 999;
+        font-weight: 500;
+        font-size: 22px;
+        padding-left: 12px;
+        line-height: 56px;
+    }
+
+    .train-button-container {
+        margin: 12px 0;
+    }
+
+    .model-error {
+        padding: 12px 0;
+        color: #b80000;
+        font-style: italic;
+    }
+
+    .model-error-info {
+        margin-left: -8px;
+    }
+
+    .invalid-model {
+        display: inline-block;
+    }
+
+    .inference-stats-message,
+    .train-stats-message {
+        line-height: 1.67em;
+    }
+
+    .button {
+        background-color: #a5d6a7;
+    }
+
+    #button-container {
+        width: 400px;
+        margin-top: 15px;
+    }
 
     #inference {
         /* border-right: 1px solid rgba(0, 0, 0, 0.1); */
         /* flex-grow: 2; */
-        position: relative;
+        /* position: relative; */
         min-width: 210px;
     }
 
@@ -149,111 +233,6 @@
         padding: 4px;
     }
     /* ----------------------------*/
-
-    .ink-panel {
-        /* display: flex; */
-        /* flex-direction: column; */
-        font-size: 14px;
-    }
-    /* #model-builder-container {
-        display: flex;
-        width: 100%;
-    } */
-
-    #model {
-        border-right: 1px solid rgba(0, 0, 0, 0.1);
-        min-width: 200px;
-        position: relative;
-    }
-
-    #model>div {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-    .panel-content {
-        padding-top: 5px;
-    }
-
-    .stat {
-        display: table-row;
-    }
-
-    .stat-label,
-    .stat-value {
-        display: table-cell;
-        padding: 5px 15px 5px 0;
-    }
-
-    .subtitle {
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-    .title {
-        align-items: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        color: black;
-        display: flex;
-        font-weight: 500;
-        height: 59px;
-        min-height: 65px;
-        padding-top: 5px;
-        padding-left: 20px;
-        text-transform: uppercase;
-    }
-
-
-    #upload-download-container {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid rgba(0, 0, 0, .1);
-    }
-
-    .header {
-        border-bottom: solid .5px #666666;
-        height: 56px;
-        background: slategray;
-        color: #eaeaea;
-        z-index: 999;
-        font-weight: 500;
-        font-size: 22px;
-        padding-left: 12px;
-        line-height: 56px;
-    }
-
-    .train-button-container {
-        margin: 12px 0;
-    }
-
-    .model-error {
-        padding: 12px 0;
-        color: #b80000;
-        font-style: italic;
-    }
-
-    .model-error-info {
-        margin-left: -8px;
-    }
-
-    #dataset>div {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-
-    .invalid-model {
-        display: inline-block;
-    }
-
-    .inference-stats-message,
-    .train-stats-message {
-        line-height: 1.67em;
-    }
-
-    .button {
-        background-color: #a5d6a7;
-    }
 </style>
 
 <body onload="start()">
@@ -287,19 +266,20 @@
 
             <!-- <div id="model-builder-container"> -->
             <div class="item row">
-                <div id="dataset" class="ink-panel col-md-4 col-sm-4 col-xs-12">
+                <div id="dataset" class="ink-panel col-md-4 col-sm-12 col-xs-12">
                     <div class="title">DATA</div>
 
-                    <div class="panel-content">
-                        <div class="form-group">
-                            <label for="dataset-dropdown">Dataset</label>
-                            <select class="form-control" id="dataset-dropdown">
-                                <option>MNIST</option>
-                                <option disabled>RUNE</option>
-                            </select>
-                        </div>
+                    <hr class="divider" />
 
-                        <!-- <paper-dropdown-menu no-animations label="Dataset" id="dataset-dropdown" disabled="[[!datasetDownloaded]]">
+                    <div class="form-group">
+                        <label for="dataset-dropdown">Dataset</label>
+                        <select class="form-control" id="dataset-dropdown">
+                            <option>MNIST</option>
+                            <option disabled>RUNE</option>
+                        </select>
+                    </div>
+
+                    <!-- <paper-dropdown-menu no-animations label="Dataset" id="dataset-dropdown" disabled="[[!datasetDownloaded]]">
                             <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedDatasetName}}" slot="dropdown-content">
                                 <template is="dom-repeat" items="[[datasetNames]]">
                                     <paper-item value="[[item]]" label="[[item]]">
@@ -309,15 +289,15 @@
                             </paper-listbox>
                         </paper-dropdown-menu> -->
 
-                        <div class="form-group">
-                            <label for="model-dropdown">Model</label>
-                            <select class="form-control" id="model-dropdown">
-                                <option value="Convolutional">Convolutional</option>
-                                <option value="Fully connected">Fully-Connected</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="model-dropdown">Model</label>
+                        <select class="form-control" id="model-dropdown">
+                            <option value="Convolutional">Convolutional</option>
+                            <option value="Fully connected">Fully-Connected</option>
+                        </select>
+                    </div>
 
-                        <!-- <paper-dropdown-menu no-animations label="Model" id="model-dropdown" disabled="[[!datasetDownloaded]]">
+                    <!-- <paper-dropdown-menu no-animations label="Model" id="model-dropdown" disabled="[[!datasetDownloaded]]">
                             <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedModelName}}" slot="dropdown-content">
                                 <template is="dom-repeat" items="[[modelNames]]">
                                     <paper-item value="[[item]]" label="[[item]]">
@@ -327,55 +307,41 @@
                             </paper-listbox>
                         </paper-dropdown-menu> -->
 
-                        <input class="btn btn-primary btn-md" id="buttoninfer" type="submit" value="Start Inferring" />
-                        <br>
-                        <br>
-                        <input class="btn btn-primary btn-md" id="buttontrain" type="submit" value="Start Training" />
+                    <div class="subtitle">Hyperparameters</div>
 
-                        <!-- <input class="btn btn-primary btn-md" id="stop" type="submit" value="Stop" /> -->
+                    <hr class="divider" />
 
-                        <!-- <div class="train-button-container" hidden$="[[!isValid]]">
-                            <paper-button class="button" hidden$="[[!datasetDownloaded]]" raised id="train">Train</paper-button>
-                            <paper-button class="button" hidden$="[[!isTraining(applicationState)]]" raised id="stop">Stop</paper-button>
-                        </div> -->
-                        <br>
-                        <br>
-
-                        <div class="subtitle">Hyperparameters</div>
-
-                        <hr class="divider" />
-
-                        <div class="form-group">
-                            <label for="learning-rate-input" class="control-label">Learning Rate</label>
-                            <div class="controls">
-                                <div class="input-group">
-                                    <input name="lri" type="text" class="form-control" id="lr_input">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" id="buttonlr" type="submit" onclick="change_lr();">Change</button>
-                                    </div>
+                    <div class="form-group">
+                        <label for="learning-rate-input" class="control-label">Learning Rate</label>
+                        <div class="controls">
+                            <div class="input-group">
+                                <input name="lri" type="text" class="form-control" id="lr_input">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" id="buttonlr" type="submit" onclick="change_lr();">Change</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- <paper-input no-animations label="Learning Rate" id="learning-rate-input" disabled="[[!datasetDownloaded]]" value={{learningRate}}>
+                    <!-- <paper-input no-animations label="Learning Rate" id="learning-rate-input" disabled="[[!datasetDownloaded]]" value={{learningRate}}>
                         </paper-input> -->
 
-                        <div class="form-group">
-                            <label for="momentum" class="control-label">Momentum</label>
-                            <div class="controls">
-                                <div class="input-group">
-                                    <input name="momi" type="text" class="form-control" id="momentum_input">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" id="buttonmom" type="submit" onclick="change_momentum();">Change</button>
-                                    </div>
+                    <div class="form-group">
+                        <label for="momentum" class="control-label">Momentum</label>
+                        <div class="controls">
+                            <div class="input-group">
+                                <input name="momi" type="text" class="form-control" id="momentum_input">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" id="buttonmom" type="submit" onclick="change_momentum();">Change</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- <paper-input no-animations label="Momentum" id="momentum" hidden="[[!needMomentum]]" value={{momentum}}>
+                    <!-- <paper-input no-animations label="Momentum" id="momentum" hidden="[[!needMomentum]]" value={{momentum}}>
                         </paper-input> -->
 
-                        <!-- <paper-input no-animations label="Gamma" id="gamma" hidden="[[!needGamma]]" value={{gamma}}>
+                    <!-- <paper-input no-animations label="Gamma" id="gamma" hidden="[[!needGamma]]" value={{gamma}}>
                         </paper-input>
 
                         <paper-input no-animations label="Beta1" id="beta1" hidden="[[!needBeta1]]" value={{beta1}}>
@@ -385,32 +351,32 @@
                         </paper-input> -->
 
 
-                        <div class="form-group">
-                            <label for="batch-size" class="control-label">Batch Size</label>
-                            <div class="controls">
-                                <div class="input-group">
-                                    <input name="bsi" type="text" class="form-control" id="batch_size_input">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" id="buttonbs" type="submit" onclick="change_batch_size();">Change</button>
-                                    </div>
+                    <div class="form-group">
+                        <label for="batch-size" class="control-label">Batch Size</label>
+                        <div class="controls">
+                            <div class="input-group">
+                                <input name="bsi" type="text" class="form-control" id="batch_size_input">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" id="buttonbs" type="submit" onclick="change_batch_size();">Change</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- <paper-input no-animations label="Batch Size" id="batch-size" disabled="[[!datasetDownloaded]]" value={{batchSize}}>
+                    <!-- <paper-input no-animations label="Batch Size" id="batch-size" disabled="[[!datasetDownloaded]]" value={{batchSize}}>
                         </paper-input> -->
 
 
-                        <div class="form-group">
-                            <label for="optimizer-dropdown">Optimizer</label>
-                            <select class="form-control" id="optimizer-dropdown">
-                                <option value='sgd'>SGD</option>
-                                <option value='momentum'>Momentum</option>
-                                <option value='adam'>ADAM</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="optimizer-dropdown">Optimizer</label>
+                        <select class="form-control" id="optimizer-dropdown">
+                            <option value='sgd'>SGD</option>
+                            <option value='momentum'>Momentum</option>
+                            <option value='adam'>ADAM</option>
+                        </select>
+                    </div>
 
-                        <!-- <paper-dropdown-menu no-animations label="Optimizer" id="optimizer-dropdown" disabled="[[!datasetDownloaded]]">
+                    <!-- <paper-dropdown-menu no-animations label="Optimizer" id="optimizer-dropdown" disabled="[[!datasetDownloaded]]">
                             <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedOptimizerName}}" slot="dropdown-content">
                                 <template is="dom-repeat" items="[[optimizerNames]]">
                                     <paper-item value="[[item]]" label="[[item]]">
@@ -420,7 +386,7 @@
                             </paper-listbox>
                         </paper-dropdown-menu> -->
 
-                        <!-- <div hidden$="[[isValid]]" class="model-error">
+                    <!-- <div hidden$="[[isValid]]" class="model-error">
                             <div hidden$="[[!datasetDownloaded]]" ">
           <paper-tooltip animation-delay="0 " fit-to-visible-bounds>
             Make sure your shapes flow!" </paper-tooltip>
@@ -436,55 +402,55 @@
 
 
 
-                        <!-- <div class="progress-container" hidden$="[[datasetDownloaded]]">
+                    <!-- <div class="progress-container" hidden$="[[datasetDownloaded]]">
                         <paper-progress indeterminate disabled="[[datasetDownloaded]]"></paper-progress>
                     </div> -->
 
 
 
 
-                        <div class="form-group">
-                            <label for="normalization-dropdown">Normalization</label>
-                            <select class="form-control" id="normalization-dropdown">
-                                <option value=0>[-1, 1]</option>
-                                <option value=1>[0, 1]</option>
-                                <option value=2>None</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="normalization-dropdown">Normalization</label>
+                        <select class="form-control" id="normalization-dropdown">
+                            <option value=0>[-1, 1]</option>
+                            <option value=1>[0, 1]</option>
+                            <option value=2>None</option>
+                        </select>
+                    </div>
 
-                        <!-- <paper-dropdown-menu no-animations label="Normalization" id="normalization-dropdown" hidden$="[[!datasetDownloaded]]">
+                    <!-- <paper-dropdown-menu no-animations label="Normalization" id="normalization-dropdown" hidden$="[[!datasetDownloaded]]">
                             <paper-listbox class="dropdown-content" selected="[[selectedNormalizationOption]]" slot="dropdown-content">
                                 <paper-item>[-1, 1]</paper-item>
                                 <paper-item>[0, 1]</paper-item>
                                 <paper-item>None</paper-item>
                         </paper-dropdown-menu> -->
 
-                        <hr class="divider" />
-                        <div class="train-stats data-stats">
-                            <div class="data-stats-label">Statistics</div>
-                            <div class="stat">
-                                <div class="stat-label">Examples</div>
-                                <div class="stat-value" id="statsExampleCount"></div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-label">Input shape</div>
-                                <div class="stat-value" id="statsInputShapeDisplay"></div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-label">Label shape</div>
-                                <div class="stat-value" id="statsLabelShapeDisplay"></div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-label">Pixel range</div>
-                                <div class="stat-value" id="statsInputRange"></div>
-                            </div>
+                    <hr class="divider" />
+                    <div class="train-stats data-stats">
+                        <div class="data-stats-label">Statistics</div>
+                        <div class="stat">
+                            <div class="stat-label">Examples</div>
+                            <div class="stat-value" id="statsExampleCount"></div>
                         </div>
+                        <div class="stat">
+                            <div class="stat-label">Input shape</div>
+                            <div class="stat-value" id="statsInputShapeDisplay"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Label shape</div>
+                            <div class="stat-value" id="statsLabelShapeDisplay"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Pixel range</div>
+                            <div class="stat-value" id="statsInputRange"></div>
+                        </div>
+                    </div>
 
 
 
-                        <!-- <div class="title">SAVE</div> -->
+                    <!-- <div class="title">SAVE</div> -->
 
-                        <!-- <div id="upload-download-container">
+                    <!-- <div id="upload-download-container">
                         <paper-icon-button icon="file-download" id="download-model" title="Download model"></paper-icon-button>
                         Download model
                         <br>
@@ -496,72 +462,88 @@
                         <input type="file" id="model-file" name="model-file" style="display:none" />
                         <input type="file" id="weights-file" name="weights-file" style="display:none" />
                     </div> -->
-                    </div>
+
                 </div>
 
 
-                <div id="model" class="ink-panel col-md-4 col-sm-4 col-xs-12">
+                <div id="model" class="ink-panel col-md-4 col-sm-12 col-xs-12">
                     <div class="title">MODEL</div>
-                    <div class="panel-content">
 
-                        <div class="form-group">
-                            <label for="environment-dropdown">Environment</label>
-                            <select class="form-control" id="environment-dropdown">
-                                <option value="CPU">CPU</option>
-                                <option value="GPU">GPU</option>
-                            </select>
-                        </div>
+                    <hr class="divider" />
 
-                        <div id="layers">
-                            <div id="input-layer"></div>
-                            <div id="hidden-layers"></div>
-                            <div id="cost-layer"></div>
-                            <div id="output-layer"></div>
-                        </div>
-
-                        <div id="button-container">
-                            <!-- <paper-button class="button" raised id="add-layer">Add a layer</paper-button> -->
-                            <br>
-                        </div>
+                    <div class="form-group">
+                        <label for="environment-dropdown">Environment</label>
+                        <select class="form-control" id="environment-dropdown">
+                            <option value="CPU">CPU</option>
+                            <option value="GPU">GPU</option>
+                        </select>
                     </div>
+
+                    <div id="layers">
+                        <div id="input-layer"></div>
+                        <div id="hidden-layers"></div>
+                        <div id="cost-layer"></div>
+                        <div id="output-layer"></div>
+                    </div>
+
+                    <!-- <div id="button-container"> -->
+                    <!-- <paper-button class="button" raised id="add-layer">Add a layer</paper-button> -->
+                    <!-- <br> -->
+                    <!-- </div> -->
+
                 </div>
                 <!-- <div id="inference" class="ink-panel col-md-3 col-sm-3 col-xs-12">
                     <div class="title">INFERENCE</div>
-                    <div class="panel-content">
 
-                    </div>
+
+
                 </div> -->
-                <div id="inference" class="ink-panel col-md-4 col-sm-4 col-xs-12">
+                <div id="inference" class="ink-panel col-md-4 col-sm-12 col-xs-12">
                     <div class="title">INFERENCE AND TRAIN STATS</div>
-                    <div class="panel-content">
 
-                        <div class="subtitle">Inference</div>
 
-                        <div class="inference-stats-message" id="inferencesPerSec">Inferences/sec:</div>
-                        <div class="inference-stats-message" id="inferenceDuration">Inference duration: ms</div>
-                        <div id="inference-container"></div>
+                    <hr class="divider" />
 
-                        <hr class="divider" />
-
-                        <div class="subtitle">Train</div>
-
-                        <!-- <div hidden$="[[!showTrainStats]]"> -->
-                        <div class="train-stats-message" id="examplesPerSec">Examples/sec: </div>
-                        <div class="train-stats-message" id="examplesTrained">Examples trained:</div>
-                        <div class="train-stats-message" id="totalTimeSec">Total time: sec.</div>
-                        <div class="chart-container">
-                            <hr class="divider" />
-                            <h5>Loss Graph</h5>
-                            <canvas id="lossgraph"></canvas>
-                            <hr class="divider" />
-                            <h5>Accuracy Graph</h5>
-                            <canvas id="accuracygraph"></canvas>
-                            <hr class="divider" />
-                            <h5>Examples/Sec. Graph</h5>
-                            <canvas id="examplespersecgraph"></canvas>
+                    <div class="item row">
+                        <div class="subtitle col-md-6 col-sm-6 col-xs-6">Inference</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <input class="btn btn-primary btn-md" id="buttoninfer" type="submit" value="Start Inferring" />
                         </div>
-                        <!-- </div> -->
                     </div>
+
+                    <hr class="divider" />
+
+                    <div class="inference-stats-message" id="inferencesPerSec">Inferences/sec:</div>
+                    <div class="inference-stats-message" id="inferenceDuration">Inference duration: ms</div>
+                    <div id="inference-container"></div>
+
+                    <hr class="divider" />
+
+                    <div class="item row">
+                        <div class="subtitle col-md-6 col-sm-6 col-xs-6">Train</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <input class="btn btn-primary btn-md" id="buttontrain" type="submit" value="Start Training" />
+                        </div>
+                    </div>
+                    <hr class="divider" />
+
+                    <!-- <div hidden$="[[!showTrainStats]]"> -->
+                    <div class="train-stats-message" id="examplesPerSec">Examples/sec: </div>
+                    <div class="train-stats-message" id="examplesTrained">Examples trained:</div>
+                    <div class="train-stats-message" id="totalTimeSec">Total time: sec.</div>
+                    <div class="chart-container">
+                        <hr class="divider" />
+                        <h5>Loss Graph</h5>
+                        <canvas id="lossgraph"></canvas>
+                        <hr class="divider" />
+                        <h5>Accuracy Graph</h5>
+                        <canvas id="accuracygraph"></canvas>
+                        <hr class="divider" />
+                        <h5>Examples/Sec. Graph</h5>
+                        <canvas id="examplespersecgraph"></canvas>
+                    </div>
+                    <!-- </div> -->
+
                 </div>
             </div>
 
