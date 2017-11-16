@@ -16,6 +16,7 @@
  */
 
 class ModelLayer {
+
     constructor() {
         // super(); // always call super() first in the ctor.
         // this.addEventListener('click', e => this.drawRipple(e.offsetX, e.offsetY));
@@ -33,18 +34,6 @@ class ModelLayer {
 
         this.paramContainer = null; //: HTMLDivElement;
     }
-
-    // Material design ripple animation.
-    // drawRipple(x, y) {
-    //     let div = document.createElement('div');
-    //     div.classList.add('ripple');
-    //     this.appendChild(div);
-    //     div.style.top = `${y - div.clientHeight / 2}px`;
-    //     div.style.left = `${x - div.clientWidth / 2}px`;
-    //     div.style.backgroundColor = 'currentColor';
-    //     div.classList.add('run');
-    //     div.addEventListener('transitionend', e => div.remove());
-    // }
 
     initialize(modelBuilder, inputShape) {
         // this.modelBuilder = modelBuilder; // document.currentScript
@@ -98,8 +87,6 @@ class ModelLayer {
             this.hasError = false;
             this.errorMessages = [];
         }
-
-        // this.paramContainer.innerHTML = ` `; // `<p>${this.selectedLayerName} in: ${this.inputShapeDisplay}   out: ${this.outputShapeDisplay}</p>`;
 
         return this.outputShape;
     }

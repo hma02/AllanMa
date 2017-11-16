@@ -455,7 +455,7 @@ function updateSelectedDataset(datasetName) {
     insertLayerTableRow(costLayer, 'cost-layer', labelShapeDisplay, labelShapeDisplay);
 
     const outputLayer = document.querySelector('#output-layer');
-    insertLayerTableRow(outputLayer, 'output-layer', labelShapeDisplay, labelShapeDisplay);
+    insertLayerTableRow(outputLayer, 'output-layer', labelShapeDisplay, null);
 
     // Setup the inference example container.
     // TODO(nsthorat): Generalize 
@@ -479,7 +479,7 @@ function updateSelectedDataset(datasetName) {
         // inferenceExampleElement.appendChild(ndarrayImageVisualizer);
 
         // Set up the output ndarray visualizer.
-        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement)
+        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement);
         document.createElement('ndarray-logits-visualizer');
         ndarrayLogitsVisualizer.initialize(
             INFERENCE_IMAGE_SIZE_PX, INFERENCE_IMAGE_SIZE_PX);
@@ -970,6 +970,27 @@ function createGraphRunner() {
     graphRunner = new GraphRunner(math, session, eventObserver);
 }
 
+
+// user settings
+var change_lr = function () {
+    learningRate = parseFloat(document.getElementById("lr_input").value);
+    graphRunner.learningRate = learningRate;
+    console.log('learning rate changed to' + learningRate);
+    update_net_param_display();
+}
+var change_momentum = function () {
+    momentum = parseFloat(document.getElementById("momentum_input").value);
+    graphRunner.optimizer.momentum = momentum;
+    console.log('momentum changed to' + momentum);
+    update_net_param_display();
+}
+var change_batch_size = function () {
+    batchSize = parseFloat(document.getElementById("batch_size_input").value);
+    graphRunner.batchSize = batchSize;
+    console.log('batch size changed to' + batchSize);
+    update_net_param_display();
+}
+
 var infer_request = null;
 var btn_infer = document.getElementById('buttoninfer');
 var infer_paused = true;
@@ -993,25 +1014,7 @@ btn_infer.addEventListener('click', () => {
 });
 
 
-// user settings
-var change_lr = function () {
-    learningRate = parseFloat(document.getElementById("lr_input").value);
-    graphRunner.learningRate = learningRate;
-    console.log('learning rate changed to' + learningRate);
-    update_net_param_display();
-}
-var change_momentum = function () {
-    momentum = parseFloat(document.getElementById("momentum_input").value);
-    graphRunner.optimizer.momentum = momentum;
-    console.log('momentum changed to' + momentum);
-    update_net_param_display();
-}
-var change_batch_size = function () {
-    batchSize = parseFloat(document.getElementById("batch_size_input").value);
-    graphRunner.batchSize = batchSize;
-    console.log('batch size changed to' + batchSize);
-    update_net_param_display();
-}
+
 
 var train_request = null;
 var btn_train = document.getElementById('buttontrain');
