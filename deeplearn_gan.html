@@ -45,6 +45,12 @@
 
 
 <style>
+    .main-wrapper {
+        background: #fff;
+        padding: 20px;
+        padding-right: 300px;
+    }
+
     .ink-panel {
         /* display: flex; */
         /* flex-direction: column; */
@@ -92,7 +98,7 @@
 
     #model {
         border-right: 1px solid rgba(0, 0, 0, 0.1);
-        min-width: 200px;
+        max-width: 200px;
         /* position: relative; */
     }
 
@@ -690,10 +696,10 @@ body {
                     </div>
 
                     <div id="layers">
-                        <div id="input-layer" style="border:none;">Input Image</div>
+                        <div id="input-layer" style="border:none;"></div>
                         <div id="hidden-layers" style="border:none;"></div>
-                        <div id="cost-layer" style="border:none;">Softmax Cross-Entropy</div>
-                        <div id="output-layer" style="border:none;">Label</div>
+                        <div id="cost-layer" style="border:none;"></div>
+                        <div id="output-layer" style="border:none;"></div>
                     </div>
 
                 </div>
@@ -706,10 +712,10 @@ body {
                     <hr class="divider" />
 
                     <div id="gen-layers">
-                        <div id="gen-input-layer" style="border:none;">Generator Random Vector</div>
+                        <div id="gen-input-layer" style="border:none;"></div>
                         <div id="gen-hidden-layers" style="border:none;"></div>
-                        <div id="gen-cost-layer" style="border:none;">Tanh</div>
-                        <div id="gen-output-layer" style="border:none;">Output Image</div>
+                        <div id="gen-cost-layer" style="border:none;"></div>
+                        <div id="gen-output-layer" style="border:none;"></div>
                     </div>
                 </div>
 
@@ -723,7 +729,8 @@ body {
                     <div class="item row">
                         <div class="subtitle col-md-6 col-sm-6 col-xs-6">Inference</div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <input class="btn btn-primary btn-md" id="buttoninfer" type="submit" value="Start Inferring" />
+                            <input class="btn btn-primary btn-md" id="buttoninfer" type="submit" value="Start Inferring" onclick="ga('send', 'event', 'deeplearn_gan', 'click', 'Start Inferring', 4);"
+                            />
                         </div>
                     </div>
 
@@ -743,7 +750,8 @@ body {
                     <div class="item row">
                         <div class="subtitle col-md-6 col-sm-6 col-xs-6">Train</div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <input class="btn btn-primary btn-md" id="buttontrain" type="submit" value="Start Training" />
+                            <input class="btn btn-primary btn-md" id="buttontrain" type="submit" value="Start Training" onclick="ga('send', 'event', 'deeplearn_gan', 'click', 'Start Training', 4);"
+                            />
                         </div>
                     </div>
                     <hr class="divider" />
