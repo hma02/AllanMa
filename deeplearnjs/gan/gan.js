@@ -815,7 +815,7 @@ function buildRealImageContainer() {
         // inferenceExampleElement.appendChild(ndarrayImageVisualizer);
 
         // Set up the output ndarray visualizer.
-        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement);
+        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement, 2);
         // const ndarrayLogitsVisualizer =
         //     document.createElement('ndarray-logits-visualizer');
         ndarrayLogitsVisualizer.initialize(
@@ -847,7 +847,7 @@ function buildFakeImageContainer() {
         // inferenceExampleElement.appendChild(ndarrayImageVisualizer);
 
         // Set up the output ndarray visualizer.
-        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement);
+        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement, 2);
         // document.createElement('ndarray-logits-visualizer');
         ndarrayLogitsVisualizer.initialize(
             INFERENCE_IMAGE_SIZE_PX, INFERENCE_IMAGE_SIZE_PX);

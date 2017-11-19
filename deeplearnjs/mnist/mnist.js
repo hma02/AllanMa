@@ -479,7 +479,7 @@ function updateSelectedDataset(datasetName) {
         // inferenceExampleElement.appendChild(ndarrayImageVisualizer);
 
         // Set up the output ndarray visualizer.
-        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement);
+        const ndarrayLogitsVisualizer = new NDArrayLogitsVisualizer(inferenceExampleElement, 3);
         document.createElement('ndarray-logits-visualizer');
         ndarrayLogitsVisualizer.initialize(
             INFERENCE_IMAGE_SIZE_PX, INFERENCE_IMAGE_SIZE_PX);

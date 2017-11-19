@@ -20,13 +20,13 @@ class NDArrayLogitsVisualizer {
     // private logitVizElements: HTMLElement[];
     // private width: number;
 
-    constructor(elt) {
+    constructor(elt, _topk) {
         this.elt = elt;
         this.logitLabelElements = null;
         this.logitVizElements = null;
         this.width = null;
 
-        this.TOP_K = 3;
+        this.TOP_K = _topk;
 
     }
 
@@ -163,4 +163,129 @@ class NDArrayImageVisualizer {
         this.canvas.style.display = '';
         this.canvasContext.putImageData(this.imageData, 0, 0);
     }
+}
+
+
+var chartDataX = [];
+var chartData = [];
+
+
+window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+};
+
+var config = {
+    type: 'line',
+    data: {
+        labels: chartDataX,
+        // labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [{
+            label: "GPU--deeplearnjs",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: chartData,
+            fill: false,
+            pointRadius: 0,
+            pointHitRadius: 5,
+            borderWidth: 1,
+            lineTension: 0,
+        }]
+    },
+    options: {
+        animation: {
+            duration: 0
+        },
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Conv Benchmark on input size'
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                // type: 'logarithmic',
+                position: 'bottom',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Input Image width or height (pixel)'
+                },
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'time elapsed'
+                },
+                ticks: {
+                    min: 0,
+                    callback: (label, index, labels) => {
+                        let num = Number(label).toFixed(2);
+                        return `${num} ms`;
+                    }
+                }
+            }]
+        }
+    }
+};
+
+function insert_into_table(size, time, table) {
+
+    var len = table.rows.length;
+    var row = table.insertRow(len);
+
+    // row.style.height = "10px";
+
+    var row_col1 = row.insertCell(0);
+    row_col1.innerHTML = size.toString();
+    // Insert New Column for Row1 at index '1'.
+    var row_col2 = row.insertCell(1);
+    row_col2.innerHTML = time.toString();
+
+    row.style.fontSize = "12px";
+
+}
+
+function create_chart(canvas) {
+
+    canvas.width = 400;
+    canvas.height = 300;
+    const context = canvas.getContext('2d');
+
+    return new Chart(context, config);
+};
+
+function init_table(table) {
+
+    // var table = document.createElement('table');
+    // Insert New Row for table at index '0'.
+    var row1 = table.insertRow(0);
+    // Insert New Column for Row1 at index '0'.
+    var row1col1 = row1.insertCell(0);
+    row1col1.innerHTML = 'Size';
+    // Insert New Column for Row1 at index '1'.
+    var row1col2 = row1.insertCell(1);
+    row1col2.innerHTML = 'Time(ms)';
+
+
+    var els = table.getElementsByTagName("td");
+    for (var i = 0; i < els.length; i++) {
+        els[i].style.fontSize = "12px";
+        els[i].style.fontWeight = "bold";
+        els[i].style.color = "#000000"
+    }
+
 }
