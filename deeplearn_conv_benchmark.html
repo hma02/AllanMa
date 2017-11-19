@@ -75,30 +75,45 @@
             <div class="item row">
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input class="btn btn-primary btn-md" id="buttontp" type="submit" value="Run Benchmark" onclick="ga('send', 'event', 'deeplearn_conv_benchmark', 'click', 'Run Benchmark', 3);toggle_pause();"
-                    />
 
+                    <input class="btn btn-primary btn-md" id="buttontp_dljs" type="submit" value="Run Benchmark" />
+
+                    <div class="col-md-6 col-sm-6 col-xs-12" id="egdiv_dljs"></div>
+
+                    <hr class="divider" />
+
+                    <h4 class="title">
+                        <a>Deeplearjs Results</a>
+                    </h4>
+
+                    <canvas id="plot_dljs" width="400" height="300"></canvas>
+
+                    <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+                        <table class="table" id="divTable_dljs">
+                        </table>
+                    </div>
                 </div>
 
-                <div class="col-md-6 col-sm-6 col-xs-12" id="egdiv"></div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
 
-            </div>
+                    <input class="btn btn-primary btn-md" id="buttontp_cnjs" type="submit" value="Run Benchmark" />
 
-            <hr class="divider" />
+                    <div class="col-md-6 col-sm-6 col-xs-12" id="egdiv_cnjs"></div>
 
-            <h4 class="title">
-                <a>Benchmark Results</a>
-            </h4>
+                    <hr class="divider" />
 
-            <div class="item row">
+                    <h4 class="title">
+                        <a>ConvNetjs Results</a>
+                    </h4>
 
-                <div class="table-responsive col-md-3 col-sm-12 col-xs-12">
-                    <table class="table" id="divTable">
-                    </table>
+                    <canvas id="plot_cnjs" width="400" height="300"></canvas>
+
+                    <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+                        <table class="table" id="divTable_cnjs">
+                        </table>
+                    </div>
                 </div>
-                <div class="col-md-9 col-sm-12 col-xs-12">
-                    <canvas id="run-plot" width="400" height="300"></canvas>
-                </div>
+
 
             </div>
 
@@ -120,7 +135,9 @@
 
     <!-- detect browser support -->
     <script src="deeplearnjs/support.js"></script>
+    <script src="deeplearnjs/utils.js"></script>
 
+    <script src="../convnetjs/convnet.js"></script>
     <!-- <script src="non_ml_exports.js"></script> -->
     <script src="deeplearnjs/benchmark.js"></script>
 

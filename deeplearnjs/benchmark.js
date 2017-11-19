@@ -28,299 +28,291 @@ function computeWeightsShape4D(
     return [filterHeight, filterWidth, inputDepth, outputDepth];
 }
 
-class ConvGPUBenchmark {
+class ConvBenchmark {
 
-    constructor(params) {
-        this.params = params
+    constructor(libName) {
+        this.libName = libName
+        this.btn = document.getElementById('buttontp' + "_" + this.libName);
+        this.paused = true;
+        this.btn.addEventListener('click', (event) => {
+            this.toggle_pause();
+            //ga('send', 'event', 'deeplearn_conv_benchmark', 'click', `Run Benchmark ${this.libName}`, this.libName === 'dljs' ? 30 : 31);
+        });
+
+
+        const canvas = document.getElementById(`plot_${this.libName}`);
+        this.chart = create_chart(canvas);
+
+        // Create table.
+        this.table = document.getElementById(`divTable_${this.libName}`);
+        init_table(this.table);
+
     }
 
-    run(size) {
-        const math = new NDArrayMathGPU();
-        const gpgpu = math.getGPGPUContext();
+    toggle_pause() {
+        this.paused = !this.paused;
+        if (this.paused) {
+            this.btn.value = 'Run Benchmark'
+            this.btn.disabled = false
+        } else {
+            this.btn.value = 'Running...';
+            this.btn.disabled = true
+        }
+    }
 
-        const inDepth = this.params.inDepth;
+    run(size, opType, params) {
+
+        if (this.libName === 'dljs') {
+            var math = new NDArrayMathGPU();
+            var gpgpu = math.getGPGPUContext();
+        }
+
+        const inDepth = params.inDepth;
         const inShape = [size, size, inDepth];
-        const outDepth = this.params.outDepth;
-        const filterSize = this.params.filterSize;
-        const stride = this.params.stride;
+        const outDepth = params.outDepth;
+        const filterSize = params.filterSize;
+        const stride = params.stride;
+        let zeroPad = params.zeroPad;
 
-        const x = Array3D.randUniform(inShape, -1, 1);
-        const wShape = computeWeightsShape4D(
-            inDepth, outDepth, filterSize, filterSize);
-        const W = Array4D.randUniform(wShape, -1, 1);
-        const b = Array1D.randUniform([outDepth], -1, 1);
+        // outputRows>=0 needs to be asserted
+        var outputRows = (inShape[0] - filterSize + 2 * zeroPad) / stride + 1;
 
+        function isInt(a) {
+            return a % 1 === 0;
+        }
+
+        if (outputRows <= 0) {
+            console.log(`input size ${size} doesn't satisfy assertion outputRows>0, given inputRows=${size}, filterSize=${filterSize}, zeroPad=${zeroPad}, stride=${stride}, minimal size needs to be ${filterSize + 2 * zeroPad - stride}`)
+        } else if (!isInt(outputRows)) {
+            console.log(`outputRows ${outputRows} is not int`)
+        }
+
+        function find_min_pad(i, f, s) {
+
+            for (let n = 0;; n++) {
+                var z = (n * s - i + f) / 2;
+                if (z > 0) {
+                    console.log('found suitable z=' + z)
+                    return z
+                }
+            }
+
+        }
+        zeroPad = find_min_pad(size, filterSize, stride);
+        console.log(`min pad ${zeroPad} applied`)
+
+        let benchmark;
         let out;
-        const benchmark = () => {
-            out = math.conv2d(x, W, b, stride, 'same');
-        };
+        let b;
+        let x;
+
+        if (this.libName === 'dljs') { //deeplearnjs
+
+            if (opType === 'regular') {
+                x = Array3D.randUniform(inShape, -1, 1);
+                const wShape = computeWeightsShape4D(
+                    inDepth, params.outDepth, filterSize, filterSize);
+                var W = Array4D.randUniform(wShape, -1, 1);
+                // const b = Array1D.randUniform([outDepth], -1, 1);
+
+                benchmark = () => {
+                    out = math.conv2d(x, W, null, stride, zeroPad); //bias=null, pad =0, this padding will be applied on four borders of input : left right top bottom
+                }
+
+
+            } else if (opType === 'transposed') {
+
+                x = Array3D.randUniform([size, size, regParams.outDepth], -1, 1);
+                const wShape = computeWeightsShape4D(
+                    inDepth, params.outDepth, filterSize, filterSize);
+                W = Array4D.randUniform(wShape, -1, 1);
+
+                // no bias for conv transposed
+                benchmark = () => {
+                    out = math.conv2dTranspose(x, W, [size, size, inDepth], stride, pad);
+                };
+
+
+            } else if (opType === 'depthwise') {
+                x = Array3D.randUniform(inShape, -1, 1);
+                const wShape = computeWeightsShape4D(
+                    inDepth, params.channelMul, filterSize, filterSize);
+                W = Array4D.randUniform(wShape, -1, 1);
+
+                // no bias for depth wise conv
+                benchmark = () => {
+                    out = math.depthwiseConv2D(x, W, stride, pad);
+                };
+
+            } else {
+                throw new Error(`Unknown option ${opType}`);
+            }
+
+        } else { // convnetjs
+
+            console.assert(opType === 'regular', `unsupported conv op type`)
+
+            x = new convnetjs.Vol(size, size, inDepth); // 128,128,3 
+            const opt = {
+                in_sx: size,
+                in_sy: size,
+                in_depth: inDepth,
+                sx: filterSize,
+                filters: outDepth,
+                stride: stride,
+                pad: zeroPad // this will be applied on four borders of input :left right top bottom
+            }; // no bias, pad=0
+            var layer = new convnetjs.ConvLayer(opt);
+
+            benchmark = () => {
+                out = layer.forward(x);
+            }
+
+        }
+
 
         const cleanup = () => {
+
             x.dispose();
-            W.dispose();
-            b.dispose();
+            if (this.libName === 'dljs') {
+                W.dispose();
+            } else {
+                opt.dispose();
+                layer.dispose();
+            }
+            if (b != null) {
+                b.dispose();
+            }
             out.dispose();
+
         };
 
-        // Warmup.
-        gpgpu.runQuery(benchmark);
-        out.dispose();
+
+        if (this.libName === 'dljs') {
+            // Warmup.
+            gpgpu.runQuery(benchmark);
+            out.dispose();
+        }
 
         let totalTime;
 
-        if (ENV.get('WEBGL_DISJOINT_QUERY_TIMER_EXTENSION_RELIABLE')) {
-            totalTime = gpgpu.runQuery(benchmark);
+        if (this.libName === 'dljs') {
+
+            if (ENV.get('WEBGL_DISJOINT_QUERY_TIMER_EXTENSION_RELIABLE')) {
+                totalTime = gpgpu.runQuery(benchmark);
+            } else {
+                const start = performance.now();
+
+                benchmark();
+                out.dataSync();
+
+                totalTime = performance.now() - start;
+            }
         } else {
+
             const start = performance.now();
 
             benchmark();
-            out.dataSync();
 
             totalTime = performance.now() - start;
         }
+
+        console.log(`${this.libName} convolution output: ${out}`)
         cleanup();
         return totalTime;
     }
-}
 
-var chartDataX = [];
-var chartData = [];
-var rowValues = [];
+    run_test(params) {
 
+        var bmrun = this;
 
-window.chartColors = {
-    red: 'rgb(255, 99, 132)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 205, 86)',
-    green: 'rgb(75, 192, 192)',
-    blue: 'rgb(54, 162, 235)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(201, 203, 207)'
-};
+        const runPromises = [];
 
-var config = {
-    type: 'line',
-    data: {
-        labels: chartDataX,
-        // labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "GPU--deeplearnjs",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: chartData,
-            fill: false,
-            pointRadius: 0,
-            pointHitRadius: 5,
-            borderWidth: 1,
-            lineTension: 0,
-        }]
-    },
-    options: {
-        animation: {
-            duration: 0
-        },
-        responsive: true,
-        title: {
-            display: true,
-            text: 'Conv Benchmark on input size'
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                // type: 'logarithmic',
-                position: 'bottom',
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Input Image width or height (pixel)'
-                },
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'time elapsed'
-                },
-                ticks: {
-                    min: 0,
-                    callback: (label, index, labels) => {
-                        let num = Number(label).toFixed(2);
-                        return `${num} ms`;
-                    }
-                }
-            }]
+        var sizes = [];
+        for (let size = 16; size < 4000; size = size * 2) {
+            var t = bmrun.run(size, 'regular', params)
+            // t.then(data => console.log('conv on size', size, 'time', data, 'us'))
+            runPromises.push(t);
+            sizes.push(size)
         }
-    }
-};
 
-function insert_into_table(size, time, table) {
+        Promise.all(runPromises).then(results => {
+            for (let i = 0; i < results.length; i++) {
 
-    var len = table.rows.length;
-    var row = table.insertRow(len);
-
-    // row.style.height = "10px";
-
-    var row_col1 = row.insertCell(0);
-    row_col1.innerHTML = size.toString();
-    // Insert New Column for Row1 at index '1'.
-    var row_col2 = row.insertCell(1);
-    row_col2.innerHTML = time.toString();
-
-    row.style.fontSize = "12px";
-
-}
-
-function create_chart() {
-
-    const canvas = document.getElementById("run-plot")
-    canvas.width = 400;
-    canvas.height = 300;
-    const context = canvas.getContext('2d');
-
-    window.line_chart = new Chart(context, config);
-};
-
-function create_table(index = 0) {
-
-    // var runNumbersTable_list = document.querySelectorAll('.run-numbers-table');
-    // runNumbersTable = runNumbersTable_list[index]
-
-    // Create table.
-    var table = document.getElementById('divTable');
-
-    // var table = document.createElement('table');
-    // Insert New Row for table at index '0'.
-    var row1 = table.insertRow(0);
-    // Insert New Column for Row1 at index '0'.
-    var row1col1 = row1.insertCell(0);
-    row1col1.innerHTML = 'Size';
-    // Insert New Column for Row1 at index '1'.
-    var row1col2 = row1.insertCell(1);
-    row1col2.innerHTML = 'Time(ms)';
-
-
-    var els = table.getElementsByTagName("td");
-    for (var i = 0; i < els.length; i++) {
-        els[i].style.fontSize = "12px";
-        els[i].style.fontWeight = "bold";
-        els[i].style.color = "#000000"
-    }
-
-    // Append Table into div.
-    // var div = document.getElementById('divTable');
-    // div.appendChild(table);
-
-    window.line_table = table
-
-}
-
-
-
-var btn = document.getElementById('buttontp');
-
-var paused = true;
-
-var toggle_pause = function () {
-    paused = !paused;
-    if (paused) {
-        btn.value = 'Run Benchmark'
-        btn.disabled = false
-    } else {
-        btn.value = 'Running...';
-        btn.disabled = true
-    }
-}
-
-function run_test() {
-
-    const convParams = {
-        inDepth: 8,
-        outDepth: 3,
-        filterSize: 7,
-        stride: 2
-    };
-
-    bmrun = new ConvGPUBenchmark(convParams)
-
-    const runPromises = [];
-
-    function test_size(size) {
-        t = bmrun.run(size)
-        // t.then(data => console.log('conv on size', size, 'time', data, 'us'))
-        runPromises.push(t);
-    }
-
-    var sizes = [];
-    for (let size = 1; size < 4000; size = size * 2) {
-        test_size(size)
-        sizes.push(size)
-    }
-
-    Promise.all(runPromises).then(results => {
-        for (let i = 0; i < results.length; i++) {
-
-            let resultString;
-            let logString;
-            let time = 0;
-            let success = true;
-            let size = sizes[i]
-            try {
-                time = results[i];
-                resultString = time.toFixed(3) + 'ms';
-                logString = resultString;
-            } catch (e) {
-                success = false;
-                resultString = 'Error';
-                logString = e.message;
-            }
-
-            if (time >= 0) {
-                if (success) {
-                    chartData.push({
-                        x: size,
-                        y: time
-                    });
-                    if ($.inArray(size, chartDataX) === -1) {
-                        chartDataX.push(size.toString());
-                    }
-
-                    insert_into_table(size, time, window.line_table);
+                let resultString;
+                let logString;
+                let time = 0;
+                let success = true;
+                let size = sizes[i]
+                try {
+                    time = results[i];
+                    resultString = time.toFixed(3) + ' ms';
+                    logString = resultString;
+                } catch (e) {
+                    success = false;
+                    resultString = 'Error';
+                    logString = e.message;
                 }
-                rowValues.push(resultString);
+
+                if (time >= 0) {
+                    if (success) {
+                        chartData.push({
+                            x: size,
+                            y: time
+                        });
+                        if ($.inArray(size, chartDataX) === -1) {
+                            chartDataX.push(size.toString());
+                        }
+
+                        insert_into_table(size, resultString, bmrun.table);
+                    }
+                    // rowValues.push(resultString);
+                }
+                console.log(`[${size}]: ${logString}`);
+
             }
-            console.log(`[${size}]: ${logString}`);
 
             config.data.datasets.data = chartData;
             config.data.labels = chartDataX;
 
-            window.line_chart.update();
+            bmrun.chart.update();
 
-        }
-        // runNumbersTable.appendChild(buildRunNumbersRow(rowValues));
+        });
 
-    });
-
-    toggle_pause();
+        bmrun.toggle_pause();
+    }
 }
 
+// (inputRows - fieldSize + 2 * zeroPad) / stride + 1) >=0 needs to be asserted
+const convParams = {
+    inDepth: 8,
+    outDepth: 3,
+    filterSize: 7,
+    stride: 2,
+    zeroPad: 0 // adjust zeroPad so that (inputSize - filterSize + 2* zeroPad) is integer
+};
+
+var bm_dljs = new ConvBenchmark('dljs');
+var bm_cnjs = new ConvBenchmark('cnjs');
 
 function run() {
 
-    if (paused === true) {
+    if (bm_dljs.paused === false) {
+
         setTimeout(function () {
-            run();
+            bm_dljs.run_test(convParams);
         }, 0);
+
+    } else if (bm_cnjs.paused == false) {
+
+        setTimeout(function () {
+            bm_cnjs.run_test(convParams);
+        }, 0);
+
     } else {
         setTimeout(function () {
-            run_test();
-        }, 0);
+            run();
+        }, 100);
     }
 
 }
@@ -328,18 +320,14 @@ function run() {
 
 function start() {
 
-    create_chart();
-
-    create_table();
-
     supported = detect_support();
 
     if (supported) {
         console.log('device & webgl supported')
-        document.getElementById("buttontp").disabled = false;
+        document.getElementById("buttontp_dljs").disabled = false;
     } else {
         console.log('device/webgl not supported')
-        document.getElementById("buttontp").disabled = true;
+        document.getElementById("buttontp_dljs").disabled = true;
     }
 
     run();
