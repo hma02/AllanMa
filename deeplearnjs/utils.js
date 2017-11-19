@@ -180,6 +180,33 @@ window.chartColors = {
     grey: 'rgb(201, 203, 207)'
 };
 
+
+var xAxes = {
+    display: true,
+    type: 'category',
+    // type: 'logarithmic',
+    position: 'bottom',
+    scaleLabel: {
+        display: true,
+        labelString: 'Input Image width or height (pixel)'
+    },
+};
+
+var yAxes = {
+    display: true,
+    scaleLabel: {
+        display: true,
+        labelString: 'time elapsed'
+    },
+    ticks: {
+        min: 0,
+        callback: (label, index, labels) => {
+            let num = Number(label).toFixed(2);
+            return `${num} ms`;
+        }
+    }
+}
+
 var config = {
     type: 'line',
     data: {
@@ -215,29 +242,8 @@ var config = {
             intersect: true
         },
         scales: {
-            xAxes: [{
-                display: true,
-                // type: 'logarithmic',
-                position: 'bottom',
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Input Image width or height (pixel)'
-                },
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'time elapsed'
-                },
-                ticks: {
-                    min: 0,
-                    callback: (label, index, labels) => {
-                        let num = Number(label).toFixed(2);
-                        return `${num} ms`;
-                    }
-                }
-            }]
+            xAxes: [xAxes],
+            yAxes: [yAxes]
         }
     }
 };

@@ -28,6 +28,9 @@ function computeWeightsShape4D(
     return [filterHeight, filterWidth, inputDepth, outputDepth];
 }
 
+const canvas = document.getElementById(`plot`);
+var chart = create_chart(canvas);
+
 class ConvBenchmark {
 
     constructor(libName) {
@@ -38,10 +41,6 @@ class ConvBenchmark {
             this.toggle_pause();
             //ga('send', 'event', 'deeplearn_conv_benchmark', 'click', `Run Benchmark ${this.libName}`, this.libName === 'dljs' ? 30 : 31);
         });
-
-
-        const canvas = document.getElementById(`plot_${this.libName}`);
-        this.chart = create_chart(canvas);
 
         // Create table.
         this.table = document.getElementById(`divTable_${this.libName}`);
@@ -170,23 +169,21 @@ class ConvBenchmark {
 
         }
 
-
         const cleanup = () => {
 
-            x.dispose();
             if (this.libName === 'dljs') {
+                x.dispose();
                 W.dispose();
+                out.dispose();
+                if (b != null) {
+                    b.dispose();
+                }
             } else {
-                opt.dispose();
-                layer.dispose();
+                x = null;
+                out = null;
             }
-            if (b != null) {
-                b.dispose();
-            }
-            out.dispose();
 
         };
-
 
         if (this.libName === 'dljs') {
             // Warmup.
@@ -224,6 +221,8 @@ class ConvBenchmark {
 
     run_test(params) {
 
+        this.index = this.libName === 'dljs' ? 0 : 1;
+
         var bmrun = this;
 
         const runPromises = [];
@@ -235,6 +234,11 @@ class ConvBenchmark {
             runPromises.push(t);
             sizes.push(size)
         }
+
+        if (config.data.labels.length !== sizes.length) {
+            init_chart(config, sizes);
+        }
+
 
         Promise.all(runPromises).then(results => {
             for (let i = 0; i < results.length; i++) {
@@ -256,13 +260,10 @@ class ConvBenchmark {
 
                 if (time >= 0) {
                     if (success) {
-                        chartData.push({
-                            x: size,
+                        chartData[bmrun.index].data.push({
+                            // x: size,
                             y: time
                         });
-                        if ($.inArray(size, chartDataX) === -1) {
-                            chartDataX.push(size.toString());
-                        }
 
                         insert_into_table(size, resultString, bmrun.table);
                     }
@@ -272,15 +273,47 @@ class ConvBenchmark {
 
             }
 
-            config.data.datasets.data = chartData;
-            config.data.labels = chartDataX;
+            config.data.datasets = chartData;
 
-            bmrun.chart.update();
+            chart.update();
 
         });
 
         bmrun.toggle_pause();
+
     }
+}
+
+function init_chart(config, sizes) {
+
+    chartData = [{
+            label: 'deeplearnjs',
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
+            data: [],
+            fill: false,
+            pointRadius: 0,
+            pointHitRadius: 5,
+            borderWidth: 1,
+            lineTension: 0,
+        },
+        {
+            label: "convnetjs",
+            backgroundColor: window.chartColors.yellow,
+            borderColor: window.chartColors.yellow,
+            data: [],
+            fill: false,
+            pointRadius: 0,
+            pointHitRadius: 5,
+            borderWidth: 1,
+            lineTension: 0,
+        }
+    ]
+    config.data.datasets = chartData;
+    config.data.labels = sizes;
+
+    chart.update();
+
 }
 
 // (inputRows - fieldSize + 2 * zeroPad) / stride + 1) >=0 needs to be asserted
@@ -301,18 +334,21 @@ function run() {
 
         setTimeout(function () {
             bm_dljs.run_test(convParams);
+            run()
         }, 0);
 
     } else if (bm_cnjs.paused == false) {
 
         setTimeout(function () {
             bm_cnjs.run_test(convParams);
+            run()
         }, 0);
 
     } else {
         setTimeout(function () {
+            // console.log('outside')
             run();
-        }, 100);
+        }, 1000);
     }
 
 }
