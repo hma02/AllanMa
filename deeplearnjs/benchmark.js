@@ -278,8 +278,8 @@ class ConvBenchmark {
                 let success = true;
                 let size = sizes[i]
                 try {
-                    time = results[i];
-                    resultString = time.toFixed(3) + ' ms';
+                    time = results[i].toFixed(3);
+                    resultString = time + ' ms';
                     logString = resultString;
                 } catch (e) {
                     success = false;
@@ -306,7 +306,7 @@ class ConvBenchmark {
 
             var resultStringArray = [];
             chartData[bmrun.index].data.forEach((time) => {
-                resultStringArray.push(time.toFixed(3))
+                resultStringArray.push(time);
             })
 
             update_table_col(table, bmrun.index + 1, resultStringArray); // col0 is the size labels
