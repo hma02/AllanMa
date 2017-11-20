@@ -1,6 +1,0 @@
-Project demo TODO:
-
-1. CaffeJS 
-2. generative demo
-3. nlp demo as pytorch
-4. webcam face detection and segmentation, face generation
