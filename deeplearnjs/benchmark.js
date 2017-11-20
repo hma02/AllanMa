@@ -69,7 +69,7 @@ class ConvBenchmark {
         this.paused = true;
         this.btn.addEventListener('click', (event) => {
             this.toggle_pause();
-            //ga('send', 'event', 'deeplearn_conv_benchmark', 'click', `Run Benchmark ${this.libName}`, this.libName === 'dljs' ? 30 : 31);
+            ga('send', 'event', 'deeplearn_conv_benchmark', 'click', `Run Benchmark ${this.libName}`, this.libName === 'dljs' ? 30 : 31);
         });
     }
 
