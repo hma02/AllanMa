@@ -31,6 +31,36 @@ function computeWeightsShape4D(
 const canvas = document.getElementById(`plot`);
 var chart = create_chart(canvas);
 
+chartData = [{
+        label: 'deeplearnjs -- t1',
+        backgroundColor: window.chartColors.red,
+        borderColor: window.chartColors.red,
+        data: [],
+        fill: false,
+        pointRadius: 0,
+        pointHitRadius: 5,
+        borderWidth: 1,
+        lineTension: 0,
+    },
+    {
+        label: "convnetjs -- t2",
+        backgroundColor: window.chartColors.blue,
+        borderColor: window.chartColors.blue,
+        data: [],
+        fill: false,
+        pointRadius: 0,
+        pointHitRadius: 5,
+        borderWidth: 1,
+        lineTension: 0,
+    }
+]
+config.data.datasets = chartData;
+chart.update();
+
+
+var table = document.getElementById(`divTable`);
+init_table(table, ['Size', 't1 (ms)', 't2 (ms)']);
+
 class ConvBenchmark {
 
     constructor(libName) {
@@ -41,11 +71,6 @@ class ConvBenchmark {
             this.toggle_pause();
             //ga('send', 'event', 'deeplearn_conv_benchmark', 'click', `Run Benchmark ${this.libName}`, this.libName === 'dljs' ? 30 : 31);
         });
-
-        // Create table.
-        this.table = document.getElementById(`divTable_${this.libName}`);
-        init_table(this.table);
-
     }
 
     toggle_pause() {
@@ -239,6 +264,10 @@ class ConvBenchmark {
             init_chart(config, sizes);
         }
 
+        if (table.rows !== sizes.length + 1) {
+            update_table_col(table, 0, sizes);
+        }
+
 
         Promise.all(runPromises).then(results => {
             for (let i = 0; i < results.length; i++) {
@@ -260,12 +289,14 @@ class ConvBenchmark {
 
                 if (time >= 0) {
                     if (success) {
-                        chartData[bmrun.index].data.push({
+                        chartData[bmrun.index].data.push(
+                            // {
                             // x: size,
-                            y: time
-                        });
+                            // y: time
+                            // }
+                            time
+                        );
 
-                        insert_into_table(size, resultString, bmrun.table);
                     }
                     // rowValues.push(resultString);
                 }
@@ -273,6 +304,12 @@ class ConvBenchmark {
 
             }
 
+            var resultStringArray = [];
+            chartData[bmrun.index].data.forEach((time) => {
+                resultStringArray.push(time.toFixed(3))
+            })
+
+            update_table_col(table, bmrun.index + 1, resultStringArray); // col0 is the size labels
             config.data.datasets = chartData;
 
             chart.update();
@@ -286,30 +323,6 @@ class ConvBenchmark {
 
 function init_chart(config, sizes) {
 
-    chartData = [{
-            label: 'deeplearnjs',
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: [],
-            fill: false,
-            pointRadius: 0,
-            pointHitRadius: 5,
-            borderWidth: 1,
-            lineTension: 0,
-        },
-        {
-            label: "convnetjs",
-            backgroundColor: window.chartColors.yellow,
-            borderColor: window.chartColors.yellow,
-            data: [],
-            fill: false,
-            pointRadius: 0,
-            pointHitRadius: 5,
-            borderWidth: 1,
-            lineTension: 0,
-        }
-    ]
-    config.data.datasets = chartData;
     config.data.labels = sizes;
 
     chart.update();

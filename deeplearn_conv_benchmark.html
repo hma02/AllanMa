@@ -42,6 +42,25 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
 </head>
+<style>
+    .main-wrapper {
+        background: #fff;
+        padding: 20px;
+        padding-right: 300px;
+        min-height: 500px;
+    }
+
+    @media (max-width: 767px) {
+        .main-wrapper {
+            padding: 10px;
+        }
+        .main-wrapper .time {
+            position: static;
+            display: block;
+            margin-top: 5px;
+        }
+    }
+</style>
 
 <body onload="start()">
 
@@ -72,50 +91,44 @@
 
         <div class="main-wrapper">
 
-            <canvas id="plot" width="400" height="300"></canvas>
+            <div class="item row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <canvas id="plot" width="400" height="300"></canvas>
+                    <br>
+                    <br>
+                </div>
+
+                <!-- <hr class="divider" /> -->
+                <div class="table-responsive col-md-4 col-sm-12 col-xs-12">
+                    <table class="table" id="divTable">
+                    </table>
+                </div>
+            </div>
 
             <div class="item row">
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
+
+                    <span style="color: rgb(255, 99, 132); font-size: 13pt">DeeplearnJS </span>
+
                     <input class="btn btn-primary btn-md" id="buttontp_dljs" type="submit" value="Run Benchmark" />
 
-                    <div class="col-md-6 col-sm-6 col-xs-12" id="egdiv_dljs"></div>
+                    <br>
+                    <br>
 
-                    <hr class="divider" />
-
-                    <h4 class="title">
-                        <a>Deeplearjs Results</a>
-                    </h4>
-
-                    <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
-                        <table class="table" id="divTable_dljs">
-                        </table>
-                    </div>
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
+                    <span style="color: rgb(54, 162, 235); font-size: 13pt">ConvNetJS </span>
+
                     <input class="btn btn-primary btn-md" id="buttontp_cnjs" type="submit" value="Run Benchmark" />
 
-                    <div class="col-md-6 col-sm-6 col-xs-12" id="egdiv_cnjs"></div>
-
-                    <hr class="divider" />
-
-                    <h4 class="title">
-                        <a>ConvNetjs Results</a>
-                    </h4>
-
-                    <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
-                        <table class="table" id="divTable_cnjs">
-                        </table>
-                    </div>
                 </div>
 
 
             </div>
-
-
 
         </div>
 

@@ -213,7 +213,7 @@ var config = {
         labels: chartDataX,
         // labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [{
-            label: "GPU--deeplearnjs",
+            label: " ",
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: chartData,
@@ -248,18 +248,26 @@ var config = {
     }
 };
 
-function insert_into_table(size, time, table) {
+function insert_into_table(table, rowIndex, colIndex, content) {
 
     var len = table.rows.length;
-    var row = table.insertRow(len);
+    var row;
+    if (rowIndex > len - 1) {
+        row = table.insertRow(len);
+    } else {
+        row = table.rows[rowIndex];
+    }
 
     // row.style.height = "10px";
+    var len_cell = row.cells.length;
+    var cell;
+    if (colIndex > len_cell - 1) {
+        cell = row.insertCell(colIndex);
+    } else {
+        cell = row.cells[colIndex];
+    }
 
-    var row_col1 = row.insertCell(0);
-    row_col1.innerHTML = size.toString();
-    // Insert New Column for Row1 at index '1'.
-    var row_col2 = row.insertCell(1);
-    row_col2.innerHTML = time.toString();
+    cell.innerHTML = content.toString();
 
     row.style.fontSize = "12px";
 
@@ -274,24 +282,47 @@ function create_chart(canvas) {
     return new Chart(context, config);
 };
 
-function init_table(table) {
+function init_table(table, columns) {
 
+    // table.style.border = 'none';
     // var table = document.createElement('table');
     // Insert New Row for table at index '0'.
     var row1 = table.insertRow(0);
-    // Insert New Column for Row1 at index '0'.
-    var row1col1 = row1.insertCell(0);
-    row1col1.innerHTML = 'Size';
-    // Insert New Column for Row1 at index '1'.
-    var row1col2 = row1.insertCell(1);
-    row1col2.innerHTML = 'Time(ms)';
 
+    for (let i = 0; i < columns.length; i++) {
+        // Insert New Column for Row1 at index '0'.
+        var rc = row1.insertCell(i);
+        rc.innerHTML = columns[i];
+    }
 
+    //styling
     var els = table.getElementsByTagName("td");
     for (var i = 0; i < els.length; i++) {
         els[i].style.fontSize = "12px";
         els[i].style.fontWeight = "bold";
         els[i].style.color = "#000000"
+    }
+
+}
+
+function update_table_col(table, colIndex, contents) {
+
+    console.assert(contents.length + 1 === table.rows.length, `contents length does not match table length`);
+
+    //pad missing rows with empty string
+    initLength = table.rows.length;
+    if (contents.length + 1 > initLength) {
+        initWidth = table.rows[initLength - 1].cells.length;
+        missingLength = contents.length + 1 - initLength;
+        for (let j = 0; j < missingLength; j++) {
+            for (let k = 0; k < initWidth; k++) {
+                insert_into_table(table, j + initLength, k, " ")
+            }
+        }
+
+    }
+    for (let i = 0; i < contents.length; i++) {
+        insert_into_table(table, i + 1, colIndex, contents[i]) // skip the header row 0, start from row 1
     }
 
 }
