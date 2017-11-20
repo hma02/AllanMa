@@ -307,7 +307,7 @@ function init_table(table, columns) {
 
 function update_table_col(table, colIndex, contents) {
 
-    console.assert(contents.length + 1 === table.rows.length, `contents length does not match table length`);
+    // console.assert(contents.length + 1 === table.rows.length, `contents length does not match table length`);
 
     //pad missing rows with empty string
     initLength = table.rows.length;
