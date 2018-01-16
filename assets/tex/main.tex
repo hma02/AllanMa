@@ -1,0 +1,293 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[11pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% modern themes
+\moderncvstyle{banking}                            % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                                % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+\usepackage{import}
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+	\item{
+		\normalsize{#1}\normalsize{: #2}
+	}
+}
+
+
+% personal data
+\name{Allan H. Ma}{}
+%\title{Curriculum Vitae}                               % optional, remove / comment the line if not wanted
+\address{Toronto, Canada}{}{}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+% \phone[mobile]{+44 12345 12345}                   % optional, remove / comment the line if not wanted
+% \phone[fixed]{01234 123456}                    % optional, remove / comment the line if not wanted
+%\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
+\email{mahe6562@gmail.com}                               % optional, remove / comment the line if not wanted
+\homepage{hma02.github.io/AllanMa}                         % optional, remove / comment the line if not wanted
+%\extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+%\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+%\quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+	%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+	%-----       resume       ---------------------------------------------------------
+	% \makecvtitle
+	
+	%----------HEADING-----------------
+	\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+		\textbf{\href{hma02.github.io/AllanMa}{\LARGE Allan H. Ma}} & \\
+		\\
+		& E-mail : \href{mailto:mahe6562@gmail.com}{mahe6562@gmail.com}\\
+		School of Engineering & Web : \href{http://hma02.github.io/AllanMa}{hma02.github.io/AllanMa} \\
+		University of Guelph  & Linkedin : \href{http://linkedin.com/in/hma02}{linkedin.com/in/hma02} \\
+		&  \\
+	\end{tabular*}
+	
+	% \small{Inspired machine learning engineer with a strong interest in computer vision and natural language related deep learning areas and some specialization in hardware acceleration and computing.}
+	
+	%--------PROGRAMMING SKILLS------------
+	
+	\section{Technical and Personal skills}
+	
+	\vspace{6pt}
+	
+	\begin{itemize}
+		
+		\item \textbf{Programming Languages:} Proficient in: Python, C$++$ \\ Familiar with: Javascript, Shell scripting, SQL (PostgreSQL); CUDA C programming.
+		
+		\vspace{6pt}
+		
+		\item{Familiar with popular deep learning tools: Keras, Theano, Tensorflow, Pytorch, Caffe.}
+		
+		\vspace{6pt}
+		
+		\item{Familiar with parallel computing across cluster nodes and MPI programming in Linux.}
+		
+		\vspace{6pt}
+		
+		\item \textbf{Industry Software Skills:} Github, Matlab, LabVIEW, Teradata SQL Assistant, MS Office.	
+		
+		\vspace{6pt}
+		
+		\item \textbf{General Business Skills:} Academic \href{https://hma02.github.io/AllanMa/presentations.html}{presentation} skills and formating in \LaTeX.
+		
+		\vspace{6pt}
+		
+		\item \textbf{Other:} Strong math and engineering background and bilingual in English and Mandarin.
+		
+	\end{itemize}
+	
+	\vspace{2pt}
+	
+	%-----------EXPERIENCE-----------------
+	\section{Working Experience}
+	
+	\vspace{6pt}
+	
+	\begin{itemize}
+		
+		\item{\cventry{Sep. 2017 - Present}{Data Analyst Internship (Full Time)}{Marketing Science, RBC Royal Bank}{Toronto, Ontario}{}{\vspace{3pt}
+				\begin{itemize}
+					\resumeItem{Client Feature Universe}
+					{Participate in building client feature universe with spark SQL transforming on a Hadoop based platform, which is used by machine learning algorithms for improved client offer proposition and campaign strategy design.}
+					\vspace{6pt}
+					\resumeItem{SAS code and Tech Spec parser}
+					{Build a SAS code and word document interpreter for automated and accurate information-of-interest extraction.}
+					\vspace{6pt}
+					\resumeItem{Offer Automation}
+					{Participate in building a new offer managing system by automating the process of creating and updating offer with a form front-end and data sheet backend.}
+				\end{itemize}
+			}}
+			
+			\vspace{6pt}
+			
+			\item{\cventry{Feb. 2016 - Aug. 2017}{GPU Software Researcher (Full Time)}{Machine Learning Research Group, University of Guelph}{Guelph, Ontario}{}{\vspace{3pt}
+					\begin{itemize}
+						\resumeItem{Deep Learning Research}
+						{Participate in image classification and generation related research activities. Develop and maintain large scale multi-node multi-GPU deep learning framework on the \href{https://www.sharcnet.ca/my/systems/show/108}{copper} GPU cluster.}
+						\vspace{6pt}
+						\resumeItem{Hardware Benchmark}
+						{Test different parallelism for accelerated deep learning on hardware level. Evaluate system bandwidth and benchmark deep learning and reinforcement learning
+							related GPU performance on Intel-based cluster and IBM Power Systems. }
+						\vspace{6pt}
+						\resumeItem{Software Maintain}
+						{Build and maintain Linux software and python stack from scratch, via Anaconda, or with sudo access. Build, Install or update popular deep learning software including  Theano, TensorFlow, Caffe, Torch, OpenCV and DIGITS on Ubuntu and CentOS with x86\_64, ppc64le and arm64 architectures.}
+					\end{itemize}
+				}}
+				
+				\vspace{6pt}
+				
+				\newpage
+				
+				\item{\cventry{Jan. 2014 - Dec. 2015}{Graduate Teaching Assistant}{University of Guelph}{Guelph, Ontario}{}{\vspace{3pt}
+						\begin{itemize}
+							\resumeItem{Courses}
+							{Applied Differential Equation, Electric Circuit, System \& Control Theory and Electrical Devices.}
+							\vspace{6pt}
+							\resumeItem{Duties}
+							{hold office hours and respond to email queries, grade assignments, invigilate and grade exams, assist instructor with preparing lab materials and organizing lab sessions.}
+						\end{itemize}
+					}}
+				\end{itemize}
+				
+				\vspace{2pt}
+				
+				%-----------PROJECTS-----------------
+				
+				\section{Research and Projects}
+				
+				\vspace{5pt}
+				
+				\begin{itemize}
+					\item{\textbf{GAN Evaluation:} \\ Daniel Jiwoong Im, He Ma, Kristin Branson, Graham Taylor. \textit{Quantitatively Evaluating GANs With Divergences Proposed for Training.}. \href{https://openreview.net/forum?id=SJQHjzZ0-}{ICLR 2018 under review}.
+						
+						\vspace{3pt}
+						
+						Experimented with evaluating generated sample qualities based on some divergence metrics across different hyper parameter dimensions.}
+					
+					\vspace{6pt}
+					
+					\item{\textbf{Generative Adversarial Parallelization:} \\ Daniel Jiwoong Im, He Ma, Chris Dongjoo Kim, Graham Taylor. \textit{Generative Adversarial Parallelization.}. \href{https://openreview.net/pdf?id=Sk8J83oee}{ICLR 2017 under review}.
+						
+						\vspace{3pt}
+						
+						Experimented with parallelized training of multiple Generative Adversarial Networks for improved mode coverage and regularization.}
+					
+					\vspace{6pt}
+					
+					\item{\textbf{Multi-node Multi-GPU training:} \\ He Ma, Fei Mao, Graham W. Taylor. \textit{Theano-MPI: a Theano based Distributed Training framework}. \href{https://link.springer.com/chapter/10.1007/978-3-319-58943-5_64}{ECPP. Springer, Cham, 2016}.
+						
+						\vspace{3pt}
+						
+						Implemented distributed deep learning on ImageNet classification aiming to scale up the training of deep learning models based on data parallelism. It utilizes multiple GPUs on a computing cluster to speed up the training performance.}
+					
+					\vspace{6pt}
+					
+					\item{\textbf{Software design for oxygen monitoring application:}
+						
+						\vspace{3pt}
+						
+						This project aims to build a program for the oxygen monitoring system. The program running on the \href{https://hma02.github.io/AllanMa/index.html#oxygen}{prototype board} (FPGA and MCU) collects oxygen absorption signal and calculates real time oxygen concentration. The prototype includes a large LCD and other human interfaces for signal display, menu control and data recording purposes.}
+				\end{itemize}
+				
+				\vspace{2pt}
+				
+				%-----------EDUCATION-----------------
+				
+				\section{Education}
+				
+				\vspace{5pt}
+				
+				\subsection{Academic Qualifications}
+				
+				\vspace{5pt}
+				
+				\begin{itemize}
+					
+					\item{\cventry{Jan. 2014 -- Feb. 2016}{Master of Engineering }{University of Guelph}{Guelph, Canada}{Avg: 92.7\%}{Major: Engineering Systems and Computing \\ Advisor: \href{http://www.uoguelph.ca/~gwtaylor/}{Dr. Graham Taylor}}}
+					\vspace{6pt}
+					\item{\cventry{Sep. 2009 -- Jun. 2013}{Bachelor of Engineering}{Tianjin University}{Tianjin, China}{Avg: 85.2\%}{Major: Measuring and Control Technology and Instrument}}  % arguments 3 to 6 can be left empty
+					
+				\end{itemize}
+				
+				\vspace{2pt}
+				
+				\subsection{Summer Schools}
+				
+				\vspace{5pt}
+				
+				\begin{itemize}
+					
+					\item{\cventry{Aug. 2017}{Deep Learning, Reinforcement Learning Summer School}{University of Montreal}{Montreal, Canada}{}{}}
+					\vspace{6pt}
+					\item{\cventry{July. 2017}{Deep Natural Language Processing course by Kyunghyun Cho}{NextAI}{Toronto, Canada}{}{}}  % arguments 3 to 6 can be left empty
+					
+				\end{itemize}
+				
+				\vspace{2pt}
+				
+				%--------AWARDS------------
+				
+				\section{Awards}
+				
+				\begin{itemize}
+					
+					\item{\cventry{Oct. 2014}{}{Lana McLaren/Richard Reynolds Memorial Scholarship}{University of Guelph}{}{}{}}
+					\vspace{6pt}
+					\item{\cventry{Jun. 2013}{ranking 4 /120}{Outstanding graduation design}{Tianjin University}{}{}{}}
+					\vspace{6pt}
+					\item{\cventry{Aug. 2011}{Title: Wireless Music Shoes}{3rd Prize of Innovation Contest}{iCAN-China 2011, Tianjin Area}{}{}{}}
+					\vspace{6pt}
+					\item{\cventry{May 2011}{Title: Principle of Mathematical Convolution}{3rd Prize of Flash Video Contest}{SPIOEE, Tianjin University}{}{}{}}
+					
+				\end{itemize}
+				
+				\vspace{2pt}
+				
+				%--------References------------
+				
+				\section{References}
+				
+				\vspace{6pt}
+				
+				\begin{itemize}
+					
+					\item{Up to 3 references available on request}
+					
+				\end{itemize}
+				
+				%--------Publications------------
+				
+				% Publications from a BibTeX file without multibib
+				%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
+				%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+				\nocite{*}
+				\bibliographystyle{plain}
+				%\bibliography{publications}                        % 'publications' is the name of a BibTeX file
+				
+				% Publications from a BibTeX file using the multibib package
+				%\section{Publications}
+				%\nocitebook{book1,book2}
+				%\bibliographystylebook{plain}
+				%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
+				%\nocitemisc{misc1,misc2,misc3}
+				%\bibliographystylemisc{plain}
+				%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
+				
+				%-----       letter       ---------------------------------------------------------
+				
+			\end{document}
+			
+			
+			%% end of file `template.tex'.
+			
