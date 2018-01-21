@@ -6,22 +6,28 @@
 % available at http://www.latex-project.org/lppl/.
 
 
-\documentclass[11pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+\documentclass[11pt,a4paper,geogia]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
 
 % modern themes
 \moderncvstyle{banking}                            % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
-\moderncvcolor{blue}                                % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
-%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+\moderncvcolor{black}                                % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{geogia}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
 %\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
 
 % character encoding
 \usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
 %\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
 
+\usepackage[T1]{fontenc}
+%\fontfamily{roboto}\selectfont
+%helvet ptm pzc geogia
+\renewcommand*\sectionfont{\fontfamily{phv}\bfseries\fontsize{11}{16}\selectfont}
+
 % adjust the page margins
-\usepackage[scale=0.75]{geometry}
+\usepackage[scale=0.85]{geometry}
 %\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
 %\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+\geometry{top=5mm,tmargin=20mm}
 
 \usepackage{import}
 
@@ -31,7 +37,6 @@
 		\normalsize{#1}\normalsize{: #2}
 	}
 }
-
 
 % personal data
 \name{Allan H. Ma}{}
@@ -46,6 +51,8 @@
 %\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
 %\quote{Some quote}                                 % optional, remove / comment the line if not wanted
 
+
+
 % to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
 %\makeatletter
 %\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
@@ -58,6 +65,16 @@
 %----------------------------------------------------------------------------------
 %            content
 %----------------------------------------------------------------------------------
+
+\AfterPreamble{\hypersetup{
+		colorlinks = true,
+		linkbordercolor = white,
+		urlcolor=blue
+	}}
+
+
+
+
 \begin{document}
 	%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
 	%-----       resume       ---------------------------------------------------------
@@ -65,12 +82,11 @@
 	
 	%----------HEADING-----------------
 	\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
-		\textbf{\href{hma02.github.io/AllanMa}{\LARGE Allan H. Ma}} & \\
+		\textbf{\href{hma02.github.io/AllanMa}{\fontfamily{phv}\color{black}\selectfont \LARGE Allan H. Ma}} & \\
 		\\
 		& E-mail : \href{mailto:mahe6562@gmail.com}{mahe6562@gmail.com}\\
 		School of Engineering & Web : \href{http://hma02.github.io/AllanMa}{hma02.github.io/AllanMa} \\
 		University of Guelph  & Linkedin : \href{http://linkedin.com/in/hma02}{linkedin.com/in/hma02} \\
-		&  \\
 	\end{tabular*}
 	
 	% \small{Inspired machine learning engineer with a strong interest in computer vision and natural language related deep learning areas and some specialization in hardware acceleration and computing.}
@@ -83,7 +99,7 @@
 	
 	\begin{itemize}
 		
-		\item \textbf{Programming Languages:} Proficient in: Python, C$++$ \\ Familiar with: Javascript, Shell scripting, SQL (PostgreSQL); CUDA C programming.
+		\item \textbf{Programming Languages:} Python, C$++$ \\ Familiar with: Shell scripting, Javascript, SQL (PostgreSQL).
 		
 		\vspace{6pt}
 		
@@ -99,7 +115,7 @@
 		
 		\vspace{6pt}
 		
-		\item \textbf{General Communication Skills:} Academic \href{https://hma02.github.io/AllanMa/presentations.html}{presentation} skills and formating in \LaTeX.
+		\item \textbf{General Communication Skills:} Academic \href{https://hma02.github.io/AllanMa/presentations.html}{presentation} skills and \LaTeX\space typesetting.
 		
 		\vspace{6pt}
 		
@@ -119,13 +135,13 @@
 		\item{\cventry{Sep. 2017 - Present}{Data Analyst Internship (Full Time)}{Marketing Science, RBC Royal Bank}{Toronto, Ontario}{}{\vspace{3pt}
 				\begin{itemize}
 					\resumeItem{Client Feature Universe}
-					{Participate in building client feature universe with spark SQL transforming on a Hadoop based platform, which is used by machine learning algorithms for improved client offer proposition and campaign strategy design.}
+					{Build client feature universe in Spark SQL on a Hadoop platform for improved offer proposition and campaign strategy design.}
 					\vspace{6pt}
 					\resumeItem{SAS code and Tech Spec parser}
 					{Build a SAS code and word document interpreter for automated and accurate information-of-interest extraction.}
 					\vspace{6pt}
 					\resumeItem{Offer Automation}
-					{Participate in building a new offer managing system by automating the process of creating and updating offer with a form front-end and data sheet backend.}
+					{Build an offer creation and update system with a form front-end and data set back-end.}
 				\end{itemize}
 			}}
 			
@@ -134,20 +150,17 @@
 			\item{\cventry{Feb. 2016 - Aug. 2017}{GPU Software Researcher (Full Time)}{Machine Learning Research Group, University of Guelph}{Guelph, Ontario}{}{\vspace{3pt}
 					\begin{itemize}
 						\resumeItem{Deep Learning Research}
-						{Participate in image classification and generation related research activities. Develop and maintain large scale multi-node multi-GPU deep learning framework on the \href{https://www.sharcnet.ca/my/systems/show/108}{copper} GPU cluster.}
+						{Participate in image classification and generation research. Develop a large scale multi-node multi-GPU deep learning framework on \href{https://www.sharcnet.ca/my/systems/show/108}{copper} }
 						\vspace{6pt}
 						\resumeItem{Hardware Benchmark}
-						{Test different parallelism for accelerated deep learning on hardware level. Evaluate system bandwidth and benchmark deep learning and reinforcement learning
-							related GPU performance on Intel-based cluster and IBM Power Systems. }
+						{Test parallelism for accelerated deep learning, evaluate communication bandwidth and GPU performance on Intel-based cluster and IBM Power Systems. }
 						\vspace{6pt}
 						\resumeItem{Software Maintain}
-						{Build and maintain Linux software and python stack from scratch, via Anaconda, or with sudo access. Build, Install or update popular deep learning software including  Theano, TensorFlow, Caffe, Torch, OpenCV and DIGITS on Ubuntu and CentOS with x86\_64, ppc64le and arm64 architectures.}
+						{Build Linux software and python stack from source or via Anaconda. Build popular deep learning software for research group, including  Theano, TensorFlow, Caffe, Torch, OpenCV and DIGITS on Ubuntu and CentOS with x86\_64, ppc64le and arm64 architectures.}
 					\end{itemize}
 				}}
 				
 				\vspace{6pt}
-				
-				\newpage
 				
 				\item{\cventry{Jan. 2014 - Dec. 2015}{Graduate Teaching Assistant}{University of Guelph}{Guelph, Ontario}{}{\vspace{3pt}
 						\begin{itemize}
@@ -197,7 +210,7 @@
 						
 						\vspace{3pt}
 						
-						This project aims to build a program for the oxygen monitoring system. The program running on the \href{https://hma02.github.io/AllanMa/index.html#oxygen}{prototype board} (FPGA and MCU) collects oxygen absorption signal and calculates real time oxygen concentration. The prototype includes a large LCD and other human interfaces for signal display, menu control and data recording purposes.}
+						Built an oxygen monitoring system which runs on a \href{https://hma02.github.io/AllanMa/index.html#oxygen}{prototype board} (FPGA and MCU) for collecting oxygen absorption signal and calculating real time concentration. The prototype includes LCD display and other human interfaces for signal display, menu control and data recording purposes.}
 				\end{itemize}
 				
 				\vspace{2pt}
@@ -240,6 +253,8 @@
 				
 				\section{Awards}
 				
+				\vspace{6pt}
+				
 				\begin{itemize}
 					
 					\item{\cventry{Oct. 2014}{}{Lana McLaren/Richard Reynolds Memorial Scholarship}{University of Guelph}{}{}{}}
@@ -251,20 +266,17 @@
 					\item{\cventry{May 2011}{Title: Principle of Mathematical Convolution}{3rd Prize of Flash Video Contest}{SPIOEE, Tianjin University}{}{}{}}
 					
 				\end{itemize}
-				
-				\vspace{2pt}
+
 				
 				%--------References------------
 				
-				\section{References}
+				%\section{References}
 				
-				\vspace{6pt}
-				
-				\begin{itemize}
+				%\begin{itemize}
 					
-					\item{Up to 3 references available on request}
+				%	\item{Up to 3 references available on request}
 					
-				\end{itemize}
+				%\end{itemize}
 				
 				%--------Publications------------
 				
